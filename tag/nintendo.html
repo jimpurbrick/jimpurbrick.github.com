@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>The Creation Engine No. 2</title>
+    <meta name="description" content="">
+    <meta name="author" content="Jim Purbrick">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="../theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="..">The Creation Engine No. 2</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+                    
+                                </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+                
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="../2009/05/12/london-geek-community-iphone-oscestra/"><h1>The London Geek Community iPhone&nbsp;OSCestra</h1></a>
+            Tue 12 May 2009
+
+by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p><embed src="http://blip.tv/play/AYGAx2aB6RA" type="application/x-shockwave-flash" width="640" height="510" allowscriptaccess="always" allowfullscreen="true"></embed> </p>
+</p>
+
+<p>On Friday evening while mulling over potentially interesting hacks to
+build at <a href="http://openhacklondon.pbworks.com/FrontPage">Open Hack London</a> I remembered an idea I’d had a while ago:
+there are now loads of interesting ways to use iphones as music
+interfaces and the iphone to hacker ratio at hack days tends to be
+around 1, so you could probably put together an entire&nbsp;iPhone orchestra.</p>
+</p>
+
+<p>With only a few hours left before heading to London I started rummaging
+around on the internet to find the bits I needed. I’d looked at the
+various iPhone music interface apps over Christmas and
+<a href="http://itouchmidi.com/"><span class="caps"><span class="caps">ITM</span></span> MidiLab</a> had been the easiest to use,
+but although I could start up multiple iTouchMidi servers listening on
+different ports, I couldn’t send the output of the servers to different
+<span class="caps"><span class="caps">MIDI</span></span> ports, making it impossible to
+distinguish between&nbsp;multiple iPhones.</p>
+</p>
+
+<p>Next I looked at the <a href="http://opensoundcontrol.org/"><span class="caps"><span class="caps">OSC</span></span></a> based iPhone
+apps: <a href="http://lux.vu/blog/oscemote/">OSCemote</a>, <a href="http://hexler.net/software/touchosc">TouchOSC</a> and <a href="http://poly.share.dj/projects/#mrmr">mrmr</a>. Of these, mrmr was the
+easy choice as it is free as in beer and speech, allowing me to extend
+it if needed. It also allows custom interface design via scripting
+allowing for potentially interesting <span class="caps"><span class="caps">UI</span></span>
+hacking at open hack. <span class="caps"><span class="caps">OSC</span></span> is also an <a href="http://opensoundcontrol.org/spec-1_0">open
+standard</a>, so as a last resort I’d be able to build a server that
+could listen to&nbsp;multiple devices.</p>
+</p>
+
+<p>With the client settled on I started looking at existing software to run
+on my laptop to convert <span class="caps"><span class="caps">OSC</span></span> data in to
+<span class="caps"><span class="caps">MIDI</span></span> to control <a href="http://www.ableton.com">Ableton</a>. The first thing I
+looked at was <a href="http://puredata.info/">pd</a>, an incredibly powerful data processing environment
+that can understand <span class="caps"><span class="caps">OSC</span></span> and generate
+<span class="caps"><span class="caps">MIDI</span></span>. As well as being incredibly powerful, pd
+also has an incredibly steep learning curve and time was running out, so
+despite having used it in the past and wanting to use open source
+software for my hack, I eventually gave up on pd and tried
+<a href="http://www.osculator.net/wp/">OSCulator</a>.</p>
+</p>
+
+<p>OSCulator is incredibly easy to use. Within minutes I had multiple
+<span class="caps"><span class="caps">OSC</span></span> servers listening on different ports, my
+iPhone had connected to each of them and I’d set up mappings from dozens
+of <span class="caps"><span class="caps">OSC</span></span> inputs to
+<span class="caps"><span class="caps">MIDI</span></span> controllers. OSCulator also supports up
+to 8 Wiimotes connected via bluetooth, so I chucked a couple of wiimotes
+my bag, tested the iPhone could connect to an Ad Hoc WiFi network
+created on my MacBook Pro, threw a Dr Who <span class="caps"><span class="caps">MIDI</span></span>
+file in to Ableton and then got&nbsp;some sleep.</p>
+</p>
+
+<p>After booking a slot for the non-existant iPhone orchestra during the
+hack demos, I set out to make it exist. With a combination of arm
+twisting and volunteering I convinced 8 plucky hackers to join the
+orchestra then spent a few hours auditioning synth patches in Ableton
+and assiging <span class="caps"><span class="caps">MIDI</span></span> controllers to their
+parameters and tweaking iPhone accelerometer smoothing settings in
+OSCulator to get a couple of Wiimotes working&nbsp;as drums.</p>
+</p>
+
+<p>I managed to organise an hour’s rehearsal on Saturday afternoon where we
+spent the first half trying to connect all of the devices and the second
+huddled around the laptop trying to hear the audio from the built in
+speakers. After a bit more tweaking I set up a 3rd Wiimote to launch
+loops and start and stop the set, allowing me to get in on the fun while
+conducting and borrowed an amp for our second and&nbsp;final rehearsal.</p>
+</p>
+
+<p>The performance was a hoot. We’d been having trouble getting all of the
+devices to connect to OSCulator at the same time and Simon Willison’s
+iPhone refused to connect for the final performance, which freed him up
+to concentrate on hamming it up with a look of intense concentration. I
+also managed to completely lose track of where we were in the music, so
+Jon Markwell’s haunting theremin solo section ended up following an
+embarrasing silence when his part wasn’t actually playing. All in all
+though, I think we did pretty well and it went down a storm with the&nbsp;assembled geeks.</p>
+</p>
+
+<p>Many thanks to <a href="http://rnalexander.wordpress.com/">Ryan Alexander</a>, <a href="http://jimpurbrick.com/feeds/atom/blog/www.jonathanmarkwell.com/">Jonathan Markwell</a>, <a href="http://natbat.net/">Natalie
+Downe</a>, <a href="http://www.nigelcrawley.co.uk/">Nigel Crawley</a>, <a href="http://www.mattjarvis.co.uk/">Matt Jarvis</a>, <a href="http://simonwillison.net/">Simon Willison</a> and
+Matthew Smith for indulging me once again at hack day — it was loads of
+fun. There are more videos and photos of the performance in my
+<a href="http://delicious.com/JimPurbrick/londongeekcommunityiphoneoscestra">delicious stream</a>.</p>
+</p></div>
+        <hr />
+    </div>
+		
+            <div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="../tag/nintendo.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>    
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="../">Archives</a>
+                <li><a href="../tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+                            </ul>
+            </div>
+
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                                <li><a href="../category/misc.html">misc</a></li>
+                                   
+            </ul>
+            </div>
+            
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                            <li><a href="http://psychochild.org/">Brian Green</a></li>
+                            <li><a href="http://gwynethllewelyn.net/">Gwyneth Llewelyn</a></li>
+                            <li><a href="http://nwn.blogs.com/">James Au</a></li>
+                            <li><a href="http://t-machine.org/">Adam Martin</a></li>
+                            <li><a href="http://alekskrotoski.com/">Aleks Krotoski</a></li>
+                            <li><a href="http://epredator.com/">Ian Hughes</a></li>
+                            <li><a href="http://andypiper.co.uk/">Andy Piper</a></li>
+                            <li><a href="http://davehillier.wordpress.com/">Dave Hillier</a></li>
+                            <li><a href="http://ondrejka.net/">Cory Ondrejka</a></li>
+                        </ul>
+            </div>
+            
+
+                        <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                                <li><a href="http://facebook.com/jimpurbrick">facebook</a></li>
+                                <li><a href="http://twitter.com/jimpurbrick">twitter</a></li>
+                                <li><a href="http://github.com/jimpurbrick">github</a></li>
+                                <li><a href="http://lastfm.com/user/jimpurbrick">lastfm</a></li>
+                                <li><a href="http://flickr.com/jimpurbrick">flickr</a></li>
+                            </ul>
+            </div>
+            </div>
+            
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="..">The Creation Engine No. 2</a> &copy; Jim Purbrick 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+<script>var _gaq=[['_setAccount','UA-4868739-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<a href="http://github.com/jimpurbrick"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+ 
+</body>
+</html>

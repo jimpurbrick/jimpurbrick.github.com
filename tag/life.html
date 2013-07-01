@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>The Creation Engine No. 2</title>
+    <meta name="description" content="">
+    <meta name="author" content="Jim Purbrick">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="../theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="..">The Creation Engine No. 2</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+                    
+                                </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+                
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="../2011/10/03/javascript-jungle/"><h1>The JavaScript&nbsp;Jungle</h1></a>
+            Mon 03 October 2011
+
+by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p>There was a slide in the early talks that <a href="http://ondrejka.net/">Cory Ondrejka</a> used to give about Second Life about alien abductions in <a href="http://secondlife.com">Second Life</a>. One of the most exciting moments in Second Life for the early Lindens was when a resident constructed a <span class="caps">UFO</span> and flew around the world abducting other residents and then returning them to the world with a commemorative t-shirt. It was exciting because it was unanticipated. The Lindens had created a virtual world that enabled interaction and someone had taken it and run with it to create a fun and engaging&nbsp;experience.</p>
+<p>So, once I&#8217;d finished implementing a simple <a href="http://dl.acm.org/citation.cfm?id=351027&amp;dl=ACM&amp;coll=DL&amp;CFID=53271178&amp;CFTOKEN=59247649">interest management</a> and collision detection system for the <a href="http://brightondigitalfestival.co.uk/">Brighton Digital Festival</a> <a href="http://asyncjs.com/the-mighty-jungle/">JavaScript Jungle</a> to enable interactions, I thought I would implement an alien abductor as a hat tip to Second&nbsp;Life.</p>
+<p>The <a href="https://gist.github.com/1206090">JavaScript</a> first adds a <span class="caps">UFO</span> from <a href="http://jimpurbrick.com/2011/09/12/youre-boss-2/">You&#8217;re The Boss 2</a> to the supplied div along with an <a href="http://en.wikipedia.org/wiki/Scalable_Vector_Graphics"><span class="caps">SVG</span></a> canvas containing a hidden translucent tractor beam path before binding to the see and tick events. The tick handler implements a state machine which either moves the <span class="caps">UFO</span> towards a random spot, a target creature that the <span class="caps">UFO</span> has seen or drags the target off screen for diabolical&nbsp;experimentation.</p>
+<p>The most interesting part of the code on line 155 which replaces the target&#8217;s position method with one which returns the target&#8217;s position, but doesn&#8217;t update. This allows the <span class="caps">UFO</span> to move the target while the position updates made by the target&#8217;s own code call the new read only position method. <a href="http://almostobsolete.net">Tom Parslow</a>&#8216;s boids look especially mournful flapping around and turning towards the flock while being&nbsp;captured.</p>
+<p><a href="http://jungle.asyncjs.com/"><img src="http://farm7.static.flickr.com/6173/6192029711_a8ff1bf0e6_o.jpg"></a></img></p>
+
+<p>While the alien abductions in Second Life and the JavaScript jungle are meant to be fun and mostly harmless, the same mechanisms that enable them can be used for griefing in virtual environments and malware in software at large. The ability for scripted objects in Second Life to self replicate caused dozens of problems with <a href="http://en.wikipedia.org/wiki/Grey_goo">grey goo</a> attacks for every amazing <a href="http://nwn.blogs.com/nwn/2005/06/evolving_nemo.html">virtual ecosystem</a> and many malicious cage attacks for every playful alien&nbsp;abductor.</p>
+<p>The <a href="http://c2.com/cgi/wiki?MessagePassingConcurrency">message passing concurrency</a> model adopted by <span class="caps">LSL</span> actually made direct attacks on other scripts of the kind used by the JavaScript Jungle <span class="caps">UFO</span> very hard, but things are much harder in JavaScript&#8217;s browser environment even when separating scripts in&nbsp;iFrames.</p>
+<p>Luckily projects like <a href="http://code.google.com/p/google-caja/">Caja</a> and <a href="https://sites.google.com/site/belayresearchproject/">Belay</a> (which is being worked on by another ex-Linden, <a href="http://www.ozonehouse.com/mark/">Mark Lentczner</a> ) are working on the problem of making multiple scripts work safely in the same&nbsp;browser.</p>
+<p>The challenge for sandboxes like Second Life and the JavaScript jungle is to allow interesting and meaningful interactions with emergent properties and unanticipated consequences without allowing malicious scripts to destroy that environment. Building the <a href="http://asyncjs.com/the-mighty-jungle/">JavaScript Jungle</a> was a lot of fun and made for another great <a href="http://brightondigitalfestival.co.uk/">Brighton Digital Festival</a> project. Many congratulations to <a href="http://twitter.com/#!/premasagar">@premasagar</a>, <a href="http://twitter.com/#!/ac94">@ac94</a>, <a href="http://twitter.com/#!/purge">@purge</a> and everyone else for making it a success. Maybe next time we can try to build a secure JavaScript Jungle that is both secure and&nbsp;expressive.</p></div>
+        <hr />
+    </div>
+		
+            <div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="../tag/life.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>    
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="../">Archives</a>
+                <li><a href="../tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+                            </ul>
+            </div>
+
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                                <li><a href="../category/misc.html">misc</a></li>
+                                   
+            </ul>
+            </div>
+            
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                            <li><a href="http://psychochild.org/">Brian Green</a></li>
+                            <li><a href="http://gwynethllewelyn.net/">Gwyneth Llewelyn</a></li>
+                            <li><a href="http://nwn.blogs.com/">James Au</a></li>
+                            <li><a href="http://t-machine.org/">Adam Martin</a></li>
+                            <li><a href="http://alekskrotoski.com/">Aleks Krotoski</a></li>
+                            <li><a href="http://epredator.com/">Ian Hughes</a></li>
+                            <li><a href="http://andypiper.co.uk/">Andy Piper</a></li>
+                            <li><a href="http://davehillier.wordpress.com/">Dave Hillier</a></li>
+                            <li><a href="http://ondrejka.net/">Cory Ondrejka</a></li>
+                        </ul>
+            </div>
+            
+
+                        <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                                <li><a href="http://facebook.com/jimpurbrick">facebook</a></li>
+                                <li><a href="http://twitter.com/jimpurbrick">twitter</a></li>
+                                <li><a href="http://github.com/jimpurbrick">github</a></li>
+                                <li><a href="http://lastfm.com/user/jimpurbrick">lastfm</a></li>
+                                <li><a href="http://flickr.com/jimpurbrick">flickr</a></li>
+                            </ul>
+            </div>
+            </div>
+            
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="..">The Creation Engine No. 2</a> &copy; Jim Purbrick 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+<script>var _gaq=[['_setAccount','UA-4868739-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<a href="http://github.com/jimpurbrick"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+ 
+</body>
+</html>

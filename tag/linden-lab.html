@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>The Creation Engine No. 2</title>
+    <meta name="description" content="">
+    <meta name="author" content="Jim Purbrick">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="../theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="..">The Creation Engine No. 2</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+                    
+                                </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+                
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="../2010/09/29/another-age-must-be-judge/"><h1>Another Age Must Be The&nbsp;Judge</h1></a>
+            Wed 29 September 2010
+
+by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p><a href="http://www.flickr.com/photos/jimpurbrick/5036038669/" title="Babbage Linden by Jim Purbrick, on Flickr"><img src="http://farm5.static.flickr.com/4130/5036038669_67dcd2aeac.jpg" width="500" height="281" alt="Babbage Linden" /></a></p>
+<p>Almost exactly 6 years ago, the incredible <a href="http://ondrejka.net/">Cory Ondrejka</a> and I met
+for the first time in real life (having previously blogged together on
+<a href="http://terranova.blogs.com/">Terra Nova</a>) at the <a href="http://terranova.blogs.com/terra_nova/2004/09/dont_mess_with_.html">Austin Game Conference 2004</a>, where we got on
+like a house on fire. Several months later I joined Linden Lab and (as
+James and Jim Linden were already taken) Babbage Linden was born. The
+first task Cory asked me to do was embed the <a href="http://www.mono-project.com/Main_Page">Mono virtual machine</a> in
+to <a href="http://secondlife.com/">Second Life</a> as a next generation scripting engine. It was a
+wonderful project to work on, involving authoring a new
+<span class="caps"><span class="caps">LSL</span></span> compiler back end to generate
+<span class="caps"><span class="caps">CIL</span></span> bytecode, a scavaging garbage collector to
+allow assembly unloading and a microthread injector to allow 10s of
+1000s of scripts to run concurrently on Mono in a single process (work
+that has been described in detail in talks at <a href="http://www.oopsla.org/oopsla2007/">ooPSLA</a>,
+<a href="http://langnetsymposium.com/2009/talks.aspx">Lang.<span class="caps"><span class="caps">NET</span></span></a> and
+<a href="http://jimpurbrick.com/2010/03/14/fosdem-x-movie/"><span class="caps"><span class="caps">FOSDEM</span></span></a> ). As a long term R&amp;D project it
+was put on hold a number of times to make way for more important
+projects like <a href="http://wiki.secondlife.com/wiki/LlHTTPRequest"><span class="caps"><span class="caps">HTTP</span></span>-Out</a>, <a href="http://wiki.secondlife.com/wiki/Message_Liberation_Forum_Transcript">Message
+Liberation</a> and <a href="http://wiki.secondlife.com/wiki/Het-Grid_FAQ">Het-Grid</a>, but eventually we shipped a <a href="http://wiki.secondlife.com/wiki/Release_Notes/Second_Life_Server/1.24">Second Life
+simulator that embedded Mono</a>&nbsp;in 2008.</p>
+<p>Running <span class="caps"><span class="caps">LSL</span></span> on Mono in Second Life was a huge
+win, allowing scripts to run 100s of times faster in some cases and
+reducing the average memory footprint of scripts in Second Life by a
+third, but the big hairy audatious goal for Mono in Second Life was
+always to enable other languages that targeted the Common Language
+Infrastructure to run in Second Life. After waiting until the end of
+last year for <a href="http://www.mono-project.com/Release_Notes_Mono_2.6">Mono 2.6</a> to implement the bytecode verifier and
+<a href="http://blogs.msdn.com/b/shawnfa/archive/2007/05/09/the-silverlight-security-model.aspx">CoreCLR security</a> sandbox which allowed us to safely run other
+languages on Mono inside the simulator we started work on adding support
+for C# in Second Life at the beginning of this year. A team of Linden
+engineers in Brighton and California did an amazing job overcoming an
+array of challenges and got to the point where we had Silverlight chess
+demos, run time configurable script profilers and scripts that used
+.<span class="caps"><span class="caps">NET</span></span> reflection APIs to visualize other C#
+scripts running in our development simulators earlier&nbsp;this summer.</p>
+<p>Alas, tomorrow is my last day at Linden Lab and Babbage Linden will
+never get to see C# scripts running in the wild in Second Life, but I
+very much hope that I do. I hope that C# support is eventually added to
+Second Life and that I don’t have to wait 170 years to turn the handle.
+As another <a href="http://en.wikipedia.org/wiki/Charles_Babbage">Babbage</a> said when he failed to build the <a href="http://en.wikipedia.org/wiki/Charles_Babbage#Difference_engine">Difference
+Engine</a>: “Another age must be&nbsp;the judge”.</p></div>
+        <hr />
+    </div>
+		
+            <div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="../tag/linden-lab.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>    
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="../">Archives</a>
+                <li><a href="../tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+                            </ul>
+            </div>
+
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                                <li><a href="../category/misc.html">misc</a></li>
+                                   
+            </ul>
+            </div>
+            
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                            <li><a href="http://psychochild.org/">Brian Green</a></li>
+                            <li><a href="http://gwynethllewelyn.net/">Gwyneth Llewelyn</a></li>
+                            <li><a href="http://nwn.blogs.com/">James Au</a></li>
+                            <li><a href="http://t-machine.org/">Adam Martin</a></li>
+                            <li><a href="http://alekskrotoski.com/">Aleks Krotoski</a></li>
+                            <li><a href="http://epredator.com/">Ian Hughes</a></li>
+                            <li><a href="http://andypiper.co.uk/">Andy Piper</a></li>
+                            <li><a href="http://davehillier.wordpress.com/">Dave Hillier</a></li>
+                            <li><a href="http://ondrejka.net/">Cory Ondrejka</a></li>
+                        </ul>
+            </div>
+            
+
+                        <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                                <li><a href="http://facebook.com/jimpurbrick">facebook</a></li>
+                                <li><a href="http://twitter.com/jimpurbrick">twitter</a></li>
+                                <li><a href="http://github.com/jimpurbrick">github</a></li>
+                                <li><a href="http://lastfm.com/user/jimpurbrick">lastfm</a></li>
+                                <li><a href="http://flickr.com/jimpurbrick">flickr</a></li>
+                            </ul>
+            </div>
+            </div>
+            
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="..">The Creation Engine No. 2</a> &copy; Jim Purbrick 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+<script>var _gaq=[['_setAccount','UA-4868739-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<a href="http://github.com/jimpurbrick"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+ 
+</body>
+</html>

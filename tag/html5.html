@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>The Creation Engine No. 2</title>
+    <meta name="description" content="">
+    <meta name="author" content="Jim Purbrick">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="../theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="..">The Creation Engine No. 2</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+                    
+                                </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+                
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="../2010/09/15/disco-snake/"><h1>Disco&nbsp;Snake</h1></a>
+            Wed 15 September 2010
+
+by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p><object style="height: 390px; width: 640px"><param name="movie" value="http://www.youtube.com/v/slwo4rBTQ00?version=3"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed src="http://www.youtube.com/v/slwo4rBTQ00?version=3" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="640" height="390"></object></p>
+<p>Rock Band does a great job of inspiring people to play music, can you
+develop a game that inspires composition? <a href="http://en.wikipedia.org/wiki/Lumines">Lumines</a> and <a href="http://en.wikipedia.org/wiki/Rez">Rez</a> create
+music while you play, can you make games where music creation is the
+goal, not a side effect? <a href="http://en.wikipedia.org/wiki/Pictionary">Pictionary</a> does a great job of using game
+mechanics to overcome creative block, can you use other game-like
+constraints to inspire creativity? These were among the questions I
+asked at <a href="http://jimpurbrick.com/2010/05/10/gamecamp-2/">GameCamp 2</a> a few months ago and I was keen to explore them
+at <a href="http://london.musichackday.org/2010/">Music Hack Day London</a> a&nbsp;week ago.</p>
+<p>The spectrum of potential game-like musical composition tools is huge,
+ranging from traditional recognisable music interfaces like keyboards
+and step sequencers at one end, through things that are designed to be
+both music interfaces and games like <a href="http://www.playfractal.com/">Fractal</a>, Rez and Lumines in the
+middle to things that are recognisably games at the other. While the
+middle ground is incredibly interesting, 24 hours at a hack day isn’t
+really long enough to develop a brand new revolutionary hybrid
+game/music interface, so instead I decided to repurpose an existing game
+as a sequencer and picked the simplest one I could think of — <a href="http://en.wikipedia.org/wiki/Snake_%28video_game%29">Snake</a>.</p>
+<p>With the interface chosen, the next thing to do was to think about how
+to map the interface to music composition. The core mechanic in snake is
+eating food placed on a grid. Grids have a venerable history in music as
+<a href="http://en.wikipedia.org/wiki/Music_sequencer">step sequencer</a> interfaces with time growing form left to right and
+pitch or samples selected on the y axis. It seemed natural to map food
+position to note parameters in a similar way. Using the order in which
+food is selected to determine the order of notes played frees up the X
+axis to map to a parameter instead of time and also makes playing the
+game feel more like a progression through a composition: each piece of
+food adds to the sequence which is continually looping, the music plays
+and the composition progresses, there is no turning back or revising. By
+mapping the X axis to velocity pseudo rests can be added to the sequence
+by selecting food on&nbsp;the left.</p>
+<p>Selecting notes requires some deviation from the normal snake mechanics
+which normally only make a single piece of food available at any time.
+This restriction would mean that players wouldn’t compose music, simply
+reveal it as they ate one piece of food at a time. At the other end of
+the spectrum turning every square in to food would mean that the next
+selected note would have to be adjacent to the last note, also overly
+restrictive. Making a limited number of pieces of food available at any
+time provides a nice middle ground, allowing the player some freedom in
+the choice of the next note selected, but not total freedom, a
+restriction which can lead to&nbsp;serendipitous melodies.</p>
+<p>The other major mechanic in snake is colliding with your tail, which
+ends the game, but becomes harder to avoid as you eat food and get
+longer. One option would be to use that mechanic to intentionally end
+the game and the composition, but instead I mapped it to sample
+selection allowing the player to switch between sounds and start a new
+sequence to build up multi-timbral polyphonic music. By making the world
+toroidal players can simply let the snake circle around the world when
+they have&nbsp;finished composing.</p>
+<p>A lot of these design decisions came out while implementing the game
+using <a href="http://processing.org">processing</a>/<a href="http://processingjs.org">processing.js</a> and
+<span class="caps"><span class="caps">HTML</span></span> 5 audio — a technology stack <a href="http://jimpurbrick.com/2010/06/07/html-5-multimedia/">I’d played
+around with a bit previously</a>, but wanted to explore further. In the
+end, for this kind of application I don’t think processing brings enough
+benefit to outweigh the difficulties it adds to debugging. When running
+on top of Java errors are often reported as mangled Java call stacks and
+when running in the browser different errors appear as mangled
+JavaScript. While I can see the attraction to language designers and
+implementers of building on top of existing technology it often results
+in having to implement in one language and debug horrible unrecognisable
+code in another. Incompatibilities are also horrible. With a couple of
+hours to go I had the entire game running on Java, but was presented
+with a blank canvas with no useful Firebug errors when I exported to
+processing.js and having to perform a binary search by commenting out
+chunks of code to find the error.&nbsp;Not pleasant.</p>
+<p><span class="caps"><span class="caps">HTML5</span></span> audio is also a somewhat fragile
+technology. Generating an Audio element for each sample playback event
+leads to current browsers grinding to a halt while resetting and
+restarting audio elements often causes glitches and delays. Another
+problem is that JavaScript timers don’t provide enough accuracy for
+tight sequence playback timing. In the end I rebranded both bugs as
+features by switching from very transient drum samples which sounded
+messy to dubby bass and melancholy bell samples that work quite nicely
+with glitches and unintentionally&nbsp;loose timing.</p>
+<p>At <span class="caps"><span class="caps">10PM</span></span> on Saturday night everything had come
+together enough for me to lose myself in an hour of ambient bleepy
+electronica and by the time the presentations started at
+<span class="caps"><span class="caps">3PM</span></span> on Sunday <a href="http://jimpurbrick.com/media/disco_snake/disco_snake.html">Disco Snake</a>&nbsp;was done.</p>
+<p>I’d like to thank all of the organisers and hackers that made Music Hack
+Day London a wonderful experience and have been pleasantly surprised at
+the positive reaction that Disco Snake has generated over the last week.
+The space between music interfaces and games is a very fertile one that
+I’ll be exploring further in the future and while it’s not there yet, I
+hope <span class="caps"><span class="caps">HTML5</span></span> audio fulfils its promise of
+bringing interactive music applications to everyone on the web in the
+very&nbsp;near future.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../2010/09/04/html-5-audio-redux/"><h2><span class="caps">HTML</span> 5 Audio&nbsp;Redux</h2></a>
+        <div class= "well small"> Sat 04 September 2010
+
+by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>My recent experiments in to using <a href="http://processingjs.org/">Procssing.js</a> and <a href="http://www.w3schools.com/html5/tag_audio.asp"><span class="caps">HTML5</span> audio</a> to generate multimedia web applications <a href="http://jimpurbrick.com/2010/06/07/html-5-multimedia/">didn&#8217;t get very far</a>. I first tried generating a new <span class="caps">HTML</span> 5 audio element for each audio event, which quickly caused the browser to grind to a halt, and my attempts to reuse ...</p> <a class="btn btn-info xsmall" href="../2010/09/04/html-5-audio-redux/">read more</a></div>
+    </div>	
+				
+            <div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="../tag/html5.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>    
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="../">Archives</a>
+                <li><a href="../tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+                            </ul>
+            </div>
+
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                                <li><a href="../category/misc.html">misc</a></li>
+                                   
+            </ul>
+            </div>
+            
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                            <li><a href="http://psychochild.org/">Brian Green</a></li>
+                            <li><a href="http://gwynethllewelyn.net/">Gwyneth Llewelyn</a></li>
+                            <li><a href="http://nwn.blogs.com/">James Au</a></li>
+                            <li><a href="http://t-machine.org/">Adam Martin</a></li>
+                            <li><a href="http://alekskrotoski.com/">Aleks Krotoski</a></li>
+                            <li><a href="http://epredator.com/">Ian Hughes</a></li>
+                            <li><a href="http://andypiper.co.uk/">Andy Piper</a></li>
+                            <li><a href="http://davehillier.wordpress.com/">Dave Hillier</a></li>
+                            <li><a href="http://ondrejka.net/">Cory Ondrejka</a></li>
+                        </ul>
+            </div>
+            
+
+                        <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                                <li><a href="http://facebook.com/jimpurbrick">facebook</a></li>
+                                <li><a href="http://twitter.com/jimpurbrick">twitter</a></li>
+                                <li><a href="http://github.com/jimpurbrick">github</a></li>
+                                <li><a href="http://lastfm.com/user/jimpurbrick">lastfm</a></li>
+                                <li><a href="http://flickr.com/jimpurbrick">flickr</a></li>
+                            </ul>
+            </div>
+            </div>
+            
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="..">The Creation Engine No. 2</a> &copy; Jim Purbrick 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+<script>var _gaq=[['_setAccount','UA-4868739-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<a href="http://github.com/jimpurbrick"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+ 
+</body>
+</html>

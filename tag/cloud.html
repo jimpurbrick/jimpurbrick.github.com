@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>The Creation Engine No. 2</title>
+    <meta name="description" content="">
+    <meta name="author" content="Jim Purbrick">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="../theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="..">The Creation Engine No. 2</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+                    
+                                </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+                
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="../2008/10/06/jaoo-denmark/"><h1>Anything But&nbsp;Java</h1></a>
+            Mon 06 October 2008
+
+by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p><a href="http://www.flickr.com/photos/jimpurbrick/2918267608/" title="The Shakespeare Language by Jim Purbrick, on Flickr"><img src="http://farm4.static.flickr.com/3270/2918267608_8777eb7547.jpg" width="500" height="412" alt="The Shakespeare Language" /></a></p>
+<p>Last week I was invited to talk at <a href="http://jaoo.dk/conference/"><span class="caps"><span class="caps">JAOO</span></span>
+Denmark</a>. Originally a Java conference, <span class="caps"><span class="caps">JAOO</span></span>
+is now a very broad software development conference covering everything
+from agile to language design to&nbsp;distributed systems.</p>
+<p>The stand out talk on the first day was <a href="http://jaoo.dk/speaker/Gregor+Hohpe">Gregor Hohpe</a>‘s <a href="http://jaoo.dk/file?path=/jaoo-aarhus-2008/slides//GregorHohpe_ProgrammingCloud.pdf">Programming
+the Cloud</a> which enumerated some of the problems with building
+distributed systems without call stacks, transactions, promises,
+certainty or ordering constraints and then outlined some approaches to
+overcome them including looking at real life situations which also have
+to deal with the lack of distributed transactions. For example at
+Starbucks your coffee is made concurrently with your payment being taken
+and then problems are fixed up afterwards if you can’t pay, they can’t
+make the coffee or they get the order wrong. The throughput gained from
+optimistic concurrency is greater than the loss of having to fix things
+up, even if it means that sometimes you end up giving away&nbsp;free coffee.</p>
+</p>
+
+<p>Unfortunately I missed <a href="http://jaoo.dk/presentation/V8%3A+The+JavaScript+Engine+Inside+Google+Chrome">Lars Bak’s V8 keynote</a> on Tuesday, but was
+really impressed by <a href="http://jaoo.dk/file?path=/jaoo-aarhus-2008/slides/StefanTilkov_RESTPatterns.pdf">Successfully Applying
+<span class="caps"><span class="caps">REST</span></span></a> by <a href="http://jaoo.dk/speaker/Stefan+Tilkov">Stefan Tilkov</a> which enumerated
+<span class="caps"><span class="caps">REST</span></span> patterns and anti-patterns shining some
+light on the subtleties of a technology which initially seems straight
+forward but turns out to have some pot holes for&nbsp;the unwary.</p>
+</p>
+
+<p>The highlights on Wednesday were <a href="http://www.flickr.com/photos/jimpurbrick/2918267608/">seeing Guy Steele and Dick Gabriel
+give their 50-in-50 talk</a> again (which is still not available on-line,
+but one of the highlights is <a href="http://www.catonmat.net/blog/wp-content/plugins/wp-downloadMonitor/user_uploads/the_eternal_flame-god_wrote_in_lisp.mp3">here</a>) and <a href="http://www.flickr.com/photos/jimpurbrick/2918268902/">seeing</a> the new <a href="http://jaoo.dk/file?path=/jaoo-aarhus-2008/slides//EikThyrstedBrandsgard_LEGO.pdf">WeDo lego
+robotics platform for kids</a> which will be available next summer. The
+most relevant talk was <a href="http://jaoo.dk/file?path=/jaoo-aarhus-2008/slides//ErikDornenburg_TDD2.pdf">Test Driven Development, Take 2</a> by <a href="http://jaoo.dk/speaker/Erik+D%C3%B6rnenburg">Erik
+Doernenburg</a> which got me thinking about how to do dynamic mock
+objects in C++. My talk on <a href="http://jaoo.dk/file?path=/jaoo-aarhus-2008/slides//JimPurbrick_ChallengesSecondLife.pdf">embedding Mono in Second Life</a> went down
+well and elicited some good questions, although as a fringe topic it
+wasn’t&nbsp;heavily attended.</p>
+</p>
+
+<p>Other highlights included <a href="http://jaoo.dk/presentation/Why+Functional+Programming+%28Still%29+Matters">Erik Meijer’s keynote on fundamentalist
+functional programming</a>, <a href="http://jaoo.dk/speaker/Bill+Venners">Bill Venners</a> <a href="http://jaoo.dk/file?path=/jaoo-aarhus-2008/slides//BillVenners_scalaFirehoseCompressed.pdf">talk on Scala</a>, hearing
+<a href="http://jaoo.dk/speaker/Patrick+Linskey">Patrick Linskey</a> conclude that the way to <a href="http://jaoo.dk/file?path=/jaoo-aarhus-2008/slides//PatrickLinskey_DesigningForScalability-JAOO.pdf">make Java scale</a> is to
+use Scala or Erlang, <a href="http://jaoo.dk/speaker/James+O.+Coplien">James Copland</a> reinventing
+<span class="caps"><span class="caps">OO</span></span>, playing guitar at the jam session and
+hearing Erik suggest to Lars that we compile
+<span class="caps"><span class="caps">LSL</span></span> to <span class="caps"><span class="caps">CIL</span></span> and run
+it on V8 modified to capture thread state while Erik was spilling half
+bottles of Champagne over people and Lars was swaying and stumbling
+around&nbsp;the room.</p>
+</p>
+
+<p>[<img alt="The Shakespeare Language" src="http://farm4.static.flickr.com/3270/2918267608_8777eb7547.jpg" />]: http://www.flickr.com/photos/jimpurbrick/2918267608/
+    &#8220;The Shakespeare Language by Jim Purbrick, on&nbsp;Flickr&#8221;</p></div>
+        <hr />
+    </div>
+		
+            <div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="../tag/cloud.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>    
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="../">Archives</a>
+                <li><a href="../tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+                            </ul>
+            </div>
+
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                                <li><a href="../category/misc.html">misc</a></li>
+                                   
+            </ul>
+            </div>
+            
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                            <li><a href="http://psychochild.org/">Brian Green</a></li>
+                            <li><a href="http://gwynethllewelyn.net/">Gwyneth Llewelyn</a></li>
+                            <li><a href="http://nwn.blogs.com/">James Au</a></li>
+                            <li><a href="http://t-machine.org/">Adam Martin</a></li>
+                            <li><a href="http://alekskrotoski.com/">Aleks Krotoski</a></li>
+                            <li><a href="http://epredator.com/">Ian Hughes</a></li>
+                            <li><a href="http://andypiper.co.uk/">Andy Piper</a></li>
+                            <li><a href="http://davehillier.wordpress.com/">Dave Hillier</a></li>
+                            <li><a href="http://ondrejka.net/">Cory Ondrejka</a></li>
+                        </ul>
+            </div>
+            
+
+                        <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                                <li><a href="http://facebook.com/jimpurbrick">facebook</a></li>
+                                <li><a href="http://twitter.com/jimpurbrick">twitter</a></li>
+                                <li><a href="http://github.com/jimpurbrick">github</a></li>
+                                <li><a href="http://lastfm.com/user/jimpurbrick">lastfm</a></li>
+                                <li><a href="http://flickr.com/jimpurbrick">flickr</a></li>
+                            </ul>
+            </div>
+            </div>
+            
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="..">The Creation Engine No. 2</a> &copy; Jim Purbrick 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+<script>var _gaq=[['_setAccount','UA-4868739-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<a href="http://github.com/jimpurbrick"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+ 
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>The Creation Engine No. 2</title>
+    <meta name="description" content="">
+    <meta name="author" content="Jim Purbrick">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="../theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="..">The Creation Engine No. 2</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+                    
+                                </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+                
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="../2012/01/04/100-robots-vs-audience/"><h1>100 robots Vs The&nbsp;Audience</h1></a>
+            Wed 04 January 2012
+
+by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p>A couple of years ago I had great fun putting together the <a href="http://jimpurbrick.com/2009/05/12/london-geek-community-iphone-oscestra/">London Geek
+Community iPhone OSCestra</a> at <a href="http://openhacklondon.pbworks.com/FrontPage">Open Hack London</a> and I’ve been
+controlling Ableton Live with iPhone tapped to my guitar as part of <a href="http://100robots.com">100
+robots</a> for <a href="http://vimeo.com/7967321">a couple of years now</a> so when <a href="https://twitter.com/#!/andybudd">@andybudd</a> suggested
+I do a digital music thing for the <a href="http://brightondigitalfestival.co.uk/">Brighton Digital Festival</a> I
+immediately thought that it would be fun to combine the 2 projects by
+doing a 100 robots performance with&nbsp;audience participation.</p>
+<p>The iPhone OSCestra was effectively a distributed collaborative mixing
+desk with each person controlling the volume and effect parameters on
+one channel of a playing back Ableton Live set. For the 100 robots
+performance I wanted to go further and have the audience actually adding
+parts to the musical performance, so <a href="http://jimpurbrick.com/feeds/atom/blog/">@toastkid</a> and I added extra
+drum, bass, synth and sample tracks to the 100 robots live set and
+filled them full of samples that could be triggered by&nbsp;the audience.</p>
+<p>While having the samples adjust in tempo to match each song was
+relatively simple, transposing them to match the key of each song was
+more complicated. First I built a <a href="http://forum.ableton.com/viewtopic.php?f=4&amp;t=90512">custom slice to midi preset</a> which
+mapped the sample transpose to a macro control and used it to slice all
+of the samples to <span class="caps"><span class="caps">MIDI</span></span> tracks, then mapped all
+of the transpose controls to a single <span class="caps"><span class="caps">MIDI</span></span>
+controller and added a <span class="caps"><span class="caps">MIDI</span></span> track which output
+the appropriate controller value for each song to a
+<span class="caps"><span class="caps">MIDI</span></span> output which was looped back in to Live
+to transpose&nbsp;the samples.</p>
+<p>The next question was how to avoid the performance turning in to a mush
+if multiple drum tracks or bass parts were playing concurrently. To
+avoid this we put <a href="http://www.ableton.com/blog/2012/01/02/dummy-clips-quantize-courses/">dummy clips</a> on the normal 100 robots which muted
+the normal parts when the audience triggered parts were playing. In some
+cases we let the audience parts add to the music, in others the audience
+parts would play instead of the&nbsp;normal tracks.</p>
+<p>A final question was how to avoid max and I getting lost when the normal
+parts we play along to were replaced by unfamiliar samples. To deal with
+this we set the clip quantization on the audience triggered clips to
+values longer than the clip length. This meant that even if alternate
+baselines were constantly being launched, we would still hear the normal
+bassline for a while at the end of each quantization period, so we would
+know where we were with the track. To tune these settings we did some
+<a href="http://en.wikipedia.org/wiki/Fuzz_testing">fuzz testing</a> with semi random <span class="caps"><span class="caps">MIDI</span></span> data to
+see how much madness we could deal with and still manage to play&nbsp;the songs.</p>
+<p>With the tests done it was time to perform with 100 robots and 100s of
+people at the Brighton Dome&nbsp;and Museum.</p>
+<iframe width="560" height="315" src="http://www.youtube.com/embed/cdl-J6DA9Ac?hd=1" frameborder="0" allowfullscreen></iframe>
+
+<p>With the tests done it was time to perform with 100 robots and 100s of people at the Brighton Dome and&nbsp;Museum.</p>
+<iframe width="560" height="315" src="http://www.youtube.com/embed/GhusIQtw9IA" frameborder="0" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="http://www.youtube.com/embed/videoseries?list=PLF7C555F2D572B3E4&amp;hl=en_GB&amp;hd=1" frameborder="0" allowfullscreen></iframe>
+
+<p>Many thanks to Steve Liddell for recording the Brighton Museum set,
+<a href="https://twitter.com/#!/aral">@aral</a> for letting us experiment on his <a href="http://updateconf.com/">update conference</a> and to
+everyone who participated and watched. If you’d like to host another
+performance, please get in touch and if you like the music, please check
+out the <a href="http://100robots.com">100 robots blog</a> and consider buying our album from
+<a href="http://100robots.bandcamp.com">bandcamp</a>.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../2011/05/19/100-robots-attack-album-out-now/"><h2><span class="dquo">&#8220;</span>100 robots attack!&#8221; Album Out&nbsp;Now!</h2></a>
+        <div class= "well small"> Thu 19 May 2011
+
+by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>100 robots first album, “Attack!” is now finished and available to
+download now from <a href="http://100robots.bandcamp.com">bandcamp</a>. I’m so glad that it is done and very
+proud of the result. It’s the first album I’ve made <a href="http://www.myspace.com/vanishingtrick">since 2005</a> and
+the first I’ve produced using <a href="http://www.ableton.com/">Ableton Live</a>, which once ...</p> <a class="btn btn-info xsmall" href="../2011/05/19/100-robots-attack-album-out-now/">read more</a></div>
+    </div>	
+				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../2010/03/25/battle-battle-bands/"><h2>Battle of the Battle of the&nbsp;Bands</h2></a>
+        <div class= "well small"> Thu 25 March 2010
+
+by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Somehow, <a href="http://100robots.com">100 robots</a> have ended up playing 2 different Battle of the
+Band competitions on consecutive nights in Brighton: at <a href="http://www.facebook.com/event.php?eid=337759752939">The Providence
+on April 2nd</a> and <a href="http://www.facebook.com/event.php?eid=362640823798">The Lectern on April 3rd</a>.</p>
+<p>So, which band is the best and which battle of the bands is better?
+Early indications favour The Providence ...</p> <a class="btn btn-info xsmall" href="../2010/03/25/battle-battle-bands/">read more</a></div>
+    </div>	
+				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../2009/11/21/4-robot-attacks/"><h2>4 Robot&nbsp;Attacks!</h2></a>
+        <div class= "well small"> Sat 21 November 2009
+
+by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Incredibly, 100 robots have 4 gigs lined up in the next 3 weeks:
+tomorrow we’re playing at an electro/rock night at <a href="http://www.facebook.com/event.php?eid=195879274255">The Freebutt</a> with
+<a href="http://www.myspace.com/bangbangeche">Bang Bang Eche</a>, <a href="http://www.myspace.com/sonofrobot">Son of Robot</a> and <a href="http://www.myspace.com/labasheeda">labasheeda</a>, then next
+Thursday we’re playing at a more hip hop themed night at <a href="http://www.facebook.com/event.php?eid=208741441619">The Hope ...</a></p> <a class="btn btn-info xsmall" href="../2009/11/21/4-robot-attacks/">read more</a></div>
+    </div>	
+				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../2009/09/05/100-robots-vs-100-geeks/"><h2>100 robots vs 100&nbsp;geeks</h2></a>
+        <div class= "well small"> Sat 05 September 2009
+
+by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>We’ve just about finished setting up the 100 robots gear at <a href="http://www.barcampbrighton.org/2009/09/03/remember-remember-the-5th-of-september/">BarCamp
+Brighton 4</a> in a derelict building that’s going to make the gig feel
+like an illegal rave. If you’re at BarCamp please come downstairs to
+hear us sing songs about the surveilance state, Twitter and ...</p> <a class="btn btn-info xsmall" href="../2009/09/05/100-robots-vs-100-geeks/">read more</a></div>
+    </div>	
+				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../2009/03/27/100-robots-vs-200-zombies/"><h2>100 Robots Vs 200&nbsp;Zombies</h2></a>
+        <div class= "well small"> Fri 27 March 2009
+
+by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><img alt="Dance Of The Dead Flyer" src="http://i9.photobucket.com/albums/a99/titsofdeath/wzdflyer.jpg" /></p>
+</p>
+
+<p>I may not have blogged much recently, but I’ve been hard at work writing
+new songs about the financial meltdown, the surveilance state, gene
+therapy cures for hiv, anger and guilt for the new band I’ve put
+together with <a href="http://webcrisps.wordpress.com/">Max Williams</a> and <a href="http://socialsim.wordpress.com/">Aleks Krotoski</a>: <a href="http://www.myspace.com/onehundredrobots">100 Robots</a>.
+We’ll ...</p> <a class="btn btn-info xsmall" href="../2009/03/27/100-robots-vs-200-zombies/">read more</a></div>
+    </div>	
+				
+            <div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="../tag/100robots.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>    
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="../">Archives</a>
+                <li><a href="../tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+                            </ul>
+            </div>
+
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                                <li><a href="../category/misc.html">misc</a></li>
+                                   
+            </ul>
+            </div>
+            
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                            <li><a href="http://psychochild.org/">Brian Green</a></li>
+                            <li><a href="http://gwynethllewelyn.net/">Gwyneth Llewelyn</a></li>
+                            <li><a href="http://nwn.blogs.com/">James Au</a></li>
+                            <li><a href="http://t-machine.org/">Adam Martin</a></li>
+                            <li><a href="http://alekskrotoski.com/">Aleks Krotoski</a></li>
+                            <li><a href="http://epredator.com/">Ian Hughes</a></li>
+                            <li><a href="http://andypiper.co.uk/">Andy Piper</a></li>
+                            <li><a href="http://davehillier.wordpress.com/">Dave Hillier</a></li>
+                            <li><a href="http://ondrejka.net/">Cory Ondrejka</a></li>
+                        </ul>
+            </div>
+            
+
+                        <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                                <li><a href="http://facebook.com/jimpurbrick">facebook</a></li>
+                                <li><a href="http://twitter.com/jimpurbrick">twitter</a></li>
+                                <li><a href="http://github.com/jimpurbrick">github</a></li>
+                                <li><a href="http://lastfm.com/user/jimpurbrick">lastfm</a></li>
+                                <li><a href="http://flickr.com/jimpurbrick">flickr</a></li>
+                            </ul>
+            </div>
+            </div>
+            
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="..">The Creation Engine No. 2</a> &copy; Jim Purbrick 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+<script>var _gaq=[['_setAccount','UA-4868739-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<a href="http://github.com/jimpurbrick"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+ 
+</body>
+</html>

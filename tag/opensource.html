@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>The Creation Engine No. 2</title>
+    <meta name="description" content="">
+    <meta name="author" content="Jim Purbrick">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="../theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="../theme/bootstrap.min.css" rel="stylesheet">
+    <link href="../theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="../theme/local.css" rel="stylesheet">
+    <link href="../theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="..">The Creation Engine No. 2</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+                    
+                                </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+                
+
+        
+
+
+    <div class='article'>
+        <div class="content-title">
+            <a href="../2010/02/10/fosdem-x/"><h1><span class="caps">FOSDEM</span>&nbsp;X</h1></a>
+            Wed 10 February 2010
+
+by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ 
+        </div>
+        
+        <div><p><object width="400" height="300"> <param name="flashvars" value="offsite=true&lang=en-us&page_show_url=%2Fsearch%2Fshow%2F%3Fq%3Dfosdem%26d%3Dtaken-20100204-20100208%26ss%3D0%26ct%3D0%26mt%3Dall%26adv%3D1&page_show_back_url=%2Fsearch%2F%3Fq%3Dfosdem%26d%3Dtaken-20100204-20100208%26ss%3D0%26ct%3D0%26mt%3Dall%26adv%3D1&method=flickr.photos.search&api_params_str=&api_text=fosdem&api_tag_mode=bool&api_min_taken_date=2010-02-04+00%3A00%3A00&api_max_taken_date=2010-02-09+00%3A00%3A00&api_media=all&api_sort=relevance&jump_to=&start_index=0"></param> <param name="movie" value="http://www.flickr.com/apps/slideshow/show.swf?v=71649"></param> <param name="allowFullScreen" value="true"></param><embed type="application/x-shockwave-flash" src="http://www.flickr.com/apps/slideshow/show.swf?v=71649" allowFullScreen="true" flashvars="offsite=true&lang=en-us&page_show_url=%2Fsearch%2Fshow%2F%3Fq%3Dfosdem%26d%3Dtaken-20100204-20100208%26ss%3D0%26ct%3D0%26mt%3Dall%26adv%3D1&page_show_back_url=%2Fsearch%2F%3Fq%3Dfosdem%26d%3Dtaken-20100204-20100208%26ss%3D0%26ct%3D0%26mt%3Dall%26adv%3D1&method=flickr.photos.search&api_params_str=&api_text=fosdem&api_tag_mode=bool&api_min_taken_date=2010-02-04+00%3A00%3A00&api_max_taken_date=2010-02-09+00%3A00%3A00&api_media=all&api_sort=relevance&jump_to=&start_index=0" width="400" height="300"></embed></object></p>
+</p>
+
+<p>Last weekend I went to the 10th Free and Open Source Developers European
+Meeting in Brussels. This year was the first time that
+<a href="http://fosdem.org/2010/"><span class="caps"><span class="caps">FOSDEM</span></span></a> had hosted a track on <a href="http://www.mono-project.com/Main_Page">Mono</a>, so
+I went along to find out what’s going on with Mono, tell the Mono folk
+what our plans are for C# and fill in&nbsp;some gaps.</p>
+</p>
+
+<p>I started Saturday on the monitoring track which included a terrible
+talk about an interesting tool that I hadn’t heard of: <a href="http://sourceware.org/systemtap/">SystemTap</a> — a
+scriptable system monitoring tool designed to allow diagnosis of
+problems at run time on production servers without the usual instrument,
+compile, analyse loop. stap looks really interesting and useful as a
+tool for augmenting or replacing our current simulator&nbsp;performance tools.</p>
+</p>
+
+<p>After the stap talk I headed over to the
+<a href="http://xmpp.org/"><span class="caps"><span class="caps">XMPP</span></span></a> track for the rest of the day and saw
+some great talks on <a href="http://xmpp.org/extensions/xep-0206.html"><span class="caps"><span class="caps">BOSH</span></span></a>, <a href="http://onesocialweb.org/">onsocialweb</a>,
+<a href="http://xmpp.org/extensions/xep-0060.html">pubsub</a>, <a href="http://code.stanziq.com/strophe/">strophe.js</a>, <a href="http://collecta.com/">collecta</a> and <a href="http://nodejs.org/">node.js</a>. Federated,
+open social networks seem to be a big thing at the moment (@blaine was
+talking about them at <a href="http://jimpurbrick.com/2009/12/07/scalecamp/">@scalecampuk</a> ) and there was lots of interest
+in using <span class="caps"><span class="caps">XMPP</span></span> to build them as it already has
+standards for identity, presence, friends and events. Given that jabber
+and <span class="caps"><span class="caps">XMPP</span></span> is a decade old it makes you wonder
+why the standards weren’t used the first time round. A possible reason
+is that <span class="caps"><span class="caps">XMPP</span></span> doesn’t have it’s rails/django
+yet and still looks pretty clunky to work with although Strophe.js may
+help. Another reason may be that <span class="caps"><span class="caps">XMPP</span></span> hasn’t
+been the web up until now, although <span class="caps"><span class="caps">BOSH</span></span> may
+be the bridge that’s&nbsp;needed there.</p>
+</p>
+
+<p>While everyone else was thinking about using
+<span class="caps"><span class="caps">XMPP</span></span> to build Twitter and Facebook I started
+thinking about what an open, federated virtual world platform built on
+<span class="caps"><span class="caps">XMPP</span></span> might look like. I wasn’t the only one.
+The <a href="http://www.realxtend.org/">realXtend</a> folks turned up to show off their latest new from the
+ground up viewer which uses <span class="caps"><span class="caps">XMPP</span></span> and jingle
+for voice and <span class="caps"><span class="caps">IM</span></span> integration and were
+obviously thinking along the same lines. As realXtend seem to be moving
+away from <span class="caps"><span class="caps">SL</span></span> tech now, expect an
+<span class="caps"><span class="caps">XMPP</span></span> based back end from&nbsp;them soon…</p>
+</p>
+
+<p>I spent Sunday camped out in the Mono room which was interesting from a
+cultural point of view. Miguel de Icaza seems to have completed his
+transition from champion to enemy of freedom in the open source
+community’s eyes. Last time he was at <span class="caps"><span class="caps">FOSDEM</span></span>
+he was accused of talking about “Coca Cola” when showing off the closed
+source <a href="http://unity3d.com/">Unity</a> engine that uses Mono, so stayed strictly to open
+technologies in his talk this year. Luckily, due to <a href="http://www.microsoft.com/interop/cp/default.mspx">Microsoft’s
+Community Promise</a> and open sourcing of the
+<a href="http://en.wikipedia.org/wiki/Dynamic_Language_Runtime"><span class="caps"><span class="caps">DLR</span></span></a>, <a href="http://ironpython.net/">IronPython</a> and <a href="http://ironruby.net/">IronRuby</a>, that
+includes a lot of the .<span class="caps"><span class="caps">NET</span></span> platform and gave
+him lots to talk about. Most of the legitimate worries of patents around
+Mono have been resolved, but talking about [C#][] and the
+<a href="http://www.ecma-international.org/publications/standards/Ecma-335.htm"><span class="caps"><span class="caps">CLI</span></span></a> at <span class="caps"><span class="caps">FOSDEM</span></span>
+still requires a poster asking people to leave their religion at the&nbsp;door, apparently.</p>
+</p>
+
+<p>In my Second Life talk, I gave a summary of the interesting things we
+did to get <span class="caps"><span class="caps">LSL</span></span> on Mono working in 2008 and
+then outlined our plans for C# in the future including lots of question
+marks around how we’re currently planning to implement them. Lots of my
+questions were answered after the talk and it turns out that the Unity
+developers are wrestling with the same problems at the moment, so we
+should be able to work together over the next few months to make a lot&nbsp;of progress.</p>
+</p>
+
+<p>Overall <span class="caps"><span class="caps">FOSDEM</span></span> was hugely informative and
+enjoyable and I have a big shopping list of exciting new technologies to
+play with over the next few months. Hopefully the Mono room will become
+a regular fixture and we’ll be able to head back&nbsp;next year.</p>
+</p></div>
+        <hr />
+    </div>
+		
+            <div class="pagination">
+<ul>
+    <li class="prev disabled"><a href="#">&larr; Previous</a></li>
+
+    <li class="active"><a href="../tag/opensource.html">1</a></li>
+
+    <li class="next disabled"><a href="#">&rarr; Next</a></li>
+
+</ul>
+</div>    
+ 
+  
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="../">Archives</a>
+                <li><a href="../tags.html">Tags</a>
+                <li><a href="/" rel="alternate">Atom feed</a></li>
+                            </ul>
+            </div>
+
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Categories
+                </li>
+                
+                                <li><a href="../category/misc.html">misc</a></li>
+                                   
+            </ul>
+            </div>
+            
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                            <li><a href="http://psychochild.org/">Brian Green</a></li>
+                            <li><a href="http://gwynethllewelyn.net/">Gwyneth Llewelyn</a></li>
+                            <li><a href="http://nwn.blogs.com/">James Au</a></li>
+                            <li><a href="http://t-machine.org/">Adam Martin</a></li>
+                            <li><a href="http://alekskrotoski.com/">Aleks Krotoski</a></li>
+                            <li><a href="http://epredator.com/">Ian Hughes</a></li>
+                            <li><a href="http://andypiper.co.uk/">Andy Piper</a></li>
+                            <li><a href="http://davehillier.wordpress.com/">Dave Hillier</a></li>
+                            <li><a href="http://ondrejka.net/">Cory Ondrejka</a></li>
+                        </ul>
+            </div>
+            
+
+                        <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                                <li><a href="http://facebook.com/jimpurbrick">facebook</a></li>
+                                <li><a href="http://twitter.com/jimpurbrick">twitter</a></li>
+                                <li><a href="http://github.com/jimpurbrick">github</a></li>
+                                <li><a href="http://lastfm.com/user/jimpurbrick">lastfm</a></li>
+                                <li><a href="http://flickr.com/jimpurbrick">flickr</a></li>
+                            </ul>
+            </div>
+            </div>
+            
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<p><a href="..">The Creation Engine No. 2</a> &copy; Jim Purbrick 2012</p>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+<script>var _gaq=[['_setAccount','UA-4868739-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<a href="http://github.com/jimpurbrick"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+ 
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>The Creation Engine No. 2</title>
+    <meta name="description" content="">
+    <meta name="author" content="Jim Purbrick">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://jimpurbrick.com/theme/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="http://jimpurbrick.com/theme/bootstrap.min.css" rel="stylesheet">
+    <link href="http://jimpurbrick.com/theme/bootstrap.min.responsive.css" rel="stylesheet">
+    <link href="http://jimpurbrick.com/theme/local.css" rel="stylesheet">
+    <link href="http://jimpurbrick.com/theme/pygments.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-inner">
+    <div class="container">
+
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+         </a>
+
+        <a class="brand" href="http://jimpurbrick.com">The Creation Engine No. 2</a>
+
+        <div class="nav-collapse">
+        <ul class="nav">
+                    
+                                </ul>
+        </div>
+        
+    </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="content">
+    <div class="row">
+
+        <div class="span9">
+            <div class='article'>
+        <div class="content-title">
+            <h1>Pelican&nbsp;Powered</h1>
+            Tue 02 July 2013
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+        </div>
+	
+        <div><p>Almost exactly 5 years ago I set up 
+<a href="http://jimpurbrick.com/2008/07/01/hello-world/">The Creation Engine No. 2</a> as a 
+<a href="https://bitbucket.org/piranha/byteflow/wiki/Home">Byteflow</a> blog running on 
+<a href="https://www.djangoproject.com/">Django</a> when the original 
+<a href="http://secondlife.blogs.com/babbage/">Creation Engine</a> blog hosted
+by <a href="http://lindenlab.com">Linden Lab</a> stopped being a suitable place for my 
+thoughts on technology as a platform for&nbsp;creativity.</p>
+<p>Byteflow and Django served me well until late last year when 
+<a href="http://www.google.com/recaptcha">Recaptcha</a> finally crumbled and I found 
+myself spending an increasingly tedious amount of time cleaning up spam&nbsp;comments.</p>
+<p>I considered just replacing the comment system with Disqus and Akismet, a 
+particularly slick combination which I used on <a href="http://creatarr.com/">Creatarr</a>, 
+but without comments Byteflow&#8217;s full Django openid account system started looking 
+pretty archiaic and heavyweight, especially when compared to the 
+<a href="http://octopress.org/">Octopress</a> on <a href="https://github.com/">github</a> blogs that 
+all the cool kids are&nbsp;using.</p>
+<p>After some playing around with various <a href="http://modernstatic.com/">modern static</a> 
+frameworks I settled on Pelican, a python framework with some nice, responsive 
+<a href="http://pelicanthemes.com/">themes</a> built with Django based Jinja 2 templates 
+which would be easy for me to hack&nbsp;around.</p>
+<p>In a couple of hours I had a new 
+<a href="https://github.com/jimpurbrick/thecreationengine.git">git repository</a> 
+containing my blog posts <a href="http://docs.getpelican.com/en/3.2/importer.html">imported</a> 
+in to a content directory, a <a href="https://github.com/jimpurbrick/pelican-themes.git">
+fork of the pelican themes</a> 
+in a theme directory, my <a href="https://github.com/jimpurbrick/jimpurbrick.github.com">jimpurbrick.github.com</a> 
+repository in an output
+directory and all of the pelican dependencies listed in a requirements.txt
+ready to be pip installed in to a python virtual&nbsp;environment.</p>
+<p>Moving jimpurbrick.com to gh-pages simply required adding a 
+<a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages"><span class="caps">CNAME</span> file</a> 
+to the <a href="https://github.com/jimpurbrick/jimpurbrick.github.com">jimpurbrick.github.com</a> repository 
+and pointing <span class="caps">DNS</span> to github and it
+was possible to emulate Bytemark&#8217;s clean URLs with Pelican by combining the
+post date and slug in it&#8217;s <span class="caps">URL</span> and storing each post in an index.html file so
+that requests to the clean <span class="caps">URL</span> at github return the index.html&nbsp;file. </p>
+<p>The same hack works to support the existing clean feed URLs which are valid
+<a href="http://validator.w3.org/feed/check.cgi?url=http%3A%2F%2Fjimpurbrick.github.com%2Ffeeds%2Fatom%2Fblog%2F">Atom</a> 
+and <a href="http://validator.w3.org/feed/check.cgi?url=http%3A%2F%2Fjimpurbrick.github.com%2Ffeeds%2Frss%2Fblog%2F"><span class="caps">RSS</span></a> 
+feeds, which could be consumed by the late 
+<a href="http://reader.google.com">Google Reader</a> despite the &#8220;.html&#8221; extension 
+causing github to return the feeds with an <span class="caps">HTML</span> content&nbsp;type.</p>
+<div class="highlight"><pre><span class="n">ARTICLE_URL</span> <span class="o">=</span> <span class="s">&quot;{date:%Y}/{date:%m}/{date:</span><span class="si">%d</span><span class="s">}/{slug}/&quot;</span>
+<span class="n">ARTICLE_SAVE_AS</span> <span class="o">=</span> <span class="s">&quot;{date:%Y}/{date:%m}/{date:</span><span class="si">%d</span><span class="s">}/{slug}/index.html&quot;</span>
+<span class="n">FEED_ATOM</span> <span class="o">=</span> <span class="s">&quot;feeds/atom/blog/index.html&quot;</span>
+<span class="n">FEED_RSS</span> <span class="o">=</span> <span class="s">&quot;feeds/rss/blog/index.html&quot;</span>
+</pre></div>
+
+
+<p>A few theme tweaks later and I have a lightweight responsive, lightweight
+blog that allows me to author posts offline, supports all of the existing 
+jimpurbrick.com permalinks and is hopefully ready for the next 5 years of 
+The Creation Engine in the mobile first, post Google Reader&nbsp;era.</p></div>
+	
+        <hr>
+    	   
+        <h2>Comments</h2>
+	<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="JimPurbrick">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+	<div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'thecreationengine'; 
+    var disqus_title = 'Pelican&nbsp;Powered';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+        </div>
+        
+        <div class="span3">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Site
+                </li>
+            
+                <li><a href="http://jimpurbrick.com/">Archives</a>
+                <li><a href="http://jimpurbrick.com/tags.html">Tags</a>
+                <li><a href="http://jimpurbrick.com/feeds/atom/blog/index.html" rel="alternate">Atom feed</a></li>
+                                <li><a href="http://jimpurbrick.com/feeds/rss/blog/index.html" rel="alternate">RSS feed</a></li>
+                            </ul>
+            </div>
+
+
+            
+
+                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Links
+                </li>
+            
+                            <li><a href="http://psychochild.org/">Brian Green</a></li>
+                            <li><a href="http://www.zenofdesign.com/">Damion Schubert</a></li>
+                            <li><a href="http://www.raphkoster.com/">Raph Koster</a></li>
+                            <li><a href="http://gwynethllewelyn.net/">Gwyneth Llewelyn</a></li>
+                            <li><a href="http://nwn.blogs.com/">James Au</a></li>
+                            <li><a href="http://t-machine.org/">Adam Martin</a></li>
+                            <li><a href="http://alekskrotoski.com/">Aleks Krotoski</a></li>
+                            <li><a href="http://www.wonderlandblog.com/">Alice Taylor</a></li>
+                            <li><a href="http://epredator.com/">Ian Hughes</a></li>
+                            <li><a href="http://andypiper.co.uk/">Andy Piper</a></li>
+                            <li><a href="http://davehillier.wordpress.com/">Dave Hillier</a></li>
+                            <li><a href="http://ondrejka.net/">Cory Ondrejka</a></li>
+                            <li><a href="http://www.serpentine.com/">Bryan O'Sullivan</a></li>
+                            <li><a href="http://blog.rocketpoweredjetpants.com/">Simon Stewart</a></li>
+                        </ul>
+            </div>
+            
+
+                        <div class="social">
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+            <ul class="nav nav-list">
+                <li class="nav-header"> 
+                Social
+                </li>
+           
+                                <li><a href="http://facebook.com/jimpurbrick">facebook</a></li>
+                                <li><a href="http://twitter.com/jimpurbrick">twitter</a></li>
+                                <li><a href="http://uk.linkedin.com/in/jimpurbrick">linkedin</a></li>
+                                <li><a href="http://delicious.com/JimPurbrick">delicious</a></li>
+                                <li><a href="http://github.com/jimpurbrick">github</a></li>
+                                <li><a href="http://bitbucket.org/jimpurbrick">bitbucket</a></li>
+                                <li><a href="http://stackoverflow.com/users/932594/jim-purbrick">stackoverflow</a></li>
+                                <li><a href="http://last.fm/user/jimpurbrick">lastfm</a></li>
+                                <li><a href="http://flickr.com/jimpurbrick">flickr</a></li>
+                            </ul>
+            </div>
+            </div>
+            
+        </div>  
+    </div>     </div> 
+<footer>
+<br />
+<!-- <a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/uk/80x15.png"/></a> -->This <span xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://purl.org/dc/dcmitype/Text" rel="dc:type">work</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://jimpurbrick.com" property="cc:attributionName" rel="cc:attributionURL">Jim Purbrick</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/">Creative Commons Attribution License</a>
+</footer>
+
+</div> <!-- /container -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="http://twitter.github.com/bootstrap/assets/js/bootstrap-collapse.js"></script>
+<script>var _gaq=[['_setAccount','UA-4868739-1'],['_trackPageview']];(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.src='//www.google-analytics.com/ga.js';s.parentNode.insertBefore(g,s)}(document,'script'))</script>
+<a href="http://github.com/jimpurbrick"><img style="position: absolute; top: 40px; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub" /></a>
+ 
+</body>
+</html>

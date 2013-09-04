@@ -26,11 +26,13 @@
     <div class="navbar-inner">
     <div class="container">
 
-         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-         </a>
+        <!-- HACK! main menu is currently empty, so don't display button for it.
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </a>
+        -->
 
         <a class="brand" href="http://jimpurbrick.com">The Creation Engine No. 2</a>
 
@@ -56,22 +58,39 @@
  
 
     <div class='article'>
-        <a href="http://jimpurbrick.com/2011/09/08/dconstructing-augmented-reality/"><h2>dConstructing Augmented&nbsp;Reality</h2></a>
-        <div class= "well small"> Thu 08 September 2011
+        <a href="http://jimpurbrick.com/2012/07/30/load-balancing-stateful-services-nginx/"><h2>Load Balancing Stateful Services With&nbsp;Nginx</h2></a>
+        <div class= "well small"> Mon 30 July 2012
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
 
 
  </div>
-        <div class="summary"><p>One of the events that kicked off <a href="http://brightondigitalfestival.co.uk/">Brighton Digital Festival</a> was
-<a href="http://2011.dconstruct.org/">dConstruct</a>, the always thought provoking conference run by
-<a href="http://clearleft.com/">clearleft</a>.</p>
+        <div class="summary"><p>The <a href="http://eveonline.com"><span class="caps">EVE</span> online</a> network architecture uses stateful proxy servers which manage sessions for players connected to the cluster via the <span class="caps">EVE</span> client. The client sends requests to the proxy which are forwarded on to sol servers maintaining the game state and the sols send notifications to the proxy which are ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/07/30/load-balancing-stateful-services-nginx/">read more</a></div>
+    </div>	
+				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2009/05/12/london-geek-community-iphone-oscestra/"><h2>The London Geek Community iPhone&nbsp;OSCestra</h2></a>
+        <div class= "well small"> Tue 12 May 2009
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><embed src="http://blip.tv/play/AYGAx2aB6RA" type="application/x-shockwave-flash" width="640" height="510" allowscriptaccess="always" allowfullscreen="true"></embed> </p>
 </p>
 
-<p>As usual I found most of the sessions interesting, but not always
-relevant as there’s a heavy design rather than development focus. The
-most relevant talk this year was ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2011/09/08/dconstructing-augmented-reality/">read more</a></div>
+<p>On Friday evening while mulling over potentially interesting hacks to
+build at <a href="http://openhacklondon.pbworks.com/FrontPage">Open Hack London</a> I remembered an idea I’d had a while ago:
+there are now loads of interesting ways to use iphones as music
+interfaces and the iphone to hacker ratio at hack days tends to be ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2009/05/12/london-geek-community-iphone-oscestra/">read more</a></div>
     </div>	
 				
     
@@ -81,21 +100,60 @@ most relevant talk this year was ...</p> <a class="btn btn-info xsmall" href="ht
  
 
     <div class='article'>
-        <a href="http://jimpurbrick.com/2008/09/18/dconstructing-dconstruct/"><h2>dConstructing&nbsp;dConstruct</h2></a>
-        <div class= "well small"> Thu 18 September 2008
+        <a href="http://jimpurbrick.com/2008/12/03/m0cxx0r-and-return-types/"><h2>m0cxx0r And Return&nbsp;Types</h2></a>
+        <div class= "well small"> Wed 03 December 2008
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
 
 
  </div>
-        <div class="summary"><p>A couple of weeks ago the great and the good of web development
-descended on Brighton for the wonderful <a href="http://clearleft.com/">clearleft</a> produced
-<a href="http://2008.dconstruct.org">dconstruct</a> conference and once again I’m glad I&nbsp;went along.</p>
+        <div class="summary"><p>The core of <a href="http://code.google.com/p/m0cxx0r/">m0cxx0r</a> is the creation of an object that records method
+calls and compares them to expectations. This is done by using C++
+placement new to create a VTableDonor object in allocated memory the
+same size as the object being mocked and then returning the memory as a ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2008/12/03/m0cxx0r-and-return-types/">read more</a></div>
+    </div>	
+				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2008/10/26/m0cxx0r-compiler-generated-mock-objects-c/"><h2>m0cxx0r - Compiler Generated Mock Objects For&nbsp;C++</h2></a>
+        <div class= "well small"> Sun 26 October 2008
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>A few weeks ago at <a href="http://jaoo.dk/aarhus-2008/conference/"><span class="caps">JAOO</span></a> I felt insanely jealous while watching <a href="http://jaoo.dk/aarhus-2008/speaker/Erik+D%C3%B6rnenburg">Erik Doernenburg</a> demo <a href="http://code.google.com/p/mockito/">Mockito</a>: I wanted dynamic mock objects in C++. It turns out that it&#8217;s really hard. However, after a few days hacking around I found that it&#8217;s not completely impossible. The results of my ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2008/10/26/m0cxx0r-compiler-generated-mock-objects-c/">read more</a></div>
+    </div>	
+				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2008/10/27/m0cxx0r-windows/"><h2>m0cxx0r on&nbsp;Windows</h2></a>
+        <div class= "well small"> Mon 27 October 2008
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>In order for m0cxx0r to be useful for writing tests at Linden Lab, it
+needs to work on all of the platforms that we target with C++
+applications, so today I tried building and running m0cxx0r&nbsp;on Windows.</p>
 </p>
 
-<p>Steven Johnson kicked off with a talk about how Dr. John Snow’s
-innovative data visualization of a ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2008/09/18/dconstructing-dconstruct/">read more</a></div>
+<p>Initially it looked good: m0cxx0r built in the default Visual Studio
+Debug ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2008/10/27/m0cxx0r-windows/">read more</a></div>
     </div>	
 				
     
@@ -105,19 +163,21 @@ innovative data visualization of a ...</p> <a class="btn btn-info xsmall" href="
  
 
     <div class='article'>
-        <a href="http://jimpurbrick.com/2010/09/15/disco-snake/"><h2>Disco&nbsp;Snake</h2></a>
-        <div class= "well small"> Wed 15 September 2010
+        <a href="http://jimpurbrick.com/2011/09/11/magic-circles-magic-portals/"><h2>From Magic Circles To Magic&nbsp;Portals</h2></a>
+        <div class= "well small"> Sun 11 September 2011
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
 
 
  </div>
-        <div class="summary"><p><object style="height: 390px; width: 640px"><param name="movie" value="http://www.youtube.com/v/slwo4rBTQ00?version=3"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed src="http://www.youtube.com/v/slwo4rBTQ00?version=3" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="640" height="390"></object></p>
-<p>Rock Band does a great job of inspiring people to play music, can you
-develop a game that inspires composition? <a href="http://en.wikipedia.org/wiki/Lumines">Lumines</a> and <a href="http://en.wikipedia.org/wiki/Rez">Rez</a> create
-music while you play, can you make games where music creation is the
-goal, not a side effect? <a href="http://en.wikipedia.org/wiki/Pictionary">Pictionary</a> does a great job of using game ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2010/09/15/disco-snake/">read more</a></div>
+        <div class="summary"><div class="flex-video"><object width="640" height="506" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"><param value="true" name="allowfullscreen"/><param value="always" name="allowscriptaccess"/><param value="high" name="quality"/><param value="true" name="cachebusting"/><param value="#000000" name="bgcolor"/><param name="movie" value="http://www.archive.org/flow/flowplayer.commercial-3.2.1.swf" /><param value="config={'key':'#$aa4baff94a9bdcafce8','playlist':['format=Thumbnail?.jpg',{'autoPlay':false,'url':'magic_circles.mp4'}],'clip':{'autoPlay':true,'baseUrl':'http://www.archive.org/download/FromMagicCirclesToMagicPortals-JimPurbrickjimpurbrick-/','scaling':'fit','provider':'h264streaming','showCaptions':true},'canvas':{'backgroundColor':'#000000','backgroundGradient':'none'},'plugins':{'controls':{'playlist':false,'fullscreen':true,'height':26,'backgroundColor':'#000000','autoHide':{'fullscreenOnly':true}},'h264streaming':{'url':'http://www.archive.org/flow/flowplayer.pseudostreaming-3.2.1.swf'},'captions':{'url':'http://www.archive.org/flow/flowplayer.captions-3.2.0.swf','captionTarget':'content'},'content':{'display':'block','url':'http://www.archive.org/flow/flowplayer.content-3.2.0.swf','bottom':26,'left':0,'width':640,'height':50,'backgroundGradient':'none','backgroundColor':'transparent','textDecoration':'outline','border':0,'style':{'body':{'fontSize':'14','fontFamily':'Arial','textAlign':'center','fontWeight':'bold','color':'#ffffff'}}}},'contextMenu':[{},'-','Flowplayer v3.2.1']}" name="flashvars"/><embed src="http://www.archive.org/flow/flowplayer.commercial-3.2.1.swf" type="application/x-shockwave-flash" width="640" height="506" allowfullscreen="true" allowscriptaccess="always" cachebusting="true" bgcolor="#000000" quality="high" flashvars="config={'key':'#$aa4baff94a9bdcafce8','playlist':['format=Thumbnail?.jpg',{'autoPlay':false,'url':'magic_circles.mp4'}],'clip':{'autoPlay':true,'baseUrl':'http://www.archive.org/download/FromMagicCirclesToMagicPortals-JimPurbrickjimpurbrick-/','scaling':'fit','provider':'h264streaming','showCaptions':true},'canvas':{'backgroundColor':'#000000','backgroundGradient':'none'},'plugins':{'controls':{'playlist':false,'fullscreen':true,'height':26,'backgroundColor':'#000000','autoHide':{'fullscreenOnly':true}},'h264streaming':{'url':'http://www.archive.org/flow/flowplayer.pseudostreaming-3.2.1.swf'},'captions':{'url':'http://www.archive.org/flow/flowplayer.captions-3.2.0.swf','captionTarget':'content'},'content':{'display':'block','url':'http://www.archive.org/flow/flowplayer.content-3.2.0.swf','bottom':26,'left':0,'width':640,'height':50,'backgroundGradient':'none','backgroundColor':'transparent','textDecoration':'outline','border':0,'style':{'body':{'fontSize':'14','fontFamily':'Arial','textAlign':'center','fontWeight':'bold','color':'#ffffff'}}}},'contextMenu':[{},'-','Flowplayer v3.2.1']}"> </embed></object></div>
+
+<p>The <a href="http://brightondigitalfestival.co.uk/">Brighton Digital Festival</a> continued this weekend with <a href="http://2011.barcampbrighton.org/">BarCamp
+Brighton 6</a> which was super interesting and lots of fun&nbsp;as always.</p>
+<p>I was a bit worried that my <a href="http://terranova.blogs.com/">Terra Nova</a> style talk on the philosophy
+of games, virtual worlds and magic circles would be too esoteric, but
+the room was ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2011/09/11/magic-circles-magic-portals/">read more</a></div>
     </div>	
 				
     
@@ -127,19 +187,18 @@ goal, not a side effect? <a href="http://en.wikipedia.org/wiki/Pictionary">Picti
  
 
     <div class='article'>
-        <a href="http://jimpurbrick.com/2009/07/20/evolving-develop/"><h2>Evolving&nbsp;Develop</h2></a>
-        <div class= "well small"> Mon 20 July 2009
+        <a href="http://jimpurbrick.com/2008/07/03/mashed-08-t-1-week/"><h2>Mashed 08: T + 1&nbsp;Week</h2></a>
+        <div class= "well small"> Thu 03 July 2008
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
 
 
  </div>
-        <div class="summary"><p>As usual I headed down to the Metropole on the sea front last week to
-attend the annual <a href="http://www.develop-conference.com/developconference09/index.html">Develop conference</a> in Brighton. Unusually, this
-time I was attending the <a href="http://www.develop-conference.com/developconference09/evolve.html">Evolve day</a> which shifts the focus from
-console development to online, mobile and social games, which I had
-helped create as ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2009/07/20/evolving-develop/">read more</a></div>
+        <div class="summary"><p>There were a number of great projects at <a href="http://mashed08.backnetwork.com/" title="Mashed">Mashed</a> that I wanted to
+blog about. Unfortunately, by the time I’d got round to setting up a
+blog I somewhat missed the boat. So, instead I’m going to revisit some
+of my favourite Mashed projects and see where they ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2008/07/03/mashed-08-t-1-week/">read more</a></div>
     </div>	
 				
     
@@ -149,18 +208,21 @@ helped create as ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick
  
 
     <div class='article'>
-        <a href="http://jimpurbrick.com/2013/07/04/final-score/"><h2>Final&nbsp;Score</h2></a>
-        <div class= "well small"> Thu 04 July 2013
+        <a href="http://jimpurbrick.com/2010/09/27/meaningful-choices/"><h2>Meaningful&nbsp;Choices</h2></a>
+        <div class= "well small"> Mon 27 September 2010
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
 
 
  </div>
-        <div class="summary"><p><img alt="Google Reader" src="http://jimpurbrick.com/static/media/reader.png" title="Google Reader" /></p>
-<p>Using Reader on my <a href="http://en.wikipedia.org/wiki/HTC_Wizard"><span class="caps">HTC</span> Wizard</a> on the loo 
-was probably responsible for my biggest increase in clue&nbsp;ever.</p>
-<p>Goodbye <a href="http://www.google.com/reader/about/">Reader</a>, you&#8217;ll be&nbsp;missed.</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2013/07/04/final-score/">read more</a></div>
+        <div class="summary"><div class="flex-video"><object width="400" height="300"> <param name="flashvars" value="offsite=true&lang=en-us&page_show_url=%2Fphotos%2Ftags%2Fthisisplayful%2Fshow%2F&page_show_back_url=%2Fphotos%2Ftags%2Fthisisplayful%2F&tags=thisisplayful&jump_to=&start_index="></param> <param name="movie" value="http://www.flickr.com/apps/slideshow/show.swf?v=71649"></param> <param name="allowFullScreen" value="true"></param><embed type="application/x-shockwave-flash" src="http://www.flickr.com/apps/slideshow/show.swf?v=71649" allowFullScreen="true" flashvars="offsite=true&lang=en-us&page_show_url=%2Fphotos%2Ftags%2Fthisisplayful%2Fshow%2F&page_show_back_url=%2Fphotos%2Ftags%2Fthisisplayful%2F&tags=thisisplayful&jump_to=&start_index=" width="400" height="300"></embed></object></div>
+
+<p>On Friday I jumped on the train to London to attend <a href="http://www.thisisplayful.com/">Playful 2010</a>, a
+one day conference put on by <a href="http://www.wearemudlark.com/">mudlark</a> of <a href="http://jimpurbrick.com/2010/06/26/world-love/">World of Love</a> fame.
+Despite billing itself as a day of cross “disciplinary frolicking” and
+featuring <a href="http://www.hellomuller.com/">designers</a>, <a href="http://shiftrunstop.co.uk/">podcasts</a>, <a href="http://www.naomialderman.com/">discussions of narrative</a>,
+<a href="http://www.volumique.com/en/">iphone augmented paper games</a> and <a href="http://jimpurbrick.com/2010/09/15/disco-snake/">Disco Snake ...</a></p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2010/09/27/meaningful-choices/">read more</a></div>
     </div>	
 				
     
@@ -170,20 +232,19 @@ was probably responsible for my biggest increase in clue&nbsp;ever.</p>
  
 
     <div class='article'>
-        <a href="http://jimpurbrick.com/2012/11/12/following-my-fathers-footsteps/"><h2>Following In My Father&#8217;s&nbsp;Footsteps</h2></a>
-        <div class= "well small"> Mon 12 November 2012
+        <a href="http://jimpurbrick.com/2008/11/19/measurement-vs-modelling/"><h2>Measurement vs&nbsp;Modelling</h2></a>
+        <div class= "well small"> Wed 19 November 2008
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
 
 
  </div>
-        <div class="summary"><p><a href="http://www.flickr.com/photos/jimpurbrick/7865450260/" title="Tintin Hair by Jim Purbrick, on Flickr"><img src="http://farm9.staticflickr.com/8431/7865450260_1651236443.jpg" width="318" height="500" alt="Tintin Hair"></a></p>
-<p>From 2 years before I was born, until just before I started working on
-Second Life at Linden Lab, my Dad worked at an innovative technology
-company with a large consumer photography business: <a href="http://www.kodak.com/">Kodak</a>. From
-January next year I’ll be working at an innovative technology company
-with a large ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/11/12/following-my-fathers-footsteps/">read more</a></div>
+        <div class="summary"><p>I’ve just been at a really interesting <a href="http://www.cafe-scientifique-brighton.org.uk/">cafe scientifique</a> in Brighton
+where <a href="http://www.philipball.com/">Philip ‘Critical Mass’ Ball</a> talked about using physics to
+model the behavior of people en mass. When modeling people as particles
+you can create surprisingly realistic simulations of real behavior in
+corridors, traffic jams and panics. As ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2008/11/19/measurement-vs-modelling/">read more</a></div>
     </div>	
 				
     
@@ -193,22 +254,65 @@ with a large ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com
  
 
     <div class='article'>
-        <a href="http://jimpurbrick.com/2010/02/10/fosdem-x/"><h2><span class="caps">FOSDEM</span>&nbsp;X</h2></a>
-        <div class= "well small"> Wed 10 February 2010
+        <a href="http://jimpurbrick.com/2009/01/12/music-again/"><h2>Music&nbsp;Again!</h2></a>
+        <div class= "well small"> Mon 12 January 2009
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
 
 
  </div>
-        <div class="summary"><p><object width="400" height="300"> <param name="flashvars" value="offsite=true&lang=en-us&page_show_url=%2Fsearch%2Fshow%2F%3Fq%3Dfosdem%26d%3Dtaken-20100204-20100208%26ss%3D0%26ct%3D0%26mt%3Dall%26adv%3D1&page_show_back_url=%2Fsearch%2F%3Fq%3Dfosdem%26d%3Dtaken-20100204-20100208%26ss%3D0%26ct%3D0%26mt%3Dall%26adv%3D1&method=flickr.photos.search&api_params_str=&api_text=fosdem&api_tag_mode=bool&api_min_taken_date=2010-02-04+00%3A00%3A00&api_max_taken_date=2010-02-09+00%3A00%3A00&api_media=all&api_sort=relevance&jump_to=&start_index=0"></param> <param name="movie" value="http://www.flickr.com/apps/slideshow/show.swf?v=71649"></param> <param name="allowFullScreen" value="true"></param><embed type="application/x-shockwave-flash" src="http://www.flickr.com/apps/slideshow/show.swf?v=71649" allowFullScreen="true" flashvars="offsite=true&lang=en-us&page_show_url=%2Fsearch%2Fshow%2F%3Fq%3Dfosdem%26d%3Dtaken-20100204-20100208%26ss%3D0%26ct%3D0%26mt%3Dall%26adv%3D1&page_show_back_url=%2Fsearch%2F%3Fq%3Dfosdem%26d%3Dtaken-20100204-20100208%26ss%3D0%26ct%3D0%26mt%3Dall%26adv%3D1&method=flickr.photos.search&api_params_str=&api_text=fosdem&api_tag_mode=bool&api_min_taken_date=2010-02-04+00%3A00%3A00&api_max_taken_date=2010-02-09+00%3A00%3A00&api_media=all&api_sort=relevance&jump_to=&start_index=0" width="400" height="300"></embed></object></p>
+        <div class="summary"><p>Since moving to Brighton 18 months ago I’ve been pretty busy finding my
+feet, moving house twice, sorting out schools and setting up Linden Lab
+Brighton, so I haven’t had as much time to make music as I’d have liked.
+It hasn’t helped that my brother ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2009/01/12/music-again/">read more</a></div>
+    </div>	
+				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2008/11/25/new-widgets/"><h2>New&nbsp;Widgets</h2></a>
+        <div class= "well small"> Tue 25 November 2008
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>It’s that time of year again where people start asking what I’d like for
+Christmas and I start wondering what they’d like in return. It’s just
+the sort of problem that should be solved with social software. Over the
+last few years I’ve had an ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2008/11/25/new-widgets/">read more</a></div>
+    </div>	
+				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2013/01/10/one-universe-many-scales/"><h2>One Universe, Many&nbsp;Scales</h2></a>
+        <div class= "well small"> Thu 10 January 2013
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>
+<div class="flex-video widescreen"><iframe width="560" height="315" src="http://www.youtube.com/embed/45mlVuLs_Nw" frameborder="0" allowfullscreen></iframe></div>
 </p>
 
-<p>Last weekend I went to the 10th Free and Open Source Developers European
-Meeting in Brussels. This year was the first time that
-<a href="http://fosdem.org/2010/"><span class="caps"><span class="caps">FOSDEM</span></span></a> had hosted a track on <a href="http://www.mono-project.com/Main_Page">Mono</a>, so
-I went along to find out what’s going on with Mono, tell the Mono folk
-what our plans ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2010/02/10/fosdem-x/">read more</a></div>
+<p>One epic meta-game design I first remember talking about a decade ago
+while working on <a href="http://massively.joystiq.com/2011/07/12/the-game-archaeologist-and-the-what-ifs-climaxs-warhammer-onli/">Warhammer Online</a> is the multi-scale online game: a
+system of interconnected games in which you choose to be a solo
+operative, work in a small group, or command epic forces or huge space
+fleets and ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2013/01/10/one-universe-many-scales/">read more</a></div>
     </div>	
 				
     
@@ -218,21 +322,24 @@ what our plans ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.c
  
 
     <div class='article'>
-        <a href="http://jimpurbrick.com/2010/03/14/fosdem-x-movie/"><h2><span class="caps">FOSDEM</span> X: The&nbsp;Movie</h2></a>
-        <div class= "well small"> Sun 14 March 2010
+        <a href="http://jimpurbrick.com/2009/12/17/open-source-guitar-mounted-multi-touch-wireless-osc-interface-ableton-live/"><h2>An Open Source, Guitar Mounted, Multi Touch, Wireless, <span class="caps">OSC</span> Interface for Ableton&nbsp;Live</h2></a>
+        <div class= "well small"> Thu 17 December 2009
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
 
 
  </div>
-        <div class="summary"><p>A video of my <span class="caps"><span class="caps">FOSDEM</span></span> talk about Mono in Second
-Life and our plans for the future of scripting is now online (the slides
-are also available <a href="http://www.slideshare.net/JimPurbrick/building-the-virtual-babel-mono-in-second-life">here</a> ):</p>
-<p><object width="560" height="340"><param name="movie" value="http://www.youtube.com/v/QGneU76KuSY&hl=en_US&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/QGneU76KuSY&hl=en_US&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="560" height="340"></embed></object></p>
-<p>Watching back, I was surprised to hear myself say “Hooray!”, “Shit” and
-“Crap” quite&nbsp;so often…</p>
-<p>While you’re catching up on ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2010/03/14/fosdem-x-movie/">read more</a></div>
+        <div class="summary"><p><img alt="Guitar mounted iPhone controller" src="http://farm3.static.flickr.com/2720/4125718215_c4e704cb4f.jpg" /></p>
+</p>
+
+<p>(<a href="http://www.flickr.com/photos/steviebm/sets/72157622856858738/">100 robots images</a> by <a href="http://nascentguruism.com/">Steve Marshall</a> )</p>
+</p>
+
+<p>Ever since playing with iPhones as music interfaces with the <a href="http://jimpurbrick.com/2009/05/12/london-geek-community-iphone-oscestra/">London
+Community iPhone OSCestra</a> at Open Hack London in May I’ve been
+wondering how I could use my iPhone as a controller in my
+rock/electronic band <a href="http://100robots.com">100 robots</a>. The 100 robots set ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2009/12/17/open-source-guitar-mounted-multi-touch-wireless-osc-interface-ableton-live/">read more</a></div>
     </div>	
 				
     
@@ -242,8 +349,8 @@ are also available <a href="http://www.slideshare.net/JimPurbrick/building-the-v
  
 
     <div class='article'>
-        <a href="http://jimpurbrick.com/2010/05/10/gamecamp-2/"><h2>GameCamp&nbsp;2</h2></a>
-        <div class= "well small"> Mon 10 May 2010
+        <a href="http://jimpurbrick.com/2009/12/07/scalecamp/"><h2>@scalecamp</h2></a>
+        <div class= "well small"> Mon 07 December 2009
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -252,11 +359,15 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  </div>
         <div class="summary"></p>
 
-<p>A couple of years ago, <a href="http://alekskrotoski.com/">Aleks Krotoski</a> and a group of friends
-spanning the web, games and technology fields decided to bring the
-<a href="http://en.wikipedia.org/wiki/Foo_Camp">FOOCamp</a> and <a href="http://en.wikipedia.org/wiki/BarCamp">BarCamp</a> model of <a href="http://en.wikipedia.org/wiki/Unconference">unconferences</a> to the world of
-games and invited me along. I had a great time at the original
-<a href="http://www.guardian.co.uk/technology/2008/apr/17/what.the">GameCamp</a> and missed it ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2010/05/10/gamecamp-2/">read more</a></div>
+<p>On Friday I jumped on the train to London to attend the first
+<a href="http://www.scalecamp.org.uk/">scalecampuk</a>, an unconference about scalability, at the
+<a href="http://guardian.co.uk">Guardian</a> offices.</p>
+</p>
+
+<p>The sessions were all very interesting and mostly very relevant. I
+learned new things about <a href="http://en.wikipedia.org/wiki/Cross-site_scripting"><span class="caps"><span class="caps">XSS</span></span></a> and
+<a href="http://en.wikipedia.org/wiki/CSRF"><span class="caps"><span class="caps">CSRF</span></span></a> and <a href="http://simonwillison.net/2009/Sep/28/ponies/">Django’s defences against
+them</a> from <a href="http://simonwillison.net">Simon Willison</a>, new ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2009/12/07/scalecamp/">read more</a></div>
     </div>	
 				
     
@@ -266,19 +377,136 @@ games and invited me along. I had a great time at the original
  
 
     <div class='article'>
-        <a href="http://jimpurbrick.com/2010/10/23/goodbye-babbage-linden-hello-doc-boffin/"><h2>Goodbye Babbage Linden, Hello Doc&nbsp;Boffin</h2></a>
-        <div class= "well small"> Sat 23 October 2010
+        <a href="http://jimpurbrick.com/2008/10/23/second-life/"><h2>Like Second&nbsp;Life</h2></a>
+        <div class= "well small"> Thu 23 October 2008
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
 
 
  </div>
-        <div class="summary"><p>In June 2004, not long after <a href="http://ondrejka.net/">Cory</a> had introduced me to <a href="http://secondlife.com">Second
-Life</a>, version 1.4 was released which added Custom Character
-Animations. In the accompanying <a href="http://lindenlab.com/pressroom/releases/04_06_15">press release</a> Philip said “My
-fantasy is to be Uma Thurman in Kill Bill”, “I’d pay \$10 for her yellow
-jumpsuit and sword ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2010/10/23/goodbye-babbage-linden-hello-doc-boffin/">read more</a></div>
+        <div class="summary"><p>Was without a doubt the phrase I heard most often yesterday, especially
+if you include variants like “Not Like Second Life”, “A bit like Second
+Life” and “Unlike Second Life”. Whatever else it’s achieved, Second Life
+has definitely become the frame of reference for the small and somewhat
+myopic ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2008/10/23/second-life/">read more</a></div>
+    </div>	
+				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2008/07/08/sharing-carbon-goggles-visualisations/"><h2>Sharing Carbon Goggles&nbsp;Visualisations</h2></a>
+        <div class= "well small"> Tue 08 July 2008
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Second Life has benefited greatly from growing in popularity alongside
+video sharing services. Many people’s first glimpse of Second Life or a
+particular Second Life experience is through the lens of a YouTube
+video. When promoting real world brands in Second Life, videos of the
+Second Life experience that ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2008/07/08/sharing-carbon-goggles-visualisations/">read more</a></div>
+    </div>	
+				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2010/08/02/some-games-never-die/"><h2>Some Games Never&nbsp;Die</h2></a>
+        <div class= "well small"> Mon 02 August 2010
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><img alt="Law screenshot" src="http://images3.wikia.nocookie.net/__cb20100802005830/chaosremakes/images/7/7b/Law.png" /></p>
+</p>
+
+<p>While goofing around asking <span class="caps"><span class="caps">UK</span></span> indie game
+developers for their top 5 games of all time at <a href="http://jimpurbrick.com/2010/06/26/world-love/">World of Love</a>, I was
+very pleased to hear that the amazing <span class="caps"><span class="caps">ZX</span></span>
+spectrum strategy game <a href="http://en.wikipedia.org/wiki/Chaos_%28video_game%29">Chaos</a> featured in&nbsp;multiple lists.</p>
+</p>
+
+<p>I love Chaos so much that I developed Law, a Chaos remake ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2010/08/02/some-games-never-die/">read more</a></div>
+    </div>	
+				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2010/10/18/spawning-django-blogs/"><h2>Spawning Django&nbsp;Blogs</h2></a>
+        <div class= "well small"> Mon 18 October 2010
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Since leaving <a href="http://lindenlab.com/">Linden Lab</a> I have been talking to a number of people
+about doing freelance consulting and development work while I get my
+start-up off the ground and last week got round to setting up a
+<span class="caps"><span class="caps">UK</span></span> limited company so that people will
+actually be able to&nbsp;pay me ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2010/10/18/spawning-django-blogs/">read more</a></div>
+    </div>	
+				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2012/05/05/super-hyperpolyglot/"><h2>Super&nbsp;Hyperpolyglot</h2></a>
+        <div class= "well small"> Sat 05 May 2012
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>A few years ago nearly all the code I wrote was in C++, but increasingly
+I’m finding myself writing in a variety of mostly C-style languages and
+having to perform crunching mental gear changes as I switch&nbsp;between them.</p>
+</p>
+
+<p>In the interests of making these language switches less painful ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/05/05/super-hyperpolyglot/">read more</a></div>
+    </div>	
+				
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2010/11/04/why-and-how-automated-testing-python-and-django/"><h2>The Why and How of Automated Testing with Python and&nbsp;Django</h2></a>
+        <div class= "well small"> Thu 04 November 2010
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><div class="flex-video"><embed src="http://blip.tv/play/AYKI80oC" type="application/x-shockwave-flash" width="480" height="302" allowscriptaccess="always" allowfullscreen="true"></embed></div>
+
+<p>Jamie has just uploaded the <a href="http://blip.tv/file/4321410/">movie</a> of my talk “The Why and How of
+Automated Testing with Python and Django” which I gave at <a href="http://brightonpy.org/">BrightonPy</a>
+a week ago (and this time it really is a movie, clocking in at a feature
+length 1 hr and 35 minutes). The audio on ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2010/11/04/why-and-how-automated-testing-python-and-django/">read more</a></div>
     </div>	
 				
             <div class="pagination">
@@ -289,9 +517,6 @@ jumpsuit and sword ...</p> <a class="btn btn-info xsmall" href="http://jimpurbri
     <li class=""><a href="http://jimpurbrick.com/author/jim-purbrick2.html">2</a></li>
     <li class="active"><a href="http://jimpurbrick.com/author/jim-purbrick3.html">3</a></li>
     <li class=""><a href="http://jimpurbrick.com/author/jim-purbrick4.html">4</a></li>
-    <li class=""><a href="http://jimpurbrick.com/author/jim-purbrick5.html">5</a></li>
-    <li class=""><a href="http://jimpurbrick.com/author/jim-purbrick6.html">6</a></li>
-    <li class=""><a href="http://jimpurbrick.com/author/jim-purbrick7.html">7</a></li>
 
     <li class="next"><a href="http://jimpurbrick.com/author/jim-purbrick4.html">Next &rarr;</a></li>
 
@@ -367,7 +592,7 @@ jumpsuit and sword ...</p> <a class="btn btn-info xsmall" href="http://jimpurbri
     </div>     </div> 
 <footer>
 <br />
-<!-- <a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by/2.0/uk/80x15.png"/></a> -->This <span xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://purl.org/dc/dcmitype/Text" rel="dc:type">work</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://jimpurbrick.com" property="cc:attributionName" rel="cc:attributionURL">Jim Purbrick</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/">Creative Commons Attribution License</a>
+<p>This <span xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://purl.org/dc/dcmitype/Text" rel="dc:type">work</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://jimpurbrick.com" property="cc:attributionName" rel="cc:attributionURL">Jim Purbrick</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/2.0/uk/">Creative Commons Attribution License</a></p>
 </footer>
 
 </div> <!-- /container -->

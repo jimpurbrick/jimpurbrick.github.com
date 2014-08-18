@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2012/11/12/following-my-fathers-footsteps/"><h1>Following In My Father&#8217;s&nbsp;Footsteps</h1></a>
-            Mon 12 November 2012
+            <a href="http://jimpurbrick.com/2014/08/18/buckd/"><h1>buckd</h1></a>
+            Mon 18 August 2014
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,58 +74,118 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><p><a href="http://www.flickr.com/photos/jimpurbrick/7865450260/" title="Tintin Hair by Jim Purbrick, on Flickr"><img src="http://farm9.staticflickr.com/8431/7865450260_1651236443.jpg" width="318" height="500" alt="Tintin Hair"></a></p>
+        <div><p><a href="https://www.flickr.com/photos/jimpurbrick/14775755047" title="BuckGraffiti by Jim Purbrick, on Flickr"><img src="https://farm6.staticflickr.com/5583/14775755047_47b31b3854_c.jpg" width="800" height="600" alt="BuckGraffiti"></a></p>
+<p>One of the things I’ve been working on since joining Facebook is
+<a href="http://facebook.github.io/buck/">Buck</a>, an open source Android <span class="amp">&amp;</span> Java
+build tool which is significantly faster than many other Java build
+tools for a <a href="http://facebook.github.io/buck/concept/what_makes_buck_so_fast.html">number of
+reasons</a>.</p>
+<p>As well as being fast, Buck gains a lot of power and flexibility by
+using Python to generate build rules. Once projects become very large,
+however, this can become a problem as Buck has to execute thousands of
+python scripts to build its dependency graph before it can start its
+parallel build process. When I started working on Buck this parse
+phase could last tens of seconds. Buck was already much faster than
+Ant, but <a href="http://c2.com/cgi/wiki?TestDrivenDevelopment">test driven
+development</a> could be&nbsp;painful.</p>
+<p>Our initial work focussed on making the parsing step faster and after
+some experimentation with <a href="http://www.jython.org/">Jython</a> we
+discovered that bigger improvements could be made by running a long
+lived Python process which could be handed build files to execute as&nbsp;required.</p>
+<p>As is often the case, the bulk of the improvements could be made by
+caching. Build files change far less often than source files, so
+caching the build file output avoids the need to spend a lot of time
+parsing in the common case when only a small number of source files
+change. After spending some time looking at serialising the build file
+output to disk it became clear that a more effective approach would be
+to cache the output in memory by running Buck as a long lived server
+process using&nbsp;Nailgun.</p>
+<p><a href="http://www.martiansoftware.com/nailgun/">Nailgun</a> is a client,
+protocol, and server for running Java programs without incurring the
+<span class="caps">JVM</span> startup overhead. Nailgun makes converting Java applications to
+client-server architectures as simple as passing the name of the class
+containing your <code>Main</code> method to the nailgun Server and
+client application. Early experiments running Buck with Nailgun showed
+a lot of promise, allowing us to reduce parse time to close to zero,
+but running buck as a server invalidated several assumptions that
+required a non-trivial amount of work to&nbsp;fix.</p>
+<p>The environment had to be threaded through from the client and calls
+to <code>System.getenv()</code> replaced, <code>System.exit()</code>
+could no longer be used for garbage collection, so resource lifetimes
+had to be managed with
+<a href="http://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html">try-with-resources</a>
+blocks and Nailgun needed to be extended to detect client
+disconnections which could be thrown as
+<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/InterruptedException.html">InterruptedException</a>s
+to ensure that killing the Nailgun client cancelled builds as
+expected. It’s also worth noting that for large, long running
+applications like Buck the <span class="caps">JVM</span> started overhead saved by Nailgun is
+not significant, but the time saved by the long running process being
+able to maintain a <span class="caps">JIT</span> cache of Java class files&nbsp;is.</p>
+<p>With Buck running as a long running server process the next step was
+to make it correctly invalidate cached build rules when build files
+changed. In order to avoid building outputs each time a file is
+touched, buck hashes the contents of input files to see if they have
+actually changed. While this saves a lot of time when switching
+between similar source control branches it requires reading each input
+file each time a build is run: something which was adding several
+seconds to the per-build overhead that we were trying to&nbsp;reduce.</p>
+<p>To avoid this overhead we switched to a composite approach which
+watches the file system for changes and then checks the hashes of the
+contents of changed files. In the case where a few files are edited
+only a few hashes are generated and compared, in the case where source
+control systems touch many files without changing their contents
+comparing hashes avoids unnecessary&nbsp;rebuilding.</p>
+<p>Initially we used the standard <a href="http://docs.oracle.com/javase/tutorial/essential/io/notification.html">Java
+WatchService</a>
+to generate file change events, but found that in practice the latency
+between changing a file and the FileWatcher generating events was far
+too high. Luckily <a href="https://github.com/wez">wez</a>,
+<a href="https://github.com/sid0">sid0</a> and friends had built
+<a href="https://github.com/facebook/watchman">Watchman</a> which provides very
+low latency file change events and an easy to use <span class="caps">JSON</span> based interface
+which only took a day to wire in to Buck. Watchman is an amazing piece
+of technology, but requires some tweaking of <span class="caps">OS</span> settings to work well,
+so if you notice Buck taking a long time to parse project files you
+may need to check the <a href="https://facebook.github.io/watchman/docs/install.html#system-specific-preparation">system specific
+preparation</a>.</p>
+<p>When combined with exopackage and a number of other optimisations, the
+benefits of the Buck daemon are significant. Trivial builds now take a
+small fraction of the time they used to and in some cases it’s
+possible to incrementally build and install of an app in <a href="http://facebook.github.io/buck/article/exopackage.html">less time
+than it takes some build systems to do a no-op
+build</a>.</p>
+<p>I’ve had a great time working with the amazingly talented Buck team
+and I’m very happy to see buckd improving build times within Facebook
+and&nbsp;beyond.</p>
+<p>Now it’s time to go back to writing a test, watching it fail and
+making it pass: with a lot less waiting&nbsp;around.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2012/11/12/following-my-fathers-footsteps/"><h2>Following In My Father&#8217;s&nbsp;Footsteps</h2></a>
+        <div class= "well small"> Mon 12 November 2012
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><a href="http://www.flickr.com/photos/jimpurbrick/7865450260/" title="Tintin Hair by Jim Purbrick, on Flickr"><img src="http://farm9.staticflickr.com/8431/7865450260_1651236443.jpg" width="318" height="500" alt="Tintin Hair"></a></p>
 <p>From 2 years before I was born, until just before I started working on
 Second Life at Linden Lab, my Dad worked at an innovative technology
 company with a large consumer photography business: <a href="http://www.kodak.com/">Kodak</a>. From
 January next year I’ll be working at an innovative technology company
-with a large consumer photography business: <a href="http://www.facebook.com/">Facebook</a>.</p>
-<p>Looking at the march of technology from the perspectives of these
-companies is amazing. I had a summer job building my first web
-application for Kodak while I was studying Computer Science in
-Nottingham and remember one of the researchers there joking that film
-needed to last a long time as a roll would often have pictures of
-christmas trees at either end with a summer holiday in the middle.
-Photography was so expensive that people would only take a few dozen
-pictures a year. Now we happily take a dozen pictures of our lunch,
-wouldn’t consider buying a telephone without a built in multi-megapixel
-camera and people upload hundreds of millions of images to Facebook&nbsp;every day.</p>
-<p>While the cost of creating photos has fallen to almost zero, their value
-hasn’t. Some of my most enjoyable moments recently have been looking at
-and commenting on the latest pictures of my brand new nephew, Charlie,
-on Facebook and so it goes for Facebook’s other billion users. Photos
-that are now so cheap to create that Kodak has <a href="http://www.kodak.com/ek/US/en/Kodak_Transforms/Home.htm">filed for chapter 11
-protection</a> become <a href="http://en.wikipedia.org/wiki/Social_objects">social objects</a> that are so valuable that
-Facebook can host the photos for free and still make a good business
-from advertising around&nbsp;the conversation.</p>
-<p>Working for Facebook might seem like a strange move after a decade
-working on 3D environments, but virtual worlds like <a href="http://secondlife.com/">Second Life</a> and
-<a href="http://www.eveonline.com/"><span class="caps"><span class="caps">EVE</span></span></a> are also social spaces, just with
-virtual nightclubs or space battles as the social objects. While 3D
-environments allow more immersion than Facebook, the price is a much
-higher barrier to entry. Although a few people from my family tried
-Second Life while I worked at Linden Lab: most of my family use Facebook
-already. My brother could create a gallery of pictures of my nephew in
-Second Life and we could meet there to talk about them, but then most of
-my nephew’s other aunts and uncles wouldn’t be able to join us. Ubiquity
-trumps immersion. Virtual worlds like Second Life still need their iPod
-moment if they’re going to cross the chasm from niche technology used by
-gamers, early adopters and academics to become a mainstream
-communication technology. Even though Second Life is free to use and
-paid for by the publishers of the 3D content, it’s still too hard to
-navigate for most people to use almost a decade after&nbsp;its launch.</p>
-<p>Facebook is already used by a billion people to keep in touch, while
-still evolving and developing at an incredible pace. I’m going to help
-new uncles connect with new nephews around the world while working on
-new technologies, which I think is going to make Facebook a fun and
-rewarding place&nbsp;to work.</p>
-<p>After that, who knows? My Dad’s working on some pretty amazing stuff
-these days: if I keep following in his footsteps and change keeps
-accelerating, the next thing is science fiction now, just as Second Life
-and Facebook were&nbsp;in 1975.</p></div>
-        <hr />
-    </div>
-		
+with a large ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/11/12/following-my-fathers-footsteps/">read more</a></div>
+    </div>	
+				
     
  
         

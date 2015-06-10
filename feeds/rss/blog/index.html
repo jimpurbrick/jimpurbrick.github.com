@@ -1,5 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>The Creation Engine No. 2</title><link>http://jimpurbrick.com/</link><description></description><atom:link href="http://jimpurbrick.com/feeds/rss/blog/index.html" rel="self"></atom:link><lastBuildDate>Mon, 18 Aug 2014 21:13:00 +0100</lastBuildDate><item><title>buckd</title><link>http://jimpurbrick.com/2014/08/18/buckd/</link><description>&lt;p&gt;&lt;a href="https://www.flickr.com/photos/jimpurbrick/14775755047" title="BuckGraffiti by Jim Purbrick, on Flickr"&gt;&lt;img src="https://farm6.staticflickr.com/5583/14775755047_47b31b3854_c.jpg" width="800" height="600" alt="BuckGraffiti"&gt;&lt;/a&gt;&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>The Creation Engine No. 2</title><link>http://jimpurbrick.com/</link><description></description><atom:link href="http://jimpurbrick.com/feeds/rss/blog/index.html" rel="self"></atom:link><lastBuildDate>Wed, 10 Jun 2015 20:22:00 +0100</lastBuildDate><item><title>Investing In Testing</title><link>http://jimpurbrick.com/2015/06/10/investing-in-testing/</link><description>&lt;p&gt;&lt;img alt="Droidcon London" src="http://uk.droidcon.com/2014/wp-content/themes/droidcon/assets/img/ShardDroid.png" title="Droidcon London" /&gt;&lt;/p&gt;
+&lt;p&gt;Last year I was talking to an engineer at &lt;a href="http://uk.droidcon.com/2015/"&gt;Droidcon
+London&lt;/a&gt; who was working on an Android
+app with 100% test coverage. I immediately asked whether he thought
+100% test coverage was worthwhile: many software engineering teams
+strive to achieve 100% test coverage, but few succeed because it&amp;#8217;s an
+enormous investment and one that I&amp;#8217;m not sure often pays&amp;nbsp;off.&lt;/p&gt;
+&lt;p&gt;As with &lt;a href="http://en.wikipedia.org/wiki/Technical_debt"&gt;technical debt&lt;/a&gt;,
+I think it&amp;#8217;s useful to think of tests as technical investments. Time
+is invested writing and maintaining tests and the expected return is
+in time saved writing and debugging code or shipping
+hotfixes. However, in many cases that payoff doesn&amp;#8217;t happen. It&amp;#8217;s easy
+to write tests which never fail or slow down the software development
+process they were intended to speed up. Large software systems tend to
+accumulate lots of connective tissue in the form of methods which
+simply pass a call along to another object. If the software builds and
+starts these tests will always pass and so deliver little value, but
+they fail when the code is changed, requiring an engineer to
+investigate the failure and change or remove the test. Even good test
+investments incur an opportunity cost as time spent writing tests is
+time not spent improving the software being&amp;nbsp;tested.&lt;/p&gt;
+&lt;p&gt;An alpha software engineer then is one that can pick the investments
+that pay off while avoiding spending time writing tests that
+don&amp;#8217;t. There are lots of useful investment strategies that can be
+employed. In some cases test driven development can save more
+development time than it costs to write the tests, meaning that the
+the investment can pay off in hours. In other cases the past can be a
+useful guide to the future: if a bug is discovered then writing a test
+to ensure that it can&amp;#8217;t occur again is often a good bet. Similarly, if
+changes to one part of a system cause failures in another then writing
+tests for those dependencies can avoid similar breakages in the
+future. In both cases it&amp;#8217;s easier to add the tests later if the code
+is designed to be testable, which in turn means that it&amp;#8217;s often a good
+idea to write at least one test for each part of the system, to ensure
+that more tests can be added when needed. Adding tests to code that
+you need to change can be a good strategy as it prioritises parts of
+the system that are changing while allowing parts that just work to
+keep running without tests. However, if those parts of the system
+continually change the tests being added can add maintenence cost
+without having time to deliver a return on their investment. In a
+system where the user interface behaviour changes less frequently than
+its implementation, investing in end-to-end tests can be
+worthwhile. The end-to-end tests have the opportunity to find many
+different bugs in different revisions of the software, which is
+changing faster than the user interface, but this needs to be weighed
+against the high maintenence costs of end-to-end tests and the
+difficulty of diagnosing problems when they&amp;nbsp;fail.&lt;/p&gt;
+&lt;p&gt;In all of these cases the goal is to write the tests with the highest
+expected return, or at least write those tests first. The problem with
+just striving for 100% code coverage as an investment strategy is that
+it values all tests equally. Any test which adds to code coverage is
+considered valuable: even those which will never fail and just add
+maintenance overhead. As the tests which can&amp;#8217;t fail are the easiest to
+write they can often end up being written first. As more of these
+tests are added, the costs mount without benefits being realised and
+eventually tests stop being written with 80% code coverage, but with
+many of the most valuable tests missing and a demoralized and
+dissilusioned&amp;nbsp;team.&lt;/p&gt;
+&lt;p&gt;When it comes to investing in testing it pays to invest in&amp;nbsp;alpha.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jim Purbrick</dc:creator><pubDate>Wed, 10 Jun 2015 20:22:00 +0100</pubDate><guid>tag:jimpurbrick.com,2015-06-10:2015/06/10/investing-in-testing/</guid><category>software</category><category>development</category><category>tools</category><category>test</category><category>testing</category></item><item><title>buckd</title><link>http://jimpurbrick.com/2014/08/18/buckd/</link><description>&lt;p&gt;&lt;a href="https://www.flickr.com/photos/jimpurbrick/14775755047" title="BuckGraffiti by Jim Purbrick, on Flickr"&gt;&lt;img src="https://farm6.staticflickr.com/5583/14775755047_47b31b3854_c.jpg" width="800" height="600" alt="BuckGraffiti"&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;One of the things I’ve been working on since joining Facebook is
 &lt;a href="http://facebook.github.io/buck/"&gt;Buck&lt;/a&gt;, an open source Android &lt;span class="amp"&gt;&amp;amp;&lt;/span&gt; Java
 build tool which is significantly faster than many other Java build

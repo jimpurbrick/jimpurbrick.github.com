@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2011/03/12/21st-century-javascript/"><h1>21st Century&nbsp;JavaScript</h1></a>
-            Sat 12 March 2011
+            <a href="http://jimpurbrick.com/2015/06/10/investing-in-testing/"><h1>Investing In&nbsp;Testing</h1></a>
+            Wed 10 June 2015
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,19 +74,91 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><div class="flex-video"><embed src="http://blip.tv/play/AYKq1y8A" type="application/x-shockwave-flash" width="640" height="510" allowscriptaccess="always" allowfullscreen="true"></embed></div>
+        <div><p><img alt="Droidcon London" src="http://uk.droidcon.com/2014/wp-content/themes/droidcon/assets/img/ShardDroid.png" title="Droidcon London" /></p>
+<p>Last year I was talking to an engineer at <a href="http://uk.droidcon.com/2015/">Droidcon
+London</a> who was working on an Android
+app with 100% test coverage. I immediately asked whether he thought
+100% test coverage was worthwhile: many software engineering teams
+strive to achieve 100% test coverage, but few succeed because it&#8217;s an
+enormous investment and one that I&#8217;m not sure often pays&nbsp;off.</p>
+<p>As with <a href="http://en.wikipedia.org/wiki/Technical_debt">technical debt</a>,
+I think it&#8217;s useful to think of tests as technical investments. Time
+is invested writing and maintaining tests and the expected return is
+in time saved writing and debugging code or shipping
+hotfixes. However, in many cases that payoff doesn&#8217;t happen. It&#8217;s easy
+to write tests which never fail or slow down the software development
+process they were intended to speed up. Large software systems tend to
+accumulate lots of connective tissue in the form of methods which
+simply pass a call along to another object. If the software builds and
+starts these tests will always pass and so deliver little value, but
+they fail when the code is changed, requiring an engineer to
+investigate the failure and change or remove the test. Even good test
+investments incur an opportunity cost as time spent writing tests is
+time not spent improving the software being&nbsp;tested.</p>
+<p>An alpha software engineer then is one that can pick the investments
+that pay off while avoiding spending time writing tests that
+don&#8217;t. There are lots of useful investment strategies that can be
+employed. In some cases test driven development can save more
+development time than it costs to write the tests, meaning that the
+the investment can pay off in hours. In other cases the past can be a
+useful guide to the future: if a bug is discovered then writing a test
+to ensure that it can&#8217;t occur again is often a good bet. Similarly, if
+changes to one part of a system cause failures in another then writing
+tests for those dependencies can avoid similar breakages in the
+future. In both cases it&#8217;s easier to add the tests later if the code
+is designed to be testable, which in turn means that it&#8217;s often a good
+idea to write at least one test for each part of the system, to ensure
+that more tests can be added when needed. Adding tests to code that
+you need to change can be a good strategy as it prioritises parts of
+the system that are changing while allowing parts that just work to
+keep running without tests. However, if those parts of the system
+continually change the tests being added can add maintenence cost
+without having time to deliver a return on their investment. In a
+system where the user interface behaviour changes less frequently than
+its implementation, investing in end-to-end tests can be
+worthwhile. The end-to-end tests have the opportunity to find many
+different bugs in different revisions of the software, which is
+changing faster than the user interface, but this needs to be weighed
+against the high maintenence costs of end-to-end tests and the
+difficulty of diagnosing problems when they&nbsp;fail.</p>
+<p>In all of these cases the goal is to write the tests with the highest
+expected return, or at least write those tests first. The problem with
+just striving for 100% code coverage as an investment strategy is that
+it values all tests equally. Any test which adds to code coverage is
+considered valuable: even those which will never fail and just add
+maintenance overhead. As the tests which can&#8217;t fail are the easiest to
+write they can often end up being written first. As more of these
+tests are added, the costs mount without benefits being realised and
+eventually tests stop being written with 80% code coverage, but with
+many of the most valuable tests missing and a demoralized and
+dissilusioned&nbsp;team.</p>
+<p>When it comes to investing in testing it pays to invest in&nbsp;alpha.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2011/03/12/21st-century-javascript/"><h2>21st Century&nbsp;JavaScript</h2></a>
+        <div class= "well small"> Sat 12 March 2011
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><div class="flex-video"><embed src="http://blip.tv/play/AYKq1y8A" type="application/x-shockwave-flash" width="640" height="510" allowscriptaccess="always" allowfullscreen="true"></embed></div>
 
 <p>The <a href="http://www.slideshare.net/JimPurbrick/engineering-javascript">slides</a> and <a href="http://jimpurbrick.blip.tv/file/4875531/">video</a> of my talk at <a href="http://asyncjs.com/privates/">AsyncJS</a> on Thursday are
 now online. The video is pretty murky, but the sound has come out fine
 and you can see enough of the slides to be able to follow along at home.
-The talk focuses on ways to bring useful software engineering patterns
-to JavaScript, patterns that will be increasingly important as
-JavaScript applications become larger and&nbsp;more complex.</p>
-<p>Thanks to <a href="http://premasagar.com/">Prem</a> for inviting me to talk and to everyone who came
-along to the <a href="http://asyncjs.com">Async</a> session for the&nbsp;fascinating discussion.</p></div>
-        <hr />
-    </div>
-		
+The talk focuses on ways to bring useful ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2011/03/12/21st-century-javascript/">read more</a></div>
+    </div>	
+				
     
  
         

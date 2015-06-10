@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2014/08/18/buckd/"><h1>buckd</h1></a>
-            Mon 18 August 2014
+            <a href="http://jimpurbrick.com/2015/06/10/investing-in-testing/"><h1>Investing In&nbsp;Testing</h1></a>
+            Wed 10 June 2015
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,95 +74,92 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><p><a href="https://www.flickr.com/photos/jimpurbrick/14775755047" title="BuckGraffiti by Jim Purbrick, on Flickr"><img src="https://farm6.staticflickr.com/5583/14775755047_47b31b3854_c.jpg" width="800" height="600" alt="BuckGraffiti"></a></p>
+        <div><p><img alt="Droidcon London" src="http://uk.droidcon.com/2014/wp-content/themes/droidcon/assets/img/ShardDroid.png" title="Droidcon London" /></p>
+<p>Last year I was talking to an engineer at <a href="http://uk.droidcon.com/2015/">Droidcon
+London</a> who was working on an Android
+app with 100% test coverage. I immediately asked whether he thought
+100% test coverage was worthwhile: many software engineering teams
+strive to achieve 100% test coverage, but few succeed because it&#8217;s an
+enormous investment and one that I&#8217;m not sure often pays&nbsp;off.</p>
+<p>As with <a href="http://en.wikipedia.org/wiki/Technical_debt">technical debt</a>,
+I think it&#8217;s useful to think of tests as technical investments. Time
+is invested writing and maintaining tests and the expected return is
+in time saved writing and debugging code or shipping
+hotfixes. However, in many cases that payoff doesn&#8217;t happen. It&#8217;s easy
+to write tests which never fail or slow down the software development
+process they were intended to speed up. Large software systems tend to
+accumulate lots of connective tissue in the form of methods which
+simply pass a call along to another object. If the software builds and
+starts these tests will always pass and so deliver little value, but
+they fail when the code is changed, requiring an engineer to
+investigate the failure and change or remove the test. Even good test
+investments incur an opportunity cost as time spent writing tests is
+time not spent improving the software being&nbsp;tested.</p>
+<p>An alpha software engineer then is one that can pick the investments
+that pay off while avoiding spending time writing tests that
+don&#8217;t. There are lots of useful investment strategies that can be
+employed. In some cases test driven development can save more
+development time than it costs to write the tests, meaning that the
+the investment can pay off in hours. In other cases the past can be a
+useful guide to the future: if a bug is discovered then writing a test
+to ensure that it can&#8217;t occur again is often a good bet. Similarly, if
+changes to one part of a system cause failures in another then writing
+tests for those dependencies can avoid similar breakages in the
+future. In both cases it&#8217;s easier to add the tests later if the code
+is designed to be testable, which in turn means that it&#8217;s often a good
+idea to write at least one test for each part of the system, to ensure
+that more tests can be added when needed. Adding tests to code that
+you need to change can be a good strategy as it prioritises parts of
+the system that are changing while allowing parts that just work to
+keep running without tests. However, if those parts of the system
+continually change the tests being added can add maintenence cost
+without having time to deliver a return on their investment. In a
+system where the user interface behaviour changes less frequently than
+its implementation, investing in end-to-end tests can be
+worthwhile. The end-to-end tests have the opportunity to find many
+different bugs in different revisions of the software, which is
+changing faster than the user interface, but this needs to be weighed
+against the high maintenence costs of end-to-end tests and the
+difficulty of diagnosing problems when they&nbsp;fail.</p>
+<p>In all of these cases the goal is to write the tests with the highest
+expected return, or at least write those tests first. The problem with
+just striving for 100% code coverage as an investment strategy is that
+it values all tests equally. Any test which adds to code coverage is
+considered valuable: even those which will never fail and just add
+maintenance overhead. As the tests which can&#8217;t fail are the easiest to
+write they can often end up being written first. As more of these
+tests are added, the costs mount without benefits being realised and
+eventually tests stop being written with 80% code coverage, but with
+many of the most valuable tests missing and a demoralized and
+dissilusioned&nbsp;team.</p>
+<p>When it comes to investing in testing it pays to invest in&nbsp;alpha.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2014/08/18/buckd/"><h2>buckd</h2></a>
+        <div class= "well small"> Mon 18 August 2014
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><a href="https://www.flickr.com/photos/jimpurbrick/14775755047" title="BuckGraffiti by Jim Purbrick, on Flickr"><img src="https://farm6.staticflickr.com/5583/14775755047_47b31b3854_c.jpg" width="800" height="600" alt="BuckGraffiti"></a></p>
 <p>One of the things I’ve been working on since joining Facebook is
 <a href="http://facebook.github.io/buck/">Buck</a>, an open source Android <span class="amp">&amp;</span> Java
 build tool which is significantly faster than many other Java build
 tools for a <a href="http://facebook.github.io/buck/concept/what_makes_buck_so_fast.html">number of
 reasons</a>.</p>
-<p>As well as being fast, Buck gains a lot of power and flexibility by
-using Python to generate build rules. Once projects become very large,
-however, this can become a problem as Buck has to execute thousands of
-python scripts to build its dependency graph before it can start its
-parallel build process. When I started working on Buck this parse
-phase could last tens of seconds. Buck was already much faster than
-Ant, but <a href="http://c2.com/cgi/wiki?TestDrivenDevelopment">test driven
-development</a> could be&nbsp;painful.</p>
-<p>Our initial work focussed on making the parsing step faster and after
-some experimentation with <a href="http://www.jython.org/">Jython</a> we
-discovered that bigger improvements could be made by running a long
-lived Python process which could be handed build files to execute as&nbsp;required.</p>
-<p>As is often the case, the bulk of the improvements could be made by
-caching. Build files change far less often than source files, so
-caching the build file output avoids the need to spend a lot of time
-parsing in the common case when only a small number of source files
-change. After spending some time looking at serialising the build file
-output to disk it became clear that a more effective approach would be
-to cache the output in memory by running Buck as a long lived server
-process using&nbsp;Nailgun.</p>
-<p><a href="http://www.martiansoftware.com/nailgun/">Nailgun</a> is a client,
-protocol, and server for running Java programs without incurring the
-<span class="caps">JVM</span> startup overhead. Nailgun makes converting Java applications to
-client-server architectures as simple as passing the name of the class
-containing your <code>Main</code> method to the nailgun Server and
-client application. Early experiments running Buck with Nailgun showed
-a lot of promise, allowing us to reduce parse time to close to zero,
-but running buck as a server invalidated several assumptions that
-required a non-trivial amount of work to&nbsp;fix.</p>
-<p>The environment had to be threaded through from the client and calls
-to <code>System.getenv()</code> replaced, <code>System.exit()</code>
-could no longer be used for garbage collection, so resource lifetimes
-had to be managed with
-<a href="http://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html">try-with-resources</a>
-blocks and Nailgun needed to be extended to detect client
-disconnections which could be thrown as
-<a href="http://docs.oracle.com/javase/7/docs/api/java/lang/InterruptedException.html">InterruptedException</a>s
-to ensure that killing the Nailgun client cancelled builds as
-expected. It’s also worth noting that for large, long running
-applications like Buck the <span class="caps">JVM</span> started overhead saved by Nailgun is
-not significant, but the time saved by the long running process being
-able to maintain a <span class="caps">JIT</span> cache of Java class files&nbsp;is.</p>
-<p>With Buck running as a long running server process the next step was
-to make it correctly invalidate cached build rules when build files
-changed. In order to avoid building outputs each time a file is
-touched, buck hashes the contents of input files to see if they have
-actually changed. While this saves a lot of time when switching
-between similar source control branches it requires reading each input
-file each time a build is run: something which was adding several
-seconds to the per-build overhead that we were trying to&nbsp;reduce.</p>
-<p>To avoid this overhead we switched to a composite approach which
-watches the file system for changes and then checks the hashes of the
-contents of changed files. In the case where a few files are edited
-only a few hashes are generated and compared, in the case where source
-control systems touch many files without changing their contents
-comparing hashes avoids unnecessary&nbsp;rebuilding.</p>
-<p>Initially we used the standard <a href="http://docs.oracle.com/javase/tutorial/essential/io/notification.html">Java
-WatchService</a>
-to generate file change events, but found that in practice the latency
-between changing a file and the FileWatcher generating events was far
-too high. Luckily <a href="https://github.com/wez">wez</a>,
-<a href="https://github.com/sid0">sid0</a> and friends had built
-<a href="https://github.com/facebook/watchman">Watchman</a> which provides very
-low latency file change events and an easy to use <span class="caps">JSON</span> based interface
-which only took a day to wire in to Buck. Watchman is an amazing piece
-of technology, but requires some tweaking of <span class="caps">OS</span> settings to work well,
-so if you notice Buck taking a long time to parse project files you
-may need to check the <a href="https://facebook.github.io/watchman/docs/install.html#system-specific-preparation">system specific
-preparation</a>.</p>
-<p>When combined with exopackage and a number of other optimisations, the
-benefits of the Buck daemon are significant. Trivial builds now take a
-small fraction of the time they used to and in some cases it’s
-possible to incrementally build and install of an app in <a href="http://facebook.github.io/buck/article/exopackage.html">less time
-than it takes some build systems to do a no-op
-build</a>.</p>
-<p>I’ve had a great time working with the amazingly talented Buck team
-and I’m very happy to see buckd improving build times within Facebook
-and&nbsp;beyond.</p>
-<p>Now it’s time to go back to writing a test, watching it fail and
-making it pass: with a lot less waiting&nbsp;around.</p></div>
-        <hr />
-    </div>
-		
+<p>As well as being fast, Buck gains a lot of power and flexibility by ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2014/08/18/buckd/">read more</a></div>
+    </div>	
+				
     
  
         
@@ -555,30 +552,6 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
 
  </div>
         <div class="summary"><p>There was a slide in the early talks that <a href="http://ondrejka.net/">Cory Ondrejka</a> used to give about Second Life about alien abductions in <a href="http://secondlife.com">Second Life</a>. One of the most exciting moments in Second Life for the early Lindens was when a resident constructed a <span class="caps">UFO</span> and flew around the world abducting other ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2011/10/03/javascript-jungle/">read more</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://jimpurbrick.com/2011/10/01/data-not-art/"><h2>Data Is Not&nbsp;Art</h2></a>
-        <div class= "well small"> Sat 01 October 2011
-
-by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
- 
-
-
- </div>
-        <div class="summary"><p>This week I experienced two remarkable combinations of music and the&nbsp;moving image.</p>
-<div class="flex-video vimeo"><iframe src="http://player.vimeo.com/video/11770011?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff" width="400" height="150" frameborder="0" webkitAllowFullScreen allowFullScreen></iframe></div>
-
-<p><a href="http://vimeo.com/11770011">Natures 3B</a> from <a href="http://vimeo.com/quayola">Quayola</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
-<p>This evening I watched <a href="http://www.lighthouse.org.uk/programme/data-is-nature">Nature</a> — Mira Calix and Quayola’s audio
-visual piece which took video footage of flowers blowing in the wind and
-used motion tracking technology to generate music ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2011/10/01/data-not-art/">read more</a></div>
     </div>	
 				
             <div class="pagination">

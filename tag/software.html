@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2015/06/10/investing-in-testing/"><h1>Investing In&nbsp;Testing</h1></a>
-            Wed 10 June 2015
+            <a href="http://jimpurbrick.com/2015/06/11/free-tests-for-everyone/"><h1>Free Tests For&nbsp;Everyone!</h1></a>
+            Thu 11 June 2015
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,69 +74,90 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><p><img alt="Droidcon London" src="http://uk.droidcon.com/2014/wp-content/themes/droidcon/assets/img/ShardDroid.png" title="Droidcon London" /></p>
+        <div><p><img alt="Infer" src="http://fbinfer.com/static/logo.png" title="Infer" /></p>
+<p>Modern software development is sometimes colourfully described as
+being similar to firing tracer bullets at a target. Rather than
+spending time doing a lot of research, design and specification up
+front, the smallest, simplest version of the software is built and the
+feedback gathered from its use is used to improve the next
+version. Being able to continuously integrate, test and deploy
+software means that we can make this feedback loop incredibly tight
+but because the same engineers are developing the software and the
+tests we constantly have to think carefully about the testing
+investments we make and their opportunity&nbsp;costs.</p>
+<p>Software engineers allow themselves to use knowledge of how the
+software works to pick good white box tests. They rely on code
+reviewers to catch important test cases that they&#8217;ve missed. They rely
+on unit tests to exercise pathological cases which are hard to
+exercise in end-to-end or integration tests. They use bugs discovered
+in previous releases to inform tests cases developed for the next. The
+goal is to ensure that the next version of the software provides
+feedback on how close it is to the target rather than just exploding
+on&nbsp;impact.</p>
+<p>The decisions around which tests to write are hard because tests have
+costs. They take time to write and maintain and need to be changed and
+updated along with the software they test. What would happen if some
+or all of the tests could be&nbsp;free?</p>
+<p>This question has tantalised computer scientists since Turing’s work
+on the <a href="http://en.wikipedia.org/wiki/Halting_problem">halting problem</a>
+in the 1930s and while academic progress has been made, tools based on
+that work have tended to either only work on small codebases; perform
+trivial analysis; generate a high percentage of false positives;
+produce difficult to understand reports or impose other overheads on
+the development process that make the resulting testing pretty far
+from free. As a result while we theoretically know how to do
+sophisticated analysis, in practice we tend to rely mostly on linters
+doing trivial checks alongside automated tests which check a handful
+of paths through the software written by&nbsp;engineers.</p>
+<p>So it was wonderful when my mixture of hope, anticipation and
+scepticism gave way to delight when the Infer static analyser
+delivered on the promise of useful, non-trivial static analysis at
+Facebook. While Infer currently only reports on a small subset of the
+errors that it can detect, for those classes of errors Infer&#8217;s output
+is generally as useful as seeing a failing test case: Infer&#8217;s 80% fix
+rate on the non-trivial bugs it finds and reports on is extraordinary
+in an environment like&nbsp;Facebook&#8217;s.</p>
+<p>Infer and tools like it won&#8217;t completely replace test cases written by
+engineers. To paraphrase Cristiano, without application specific
+information, no formula will be able to determine whether a piece of
+software is working as intended. As a companion to test suites though,
+static analysis will be transformative. It&#8217;s likely that sophisticated
+static analysers will soon be used by everyone from the smallest
+software engineering teams to the biggest tech companies. When high
+quality tests are free, why wouldn&#8217;t you run&nbsp;them?</p>
+<p>Working with Infer in production at Facebook over the last year has
+been like living in the future. It has changed the way I think about
+testing and about the testing investments that should be made. I’m
+incredibly excited to see its public release as an <a href="https://github.com/facebook/infer">open
+source</a> tool that can be used by
+everyone and very grateful to have been able to help distribute this
+future more&nbsp;widely.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2015/06/10/investing-in-testing/"><h2>Investing In&nbsp;Testing</h2></a>
+        <div class= "well small"> Wed 10 June 2015
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><img alt="Droidcon London" src="http://uk.droidcon.com/2014/wp-content/themes/droidcon/assets/img/ShardDroid.png" title="Droidcon London" /></p>
 <p>Last year I was talking to an engineer at <a href="http://uk.droidcon.com/2015/">Droidcon
 London</a> who was working on an Android
 app with 100% test coverage. I immediately asked whether he thought
 100% test coverage was worthwhile: many software engineering teams
-strive to achieve 100% test coverage, but few succeed because it&#8217;s an
-enormous investment and one that I&#8217;m not sure often pays&nbsp;off.</p>
-<p>As with <a href="http://en.wikipedia.org/wiki/Technical_debt">technical debt</a>,
-I think it&#8217;s useful to think of tests as technical investments. Time
-is invested writing and maintaining tests and the expected return is
-in time saved writing and debugging code or shipping
-hotfixes. However, in many cases that payoff doesn&#8217;t happen. It&#8217;s easy
-to write tests which never fail or slow down the software development
-process they were intended to speed up. Large software systems tend to
-accumulate lots of connective tissue in the form of methods which
-simply pass a call along to another object. If the software builds and
-starts these tests will always pass and so deliver little value, but
-they fail when the code is changed, requiring an engineer to
-investigate the failure and change or remove the test. Even good test
-investments incur an opportunity cost as time spent writing tests is
-time not spent improving the software being&nbsp;tested.</p>
-<p>An <a href="http://en.wikipedia.org/wiki/Alpha_%28finance%29">alpha</a> software
-engineer then is one that can pick the investments that pay off while
-avoiding spending time writing tests that don&#8217;t. There are lots of
-useful investment strategies that can be employed. In some cases test
-driven development can save more development time than it costs to
-write the tests, meaning that the the investment can pay off in
-hours. In other cases the past can be a useful guide to the future: if
-a bug is discovered then writing a test to ensure that it can&#8217;t occur
-again is often a good bet. Similarly, if changes to one part of a
-system cause failures in another then writing tests for those
-dependencies can avoid similar breakages in the future. In both cases
-it&#8217;s easier to add the tests later if the code is designed to be
-testable, which in turn means that it&#8217;s often a good idea to write at
-least one test for each part of the system, to ensure that more tests
-can be added when needed. Adding tests to code that you need to change
-can be a good strategy as it prioritises parts of the system that are
-changing while allowing parts that just work to keep running without
-tests. However, if those parts of the system continually change the
-tests being added can add maintenence cost without having time to
-deliver a return on their investment. In a system where the user
-interface behaviour changes less frequently than its implementation,
-investing in end-to-end tests can be worthwhile. The end-to-end tests
-have the opportunity to find many different bugs in different
-revisions of the software, which is changing faster than the user
-interface, but this needs to be weighed against the high maintenence
-costs of end-to-end tests and the difficulty of diagnosing problems
-when they&nbsp;fail.</p>
-<p>In all of these cases the goal is to write the tests with the highest
-expected return, or at least write those tests first. The problem with
-just striving for 100% code coverage as an investment strategy is that
-it values all tests equally. Any test which adds to code coverage is
-considered valuable: even those which will never fail and just add
-maintenance overhead. As the tests which can&#8217;t fail are the easiest to
-write they can often end up being written first. As more of these
-tests are added, the costs mount without benefits being realised and
-eventually tests stop being written with 80% code coverage, but with
-many of the most valuable tests missing and a demoralized and
-dissilusioned&nbsp;team.</p>
-<p>When it comes to investing in testing it pays to invest in&nbsp;alpha.</p></div>
-        <hr />
-    </div>
-		
+strive to achieve 100% test coverage, but few succeed because it&#8217;s an ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2015/06/10/investing-in-testing/">read more</a></div>
+    </div>	
+				
     
  
         

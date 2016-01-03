@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2010/11/04/why-and-how-automated-testing-python-and-django/"><h1>The Why and How of Automated Testing with Python and&nbsp;Django</h1></a>
-            Thu 04 November 2010
+            <a href="http://jimpurbrick.com/2016/01/03/crestmatic/"><h1>crestmatic</h1></a>
+            Sun 03 January 2016
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,31 +74,37 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><div class="flex-video"><embed src="http://blip.tv/play/AYKI80oC" type="application/x-shockwave-flash" width="480" height="302" allowscriptaccess="always" allowfullscreen="true"></embed></div>
+        <div><div class="flex-video widescreen"><iframe src="https://www.youtube.com/watch?v=QMQOjUjrZIo" frameborder="0" allowfullscreen=""></iframe></div>
+
+<p>A year ago I gave a talk at <a href="http://vegas.eveonline.com/"><span class="caps">EVE</span> Vegas</a> about RESTful <span class="caps">CREST</span>. My <a href="https://youtu.be/QMQOjUjrZIo?t=697">#1 recommendation</a> for RESTful <span class="caps">CREST</span> applications is to specify representations in requests, but that&#8217;s hard to do when there is very little documentation on which representations are available and what they&nbsp;contain.</p>
+<p>One of the neat things about <span class="caps">CREST</span> is that it’s self describing (https://www.youtube.com/watch?v=QMQOjUjrZIo&amp;t=1369). You just need to send an <span class="caps">OPTIONS</span> request to a <span class="caps">CREST</span> <span class="caps">URI</span> and the <span class="caps">API</span> will send a list of methods and representations that can be used with that <span class="caps">URI</span>. Unfortunately the data returned isn’t in a standard format, so I built the <a href="https://github.com/jimpurbrick/crestschema">crestschema</a> library which can convert the <span class="caps">CREST</span> format in to a more useful <a href="http://json-schema.org/latest/json-schema-core.html"><span class="caps">JSON</span> schema</a> format. The library is designed to work both in browsers, in applications like <a href="https://github.com/jimpurbrick/crestexplorerjs">crestexplorer</a>, and from <a href="https://nodejs.org/">node</a>, in applications like <a href="https://github.com/jimpurbrick/crestschema/blob/master/crestschemaspider.js">crestschemaspider</a> which crawls the <span class="caps">CREST</span> <span class="caps">API</span> to find representations which it converts to <span class="caps">JSON</span> schema and saves to disk. The <span class="caps">JSON</span> schema can then be used with wide variety of software, libraries and languages (http://json-schema.org/implementations.html) to validate data from the <span class="caps">API</span>, generate parsers and automatically generate&nbsp;documentation. </p>
+<p>With the <span class="caps">JSON</span> schemas collected its then possible to build <a href="https://github.com/jimpurbrick/crestmatic">crestmatic</a> which uses crestschema and matic to generate documentation. The final step was to add a travis after_success step to publish the generated documentation to the <a href="http://jimpurbrick.com/crestmatic/">crestmatic gh-pages branch</a> and to use <a href="https://nightli.es/">nightli.es</a> to trigger a build every night to ensure that the documentation is kept up to date. Please feel free to fork the repo, submit a pull request if you&#8217;d like to see some changes or just donate some <span class="caps">ISK</span> to Capt&nbsp;Out.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2010/11/04/why-and-how-automated-testing-python-and-django/"><h2>The Why and How of Automated Testing with Python and&nbsp;Django</h2></a>
+        <div class= "well small"> Thu 04 November 2010
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><div class="flex-video"><embed src="http://blip.tv/play/AYKI80oC" type="application/x-shockwave-flash" width="480" height="302" allowscriptaccess="always" allowfullscreen="true"></embed></div>
 
 <p>Jamie has just uploaded the <a href="http://blip.tv/file/4321410/">movie</a> of my talk “The Why and How of
 Automated Testing with Python and Django” which I gave at <a href="http://brightonpy.org/">BrightonPy</a>
 a week ago (and this time it really is a movie, clocking in at a feature
-length 1 hr and 35 minutes). The audio on the video is fine (and
-arguably the laptop-eye-view video is improved by chopping my head off
-for large parts of the talk), but it’s tricky to see the slides on the
-video, so I’ve uploaded them to <a href="http://www.slideshare.net/JimPurbrick/the-why-and-how-of-automated-testing-with-python-and-django">slideshare</a>.</p>
-<p>The talk rambles a bit in places and there are a couple of things that
-betray my static language roots for example you can’t actually use unit
-tests to discover dependencies as easily in python as you can in C++.
-I’m also already evolving the <span class="caps"><span class="caps">JS</span></span> testing stack
-I talk about here: moving from <a href="http://docs.jquery.com/Qunit">qunit</a>, <a href="http://code.google.com/p/qmock/">qmock</a> and <a href="http://seleniumhq.org/">Selenium</a> to
-<a href="http://jsmockito.org/">jsmockito</a> and possibly <a href="http://code.google.com/p/js-test-driver/">JsTestDriver</a>. Overall I think it’s a
-pretty good overview of how an agile software engineering process can be&nbsp;screwed together.</p>
-<p>Many thanks to <a href="http://twitter.com/#!/garethr">@garethr</a> for donating his <a href="http://docs.fabfile.org/0.9.2/">Fabric</a> scripts, Spike
-for his database migration cameo, <a href="http://singinghorsestudio.com">Si</a> for recommending <a href="http://hudson-ci.org/">Hudson</a>,
-<a href="http://davehillier.wordpress.com/">Dave</a> for hooking me on automated testing and <a href="http://j4mie.org">j4mie</a> for
-organising the night and wrangling the video. If you’d like me to help
-your organisation improve its agile engineering process, please <a href="http://18dex.com/about/">get in
-touch</a>.</p></div>
-        <hr />
-    </div>
-		
+length 1 hr and 35 minutes). The audio on ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2010/11/04/why-and-how-automated-testing-python-and-django/">read more</a></div>
+    </div>	
+				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Previous</a></li>

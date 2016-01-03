@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2015/06/11/free-tests-for-everyone/"><h1>Free Tests For&nbsp;Everyone!</h1></a>
-            Thu 11 June 2015
+            <a href="http://jimpurbrick.com/2016/01/03/crestmatic/"><h1>crestmatic</h1></a>
+            Sun 03 January 2016
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,67 +74,37 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><p><img src="http://fbinfer.com/static/logo.png" width="400"></p>
+        <div><div class="flex-video widescreen"><iframe src="https://www.youtube.com/watch?v=QMQOjUjrZIo" frameborder="0" allowfullscreen=""></iframe></div>
+
+<p>A year ago I gave a talk at <a href="http://vegas.eveonline.com/"><span class="caps">EVE</span> Vegas</a> about RESTful <span class="caps">CREST</span>. My <a href="https://youtu.be/QMQOjUjrZIo?t=697">#1 recommendation</a> for RESTful <span class="caps">CREST</span> applications is to specify representations in requests, but that&#8217;s hard to do when there is very little documentation on which representations are available and what they&nbsp;contain.</p>
+<p>One of the neat things about <span class="caps">CREST</span> is that it’s self describing (https://www.youtube.com/watch?v=QMQOjUjrZIo&amp;t=1369). You just need to send an <span class="caps">OPTIONS</span> request to a <span class="caps">CREST</span> <span class="caps">URI</span> and the <span class="caps">API</span> will send a list of methods and representations that can be used with that <span class="caps">URI</span>. Unfortunately the data returned isn’t in a standard format, so I built the <a href="https://github.com/jimpurbrick/crestschema">crestschema</a> library which can convert the <span class="caps">CREST</span> format in to a more useful <a href="http://json-schema.org/latest/json-schema-core.html"><span class="caps">JSON</span> schema</a> format. The library is designed to work both in browsers, in applications like <a href="https://github.com/jimpurbrick/crestexplorerjs">crestexplorer</a>, and from <a href="https://nodejs.org/">node</a>, in applications like <a href="https://github.com/jimpurbrick/crestschema/blob/master/crestschemaspider.js">crestschemaspider</a> which crawls the <span class="caps">CREST</span> <span class="caps">API</span> to find representations which it converts to <span class="caps">JSON</span> schema and saves to disk. The <span class="caps">JSON</span> schema can then be used with wide variety of software, libraries and languages (http://json-schema.org/implementations.html) to validate data from the <span class="caps">API</span>, generate parsers and automatically generate&nbsp;documentation. </p>
+<p>With the <span class="caps">JSON</span> schemas collected its then possible to build <a href="https://github.com/jimpurbrick/crestmatic">crestmatic</a> which uses crestschema and matic to generate documentation. The final step was to add a travis after_success step to publish the generated documentation to the <a href="http://jimpurbrick.com/crestmatic/">crestmatic gh-pages branch</a> and to use <a href="https://nightli.es/">nightli.es</a> to trigger a build every night to ensure that the documentation is kept up to date. Please feel free to fork the repo, submit a pull request if you&#8217;d like to see some changes or just donate some <span class="caps">ISK</span> to Capt&nbsp;Out.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2015/06/11/free-tests-for-everyone/"><h2>Free Tests For&nbsp;Everyone!</h2></a>
+        <div class= "well small"> Thu 11 June 2015
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><img src="http://fbinfer.com/static/logo.png" width="400"></p>
 <p>Modern software development is sometimes colourfully described as
 being similar to firing tracer bullets at a target. Rather than
 spending time doing a lot of research, design and specification up
 front, the smallest, simplest version of the software is built and the
-feedback gathered from its use is used to improve the next
-version. Being able to continuously integrate, test and deploy
-software means that we can make this feedback loop incredibly tight
-but because the same engineers are developing the software and the
-tests we constantly have to think carefully about the testing
-investments we make and their opportunity&nbsp;costs.</p>
-<p>Software engineers allow themselves to use knowledge of how the
-software works to pick good white box tests. They rely on code
-reviewers to catch important test cases that they&#8217;ve missed. They rely
-on unit tests to exercise pathological cases which are hard to
-exercise in end-to-end or integration tests. They use bugs discovered
-in previous releases to inform tests cases developed for the next. The
-goal is to ensure that the next version of the software provides
-feedback on how close it is to the target rather than just exploding
-on&nbsp;impact.</p>
-<p>The decisions around which tests to write are hard because tests have
-costs. They take time to write and maintain and need to be changed and
-updated along with the software they test. What would happen if some
-or all of the tests could be&nbsp;free?</p>
-<p>This question has tantalised computer scientists since Turing’s work
-on the <a href="http://en.wikipedia.org/wiki/Halting_problem">halting problem</a>
-in the 1930s and while academic progress has been made, tools based on
-that work have tended to either only work on small codebases; perform
-trivial analysis; generate a high percentage of false positives;
-produce difficult to understand reports or impose other overheads on
-the development process that make the resulting testing pretty far
-from free. As a result while we theoretically know how to do
-sophisticated analysis, in practice we tend to rely mostly on linters
-doing trivial checks alongside automated tests which check a handful
-of paths through the software written by&nbsp;engineers.</p>
-<p>So it was wonderful when my mixture of hope, anticipation and
-scepticism gave way to delight when the Infer static analyser
-delivered on the promise of useful, non-trivial static analysis at
-Facebook. While Infer currently only reports on a small subset of the
-errors that it can detect, for those classes of errors Infer&#8217;s output
-is generally as useful as seeing a failing test case: Infer&#8217;s 80% fix
-rate on the non-trivial bugs it finds and reports on is extraordinary
-in an environment like&nbsp;Facebook&#8217;s.</p>
-<p>Infer and tools like it won&#8217;t completely replace test cases written by
-engineers. To paraphrase Cristiano, without application specific
-information, no formula will be able to determine whether a piece of
-software is working as intended. As a companion to test suites though,
-static analysis will be transformative. It&#8217;s likely that sophisticated
-static analysers will soon be used by everyone from the smallest
-software engineering teams to the biggest tech companies. When high
-quality tests are free, why wouldn&#8217;t you run&nbsp;them?</p>
-<p>Working with Infer in production at Facebook over the last year has
-been like living in the future. It has changed the way I think about
-testing and about the testing investments that should be made. I’m
-incredibly excited to see its public release as an <a href="https://github.com/facebook/infer">open
-source</a> tool that can be used by
-everyone and very grateful to have been able to help distribute this
-future more&nbsp;widely.</p></div>
-        <hr />
-    </div>
-		
+feedback gathered from its use is used to ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2015/06/11/free-tests-for-everyone/">read more</a></div>
+    </div>	
+				
     
  
         
@@ -534,28 +504,6 @@ Community iPhone OSCestra</a> at <a href="http://openhacklondon.pbworks.com/Fron
 controlling Ableton Live with iPhone tapped to my guitar as part of <a href="http://100robots.com">100
 robots</a> for <a href="http://vimeo.com/7967321">a couple of years now</a> so when <a href="https://twitter.com/#!/andybudd">@andybudd</a> suggested
 I ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/01/04/100-robots-vs-audience/">read more</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://jimpurbrick.com/2011/12/09/100-robots-attack/"><h2>100 robots&nbsp;Attack!</h2></a>
-        <div class= "well small"> Fri 09 December 2011
-
-by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
- 
-
-
- </div>
-        <div class="summary"><p>Lots of exciting <a href="http://100robots.com">100 robots</a> news! Our debut album, Attack!, has been
-professionally mastered by Chris at <a href="http://melograf.com/">Melograf Mastering</a> who has done
-an amazing job and made the album sound incredible. The new version is
-already available at <a href="http://100robots.bandcamp.com">bandcamp</a> and will be available on itunes,
-<a href="http://www.amazon.co.uk/gp/product/B006CBXRMY/ref=dm_sp_alb?ie=UTF8&amp;qid=1323472257&amp;sr=8-16">amazon</a> and many other download ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2011/12/09/100-robots-attack/">read more</a></div>
     </div>	
 				
             <div class="pagination">

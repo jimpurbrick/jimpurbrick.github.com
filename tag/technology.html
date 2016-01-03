@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2014/03/20/organisational-structures/"><h1>Organisational&nbsp;Structures</h1></a>
-            Thu 20 March 2014
+            <a href="http://jimpurbrick.com/2016/01/03/crestmatic/"><h1>crestmatic</h1></a>
+            Sun 03 January 2016
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,7 +74,30 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><p>There have been a number of
+        <div><div class="flex-video widescreen"><iframe src="https://www.youtube.com/watch?v=QMQOjUjrZIo" frameborder="0" allowfullscreen=""></iframe></div>
+
+<p>A year ago I gave a talk at <a href="http://vegas.eveonline.com/"><span class="caps">EVE</span> Vegas</a> about RESTful <span class="caps">CREST</span>. My <a href="https://youtu.be/QMQOjUjrZIo?t=697">#1 recommendation</a> for RESTful <span class="caps">CREST</span> applications is to specify representations in requests, but that&#8217;s hard to do when there is very little documentation on which representations are available and what they&nbsp;contain.</p>
+<p>One of the neat things about <span class="caps">CREST</span> is that it’s self describing (https://www.youtube.com/watch?v=QMQOjUjrZIo&amp;t=1369). You just need to send an <span class="caps">OPTIONS</span> request to a <span class="caps">CREST</span> <span class="caps">URI</span> and the <span class="caps">API</span> will send a list of methods and representations that can be used with that <span class="caps">URI</span>. Unfortunately the data returned isn’t in a standard format, so I built the <a href="https://github.com/jimpurbrick/crestschema">crestschema</a> library which can convert the <span class="caps">CREST</span> format in to a more useful <a href="http://json-schema.org/latest/json-schema-core.html"><span class="caps">JSON</span> schema</a> format. The library is designed to work both in browsers, in applications like <a href="https://github.com/jimpurbrick/crestexplorerjs">crestexplorer</a>, and from <a href="https://nodejs.org/">node</a>, in applications like <a href="https://github.com/jimpurbrick/crestschema/blob/master/crestschemaspider.js">crestschemaspider</a> which crawls the <span class="caps">CREST</span> <span class="caps">API</span> to find representations which it converts to <span class="caps">JSON</span> schema and saves to disk. The <span class="caps">JSON</span> schema can then be used with wide variety of software, libraries and languages (http://json-schema.org/implementations.html) to validate data from the <span class="caps">API</span>, generate parsers and automatically generate&nbsp;documentation. </p>
+<p>With the <span class="caps">JSON</span> schemas collected its then possible to build <a href="https://github.com/jimpurbrick/crestmatic">crestmatic</a> which uses crestschema and matic to generate documentation. The final step was to add a travis after_success step to publish the generated documentation to the <a href="http://jimpurbrick.com/crestmatic/">crestmatic gh-pages branch</a> and to use <a href="https://nightli.es/">nightli.es</a> to trigger a build every night to ensure that the documentation is kept up to date. Please feel free to fork the repo, submit a pull request if you&#8217;d like to see some changes or just donate some <span class="caps">ISK</span> to Capt&nbsp;Out.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2014/03/20/organisational-structures/"><h2>Organisational&nbsp;Structures</h2></a>
+        <div class= "well small"> Thu 20 March 2014
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>There have been a number of
 <a href="http://www.washingtonpost.com/blogs/on-leadership/wp/2014/01/03/zappos-gets-rid-of-all-managers/">blog</a>
 <a href="http://www.oscon.com/oscon2013/public/schedule/detail/29555">posts</a>
 recently about exciting new organisational structures. As
@@ -83,64 +106,9 @@ out</a>
 &#8220;Every early stage company thinks it has reinvented management&#8221;: a
 very dangerous belief when betting on a new organisational structure
 can be much riskier than betting on the wrong&nbsp;product.</p>
-<p>It starts innocently enough: version 1.0 has finally launched, early
-adopters have arrived, the graphs are definitely starting to point
-upward and it&#8217;s time to&nbsp;hire.</p>
-<p>Growing the company is the next challenge, but no one has spent the
-last couple of years foregoing income and sleep to build another Acme
-Corp., in fact no one believes that an Acme Corp. would have been
-capable of launching version 1.0 which was clearly only possible due
-to having a room full of smart people and no&nbsp;management.</p>
-<p>So, the first course of action is to hire more smart people and
-empower them to choose the right thing to do. This works for a while
-but eventually the <span class="caps">CEO</span> can no longer keep track of what everyone&#8217;s
-doing and some things are falling through the&nbsp;cracks.</p>
-<p>This is clearly a scaling problem, so a scalable system is
-devised. Maybe everyone picks N tasks a week and votes on the most
-important, maybe this is 2 years ago and some bonuses are sprinkled on
-gamification style, or this is in 6 months time and some sharing
-economy social mechanics are wedged&nbsp;in.</p>
-<p>Like all alphas there are some wrinkles and so the system is tweaked
-and iterated on, but now the organisational structure has become a
-second product. While some people are enthusiastically hacking on the
-organisation, they&#8217;re not working on version 1.3 which is late. Other
-people are frantically trying to get version 1.3 out of the door while
-another no longer buys the new organisational structure and has cashed
-in their last 2 years vacation along with the money they gamed from
-the bonus system to pay for a month long holiday in the&nbsp;sun.</p>
-<p>Eventually it becomes clear that fighting on two fronts is not
-sustainable and the <span class="caps">CEO</span> decides to pivot to a more conventional
-organisational structure to concentrate on getting version 1.4 out on
-time. Some of the people who heroically got 1.3 out of the door would
-make great managers, but by this time they have either already burned
-out and left or are shopping their CVs to Acme&nbsp;Corp.</p>
-<p>Luckily the product is still generating buzz, so a brace of
-experienced managers can be drafted in, but this generates even more
-organisational churn as some more of the smart people look up 4.5
-years in to their 3 month project to discover that a lot of their
-friends have&nbsp;left.</p>
-<p>The organisational structure that looked like a trivial problem
-compared to building version 1.0 results in version 2.0 never&nbsp;shipping.</p>
-<p>Getting product decisions wrong costs time and money. Getting
-organisational decisions wrong burns even more valuable human capital
-and goodwill. Engineers at startups expect to make product pivots, but
-they don&#8217;t expect to be alpha testing an ever-changing series of
-organisational MVPs at the same&nbsp;time.</p>
-<p>In many cases the ground breaking tech product and/or service is
-mostly a clever combination of commodity hardware and open source
-software connected to the internet and maintained by a small and
-heroic ops&nbsp;team.</p>
-<p>Similarly, the innovative company is often a clever combination of
-existing organisational structures maintained by a small and heroic
-management&nbsp;team.</p>
-<p>I&#8217;m currently very happy as one of the nodes in the middle left
-picture below. <a href="https://www.facebook.com/careers/teams/engineering">We&#8217;re
-hiring</a>.</p>
-<p><img alt="Organizational Charts" src="http://www.bonkersworld.net/images/2011.06.27_organizational_charts.png" title="Organizational Charts" />
-(via <a href="http://www.bonkersworld.net/">bonkersworld.net</a>&nbsp;)</p></div>
-        <hr />
-    </div>
-		
+<p>It starts ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2014/03/20/organisational-structures/">read more</a></div>
+    </div>	
+				
     
  
         

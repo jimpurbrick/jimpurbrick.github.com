@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2013/01/10/one-universe-many-scales/"><h1>One Universe, Many&nbsp;Scales</h1></a>
-            Thu 10 January 2013
+            <a href="http://jimpurbrick.com/2016/01/03/crestmatic/"><h1>crestmatic</h1></a>
+            Sun 03 January 2016
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,7 +74,30 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><p>
+        <div><div class="flex-video widescreen"><iframe src="https://www.youtube.com/watch?v=QMQOjUjrZIo" frameborder="0" allowfullscreen=""></iframe></div>
+
+<p>A year ago I gave a talk at <a href="http://vegas.eveonline.com/"><span class="caps">EVE</span> Vegas</a> about RESTful <span class="caps">CREST</span>. My <a href="https://youtu.be/QMQOjUjrZIo?t=697">#1 recommendation</a> for RESTful <span class="caps">CREST</span> applications is to specify representations in requests, but that&#8217;s hard to do when there is very little documentation on which representations are available and what they&nbsp;contain.</p>
+<p>One of the neat things about <span class="caps">CREST</span> is that it’s self describing (https://www.youtube.com/watch?v=QMQOjUjrZIo&amp;t=1369). You just need to send an <span class="caps">OPTIONS</span> request to a <span class="caps">CREST</span> <span class="caps">URI</span> and the <span class="caps">API</span> will send a list of methods and representations that can be used with that <span class="caps">URI</span>. Unfortunately the data returned isn’t in a standard format, so I built the <a href="https://github.com/jimpurbrick/crestschema">crestschema</a> library which can convert the <span class="caps">CREST</span> format in to a more useful <a href="http://json-schema.org/latest/json-schema-core.html"><span class="caps">JSON</span> schema</a> format. The library is designed to work both in browsers, in applications like <a href="https://github.com/jimpurbrick/crestexplorerjs">crestexplorer</a>, and from <a href="https://nodejs.org/">node</a>, in applications like <a href="https://github.com/jimpurbrick/crestschema/blob/master/crestschemaspider.js">crestschemaspider</a> which crawls the <span class="caps">CREST</span> <span class="caps">API</span> to find representations which it converts to <span class="caps">JSON</span> schema and saves to disk. The <span class="caps">JSON</span> schema can then be used with wide variety of software, libraries and languages (http://json-schema.org/implementations.html) to validate data from the <span class="caps">API</span>, generate parsers and automatically generate&nbsp;documentation. </p>
+<p>With the <span class="caps">JSON</span> schemas collected its then possible to build <a href="https://github.com/jimpurbrick/crestmatic">crestmatic</a> which uses crestschema and matic to generate documentation. The final step was to add a travis after_success step to publish the generated documentation to the <a href="http://jimpurbrick.com/crestmatic/">crestmatic gh-pages branch</a> and to use <a href="https://nightli.es/">nightli.es</a> to trigger a build every night to ensure that the documentation is kept up to date. Please feel free to fork the repo, submit a pull request if you&#8217;d like to see some changes or just donate some <span class="caps">ISK</span> to Capt&nbsp;Out.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2013/01/10/one-universe-many-scales/"><h2>One Universe, Many&nbsp;Scales</h2></a>
+        <div class= "well small"> Thu 10 January 2013
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>
 <div class="flex-video widescreen"><iframe width="560" height="315" src="http://www.youtube.com/embed/45mlVuLs_Nw" frameborder="0" allowfullscreen></iframe></div>
 </p>
 
@@ -82,34 +105,9 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
 while working on <a href="http://massively.joystiq.com/2011/07/12/the-game-archaeologist-and-the-what-ifs-climaxs-warhammer-onli/">Warhammer Online</a> is the multi-scale online game: a
 system of interconnected games in which you choose to be a solo
 operative, work in a small group, or command epic forces or huge space
-fleets and influence a single universe however you choose to contribute.
-It’s a recurring game design meme that I’ve talked about several times
-since and I’m sure many others have had similar discussions around the
-globe ever since multiple computers were&nbsp;connected together.</p>
-<p>So, I’m super excited to see <a href="http://www.ccpgames.com/en/home"><span class="caps"><span class="caps">CCP</span></span> games</a>
-take a huge step towards realizing this epic game design dream today by
-linking the internet spaceship game <a href="http://www.eveonline.com/"><span class="caps"><span class="caps">EVE</span></span>
-online</a> with the brand new <span class="caps"><span class="caps">PS3</span></span> first person
-shooter <a href="http://www.dust514.com/">Dust 514</a>. Players piloting giant spacecraft in
-<span class="caps"><span class="caps">EVE</span></span> online will be able to swoop down from
-space and interact with other players running around on the planet’s
-surface playing Dust 514. This is&nbsp;very cool.</p>
-<p>I’m also very excited that the two games are connected using the
-<a href="http://wiki.eveonline.com/en/wiki/CREST_Documentation#CREST"><span class="caps"><span class="caps">CREST</span></span> <span class="caps"><span class="caps">API</span></span></a> that I
-helped to build: an <span class="caps"><span class="caps">API</span></span> that will be usable
-everywhere. Not only will you be able to interact with the
-<span class="caps"><span class="caps">EVE</span></span> universe at every scale from the human to
-the intergalactic, the clients used to connect to the universe will work
-on every scale of device from phones to desktops and every scale of
-interaction from web tools built by 3rd parties, through 5 minute casual
-experiences to epic space battles played out in full 3D over hours and
-campaigns played out&nbsp;over years.</p>
-<p>Today’s connection of <span class="caps"><span class="caps">EVE</span></span> and Dust is a
-historic moment, but it’s just the beginning of what will be a very
-exciting second decade for the universe of&nbsp;New Eden.</p></div>
-        <hr />
-    </div>
-		
+fleets and ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2013/01/10/one-universe-many-scales/">read more</a></div>
+    </div>	
+				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Previous</a></li>

@@ -7,7 +7,7 @@ recommendation&lt;/a&gt; was to specify
 representations in requests, but that&amp;#8217;s hard to do when there is
 little documentation on which representations are available and what
 they&amp;nbsp;contain.&lt;/p&gt;
-&lt;p&gt;Fortunately &lt;span class="caps"&gt;CREST&lt;/span&gt; is that it’s &lt;a href="https://www.youtube.com/watch?v=QMQOjUjrZIo&amp;amp;t=1369"&gt;self
+&lt;p&gt;Fortunately &lt;span class="caps"&gt;CREST&lt;/span&gt; is &lt;a href="https://www.youtube.com/watch?v=QMQOjUjrZIo&amp;amp;t=1369"&gt;self
 describing&lt;/a&gt;: you
 just need to send an &lt;span class="caps"&gt;OPTIONS&lt;/span&gt; request to a &lt;span class="caps"&gt;CREST&lt;/span&gt; &lt;span class="caps"&gt;URI&lt;/span&gt; and the &lt;span class="caps"&gt;API&lt;/span&gt; will
 send a list of methods and representations that can be used with that
@@ -15,27 +15,26 @@ send a list of methods and representations that can be used with that
 &lt;a href="https://github.com/jimpurbrick/crestschema"&gt;crestschema&lt;/a&gt; library
 which can convert the &lt;span class="caps"&gt;CREST&lt;/span&gt; format in to a more useful &lt;a href="http://json-schema.org/latest/json-schema-core.html"&gt;&lt;span class="caps"&gt;JSON&lt;/span&gt;
 schema&lt;/a&gt;
-format. The library is designed to work both in browsers, in
+format. crestschema is designed to work both in browsers, in
 applications like
 &lt;a href="https://github.com/jimpurbrick/crestexplorerjs"&gt;crestexplorer&lt;/a&gt;, and
-from &lt;a href="https://nodejs.org/"&gt;node&lt;/a&gt;. From node applications like
+from &lt;a href="https://nodejs.org/"&gt;node&lt;/a&gt; in applications like
 &lt;a href="https://github.com/jimpurbrick/crestschema/blob/master/crestschemaspider.js"&gt;crestschemaspider&lt;/a&gt;
-can crawl the &lt;span class="caps"&gt;CREST&lt;/span&gt; &lt;span class="caps"&gt;API&lt;/span&gt; to find representations which can be converted to
-&lt;span class="caps"&gt;JSON&lt;/span&gt; schema and saved to disk. The schemas can then be used with
-wide variety of &lt;a href="http://json-schema.org/implementations.html"&gt;software, libraries and
-languages&lt;/a&gt; to validate
-data from the live &lt;span class="caps"&gt;CREST&lt;/span&gt; &lt;span class="caps"&gt;API&lt;/span&gt;, generate parsers or automatically generate&amp;nbsp;documentation.&lt;/p&gt;
-&lt;p&gt;With the &lt;span class="caps"&gt;JSON&lt;/span&gt; schemas collected it was possible to build
+which can crawl the &lt;span class="caps"&gt;CREST&lt;/span&gt; &lt;span class="caps"&gt;API&lt;/span&gt; to find representations to convert. The
+converted schemas can then be used with wide variety of &lt;a href="http://json-schema.org/implementations.html"&gt;software,
+libraries and languages&lt;/a&gt;
+to validate data from the live &lt;span class="caps"&gt;CREST&lt;/span&gt; &lt;span class="caps"&gt;API&lt;/span&gt;, generate parsers or
+automatically generate&amp;nbsp;documentation.&lt;/p&gt;
+&lt;p&gt;With the schemas converted it&amp;#8217;s easy to build
 &lt;a href="https://github.com/jimpurbrick/crestmatic"&gt;crestmatic&lt;/a&gt; which uses
 crestschema and &lt;a href="https://github.com/mattyod/matic"&gt;matic&lt;/a&gt; to generate
-documentation. The final steps were to add a
-&lt;a href="https://travis-ci.org/"&gt;travis&lt;/a&gt; step to publish the generated
-documentation to the &lt;a href="http://jimpurbrick.com/crestmatic/"&gt;crestmatic gh-pages
-branch&lt;/a&gt; and to use
-&lt;a href="https://nightli.es/"&gt;nightli.es&lt;/a&gt; to trigger a build every night to
-ensure that the documentation is kept up to date. Please feel free to
-fork the repo, submit a pull request if you&amp;#8217;d like to see some changes
-or just donate some &lt;span class="caps"&gt;ISK&lt;/span&gt; to Capt Out if you find the
+the documentation. Adding a &lt;a href="https://travis-ci.org/"&gt;travis&lt;/a&gt; step to
+publish the generated documentation to
+&lt;a href="http://jimpurbrick.com/crestmatic/"&gt;gh-pages&lt;/a&gt; and wiring up
+&lt;a href="https://nightli.es/"&gt;nightli.es&lt;/a&gt; to trigger a build every night are
+the final setps to ensure that the documentation is automatically kept
+up to date. Please feel free to submit a pull request if you&amp;#8217;d like to
+see some changes or just donate some &lt;span class="caps"&gt;ISK&lt;/span&gt; to Capt Out if you find the
 &lt;a href="http://jimpurbrick.com/crestmatic/"&gt;documentation&lt;/a&gt; or
 &lt;a href="https://github.com/jimpurbrick/crestmatic"&gt;code&lt;/a&gt;&amp;nbsp;useful.&lt;/p&gt;</summary><category term="eve"></category><category term="ccp"></category><category term="technology"></category><category term="rest"></category><category term="web"></category><category term="api"></category><category term="travis"></category><category term="ci"></category><category term="tools"></category><category term="github"></category></entry><entry><title>Free Tests For Everyone!</title><link href="http://jimpurbrick.com/2015/06/11/free-tests-for-everyone/" rel="alternate"></link><updated>2015-06-11T17:00:00+01:00</updated><author><name>Jim Purbrick</name></author><id>tag:jimpurbrick.com,2015-06-11:2015/06/11/free-tests-for-everyone/</id><summary type="html">&lt;p&gt;&lt;img src="http://fbinfer.com/static/logo.png" width="400"&gt;&lt;/p&gt;
 &lt;p&gt;Modern software development is sometimes colourfully described as

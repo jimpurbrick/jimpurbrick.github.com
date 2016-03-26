@@ -77,33 +77,33 @@ representations in requests, but that&#8217;s hard to do when there is
 little documentation on which representations are available and what
 they&nbsp;contain.</p>
 <p>Fortunately <span class="caps">CREST</span> is <a href="https://www.youtube.com/watch?v=QMQOjUjrZIo&amp;t=1369">self
-describing</a>: you
-just need to send an <span class="caps">OPTIONS</span> request to a <span class="caps">CREST</span> <span class="caps">URI</span> and the <span class="caps">API</span> will
-send a list of methods and representations that can be used with that
-<span class="caps">URI</span>. The data returned isn’t in a standard format, so I built the
+describing</a>: send
+an <span class="caps">OPTIONS</span> request to a <span class="caps">CREST</span> <span class="caps">URI</span> and a list of methods and
+representations that can be used with that <span class="caps">URI</span> is returned. The
+metadata isn’t in a standard format, so I built the
 <a href="https://github.com/jimpurbrick/crestschema">crestschema</a> library
-which can convert the <span class="caps">CREST</span> format in to a more useful <a href="http://json-schema.org/latest/json-schema-core.html"><span class="caps">JSON</span>
-schema</a>
-format. crestschema is designed to work both in browsers, in
-applications like
+which can convert the <span class="caps">CREST</span> format in to more useful <a href="http://json-schema.org/latest/json-schema-core.html"><span class="caps">JSON</span>
+schema</a>s. The
+library works in browsers, in applications like
 <a href="https://github.com/jimpurbrick/crestexplorerjs">crestexplorer</a>, and
 from <a href="https://nodejs.org/">node</a> in applications like
 <a href="https://github.com/jimpurbrick/crestschema/blob/master/crestschemaspider.js">crestschemaspider</a>
-which can crawl the <span class="caps">CREST</span> <span class="caps">API</span> to find representations to convert. The
-converted schemas can then be used with wide variety of <a href="http://json-schema.org/implementations.html">software,
-libraries and languages</a>
-to validate data from the live <span class="caps">CREST</span> <span class="caps">API</span>, generate parsers or
-automatically generate&nbsp;documentation.</p>
+which can crawl the <span class="caps">CREST</span> <span class="caps">API</span> to find all reachable
+representations. Converted schemas can then be used with wide variety
+of <a href="http://json-schema.org/implementations.html">software, libraries and
+languages</a> to validate
+data from the live <span class="caps">CREST</span> <span class="caps">API</span>, generate parsers or automatically
+generate&nbsp;documentation.</p>
 <p>With the schemas converted it&#8217;s easy to build
 <a href="https://github.com/jimpurbrick/crestmatic">crestmatic</a> which uses
 crestschema and <a href="https://github.com/mattyod/matic">matic</a> to generate
 the documentation. Adding a <a href="https://travis-ci.org/">travis</a> step to
 publish the generated documentation to
 <a href="http://jimpurbrick.com/crestmatic/">gh-pages</a> and wiring up
-<a href="https://nightli.es/">nightli.es</a> to trigger a build every night are
-the final setps to ensure that the documentation is automatically kept
-up to date. Please feel free to submit a pull request if you&#8217;d like to
-see some changes or just donate some <span class="caps">ISK</span> to Capt Out if you find the
+<a href="https://nightli.es/">nightli.es</a> to trigger a build every night
+ensures that the documentation is automatically kept up to date. If
+you&#8217;d like to see some changes please feel free to submit a pull
+request or just donate some <span class="caps">ISK</span> to Capt Out if you find the
 <a href="http://jimpurbrick.com/crestmatic/">documentation</a> or
 <a href="https://github.com/jimpurbrick/crestmatic">code</a>&nbsp;useful.</p></div>
 	

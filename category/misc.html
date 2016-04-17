@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2016/04/15/recordstoreday/"><h1>#recordstoreday</h1></a>
-            Fri 15 April 2016
+            <a href="http://jimpurbrick.com/2016/04/17/towards-a-generic-media-type-system/"><h1>Towards A Generic Media Type&nbsp;System</h1></a>
+            Sun 17 April 2016
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,42 +74,86 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><p><a data-flickr-embed="true"  href="https://www.flickr.com/photos/jimpurbrick/26178453420/in/dateposted-public/" title="StoryBirdAlbum"><img src="https://farm2.staticflickr.com/1465/26178453420_488f9407f8_o.jpg" width="600" height="800" alt="StoryBirdAlbum"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script></p>
-<p>3 weeks ago I spent a few hours with photoshop working on the <a href="http://storybird.band/">Story
-Bird</a> logo that Linda made a while ago to make
-it suitable for print. 2 weeks ago I spent a few hours researching the
-best way to convert the 24 bit 48 Khz Story Bird mixes to 16 bit 44.1
-Khz audio files that could be burned to <span class="caps">CD</span>. A week ago I went to
-Maplins in Tottenham Court Road, bought a cake of printable <span class="caps">CD</span>-Rs,
-dusted off my old MacBook Pro and spent the weekend burning copies of
-the <a href="http://storybird.band/">Story Bird</a> album. Tomorrow the CDs will
-go on sale at <a href="http://www.themarwood.com/">The Marwood Coffee Shop</a> in
-Brighton for
-<a href="https://twitter.com/hashtag/recordstoreday?lang=en-gb">#recordstoreday</a>.</p>
-<p>The whole process felt fun, quaint, cute, anachronistic, nostalgic,
-and absurd. The last time I burned CDs was 3 years ago, when I made a
-few copies of the <a href="https://100robots.bandcamp.com/album/sustain">100 Robots
-Sustain</a> album for
-friends. My current MacBook Pro doesn&#8217;t have an optical drive, let
-alone a <span class="caps">CD</span> writer. The <span class="caps">CD</span> player in our living room doesn&#8217;t work. I
-ripped our <span class="caps">CD</span> collection to <span class="caps">MP3</span> a decade ago when we still lived in
-Nottingham and needed to make space for our new family. Until I tested
-the Story Bird CDs, the last 2 operational <span class="caps">CD</span> players in our house
-haven&#8217;t played a <span class="caps">CD</span> in months. It&#8217;s great to see real, physical copies
-of the album I&#8217;ve spent the last 6 months working on, the CDs sound
-great and the unique hand printed covers look amazing, but as with the
-piles of vinyl records sold tomorrow on #recordstoreday they will
-mostly serve as limited edition&nbsp;souvenirs.</p>
-<p>#recordstoreday promotes collecting records just as the #comicbookday
- that inspired it promotes collecting comics. Fetishising obsolete
- formats is harmless fun, but discovering new music and supporting
- musicians is important. On the 23rd of April, once you&#8217;ve filed away
- the limited edition vinyl you queued overnight to buy on
- #recordstoreday, spend some time in the comfort of your own home
- downloading some amazing music on <a href="https://twitter.com/hashtag/bandcampday?lang=en-gb">#bandcampday</a>.</p></div>
+        <div><p>The early days of RESTful hypermedia <span class="caps">API</span> design tends to involve lots of
+homogeneous collections. In the case of <span class="caps">CREST</span> vnd.ccp.eve.Api-v1
+pointed to the logged in vnd.ccp.eve.ccp.Capsuleer-v1 which pointed to
+a vnd.eve.ccp.CharacterCollection-v1 of contacts which pointed to many
+vnd.ccp.eve.Capsuleer-v1 representations, one for each capsuleer&nbsp;contact.</p>
+<p>Adding search makes things more complicated. A typical search resource
+will accept a query and return a collection of hyperlinks to
+heterogeneous resources. <span class="caps">EVE</span> allows capsuleers to have contacts that
+might be other capsuleers, agents, corporations or alliances. In the
+future capsuleers may also be able to have coallitions in their
+contacts list. In this hypothetical future a contacts management
+application developed now would end up receiving search results that
+it wouldn&#8217;t understand. After requesting a resource and receiving an
+unknown representation the client can ignore the resource, but it
+would be better to filter out unknown resources as part of the&nbsp;query.</p>
+<p>Server side filtering is typically added to search via extra query
+parameters. In our <span class="caps">CREST</span> example we might add q=Jayne&amp;type=capsuleer
+parameters if we just wanted to find the capsuleer Jayne Fillon. An
+unfortunate consequence of this design is that we end up with
+application level types used to filer searches as well as Media Types
+used for <span class="caps">HTTP</span> content&nbsp;negotiation.</p>
+<p>It would be nice to just use content negotiation, but we want to
+filter the resources that are referenced by the returned resource, not
+the returned representation itself. The search request might return a
+vnd.ccp.eve.Collection-v1 representation, but we want to make sure
+that the hyperlinks in that collection only point to
+vnd.ccp.eve.Capsuleer-v1&nbsp;resources.</p>
+<p>As a client we&#8217;d like to specify is that we want search to return a
+vnd.ccp.eve.CollectionOfCapsuleerReferences. If the client wants to
+include corporations in the search results it should be able to
+specify a CollectionOfCapsuleerOrCorporationReferences. We&#8217;d like a
+richer media type&nbsp;system.</p>
+<p>While this could be implemented in the backend just by switching on
+the Accept type, the combinatorial explosion of potential search
+results quickly makes this impractical. A simpler way to experiment
+with this approach would be to implement a proxy which can query the
+<span class="caps">API</span> for Collection-v1 representations and convert them in to arbitrary
+CollectionOfFooAndBarReference&nbsp;representations.</p>
+<p>The proxy could also be used to inline reprsentations, allowing
+clients to request a CollectionOfFooAndBars rather than a collection
+of hyperlinks. If clients only wanted a subset of the full Foo and Bar
+representations thay might ask for
+CollectionOfJustNameFromFooAndJustNameFromBars. These additions would
+address some of the biggest headaches caused by <span class="caps">API</span> designers who have
+to decide which fields to denormalise in to collection resources to
+avoid clients having to make a huge number of requests in order to
+provide meaningful choices to&nbsp;users.</p>
+<p>This approach potentially provides a lot of the benefits of GraphQL to
+RESTful clients just through normal <span class="caps">HTTP</span> content negotiation protocols
+and maintains the benefits of maintaining a small number of versions
+to <span class="caps">API</span> developers. If a composite type refers to a type which is
+deprecated in the underlying <span class="caps">API</span>, it can return as deprecated response
+as&nbsp;normal.</p>
+<p>As with programming languages, it seems that if we&#8217;re going to support
+strong media types it&#8217;s useful to also support generic media&nbsp;types.</p></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2016/04/15/recordstoreday/"><h2>#recordstoreday</h2></a>
+        <div class= "well small"> Fri 15 April 2016
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><a data-flickr-embed="true"  href="https://www.flickr.com/photos/jimpurbrick/26178453420/in/dateposted-public/" title="StoryBirdAlbum"><img src="https://farm2.staticflickr.com/1465/26178453420_488f9407f8_o.jpg" width="600" height="800" alt="StoryBirdAlbum"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script></p>
+<p>3 weeks ago I spent a few hours with photoshop working on the <a href="http://storybird.band/">Story
+Bird</a> logo that Linda made a while ago to make
+it suitable for print. 2 weeks ago I spent a few hours researching the
+best way to convert the 24 bit 48 Khz Story Bird mixes ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2016/04/15/recordstoreday/">read more</a></div>
+    </div>	
+				
     
  
         
@@ -518,28 +562,6 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
 
  </div>
         <div class="summary"><p>The <a href="http://eveonline.com"><span class="caps">EVE</span> online</a> network architecture uses stateful proxy servers which manage sessions for players connected to the cluster via the <span class="caps">EVE</span> client. The client sends requests to the proxy which are forwarded on to sol servers maintaining the game state and the sols send notifications to the proxy which are ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/07/30/load-balancing-stateful-services-nginx/">read more</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://jimpurbrick.com/2012/05/24/brighton-mini-maker-faire-movie/"><h2>Brighton Mini Maker Faire: The&nbsp;Movie</h2></a>
-        <div class= "well small"> Thu 24 May 2012
-
-by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
- 
-
-
- </div>
-        <div class="summary"><p>A great video of the Brighton Mini Maker Faire last year by Andrew
-Sleigh showing the making of <a href="http://jimpurbrick.com/2011/09/12/youre-boss-2/">You’re The Boss 2</a>. Applications for
-this year’s Maker Faire are <a href="http://www.makerfairebrighton.com/2012/05/10/brighton-mini-maker-faire-2012-call-for-makers/">now open</a> and I can’t wait to see what
-everyone comes up with&nbsp;this year!</p>
-<div class="flex-video vimeo"><iframe src="http://player.vimeo.com/video/38685911" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/05/24/brighton-mini-maker-faire-movie/">read more</a></div>
     </div>	
 				
             <div class="pagination">

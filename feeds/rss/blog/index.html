@@ -1,5 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>The Creation Engine No. 2</title><link>http://jimpurbrick.com/</link><description></description><atom:link href="http://jimpurbrick.com/feeds/rss/blog/index.html" rel="self"></atom:link><lastBuildDate>Fri, 15 Apr 2016 00:00:00 +0100</lastBuildDate><item><title>#recordstoreday</title><link>http://jimpurbrick.com/2016/04/15/recordstoreday/</link><description>&lt;p&gt;&lt;a data-flickr-embed="true"  href="https://www.flickr.com/photos/jimpurbrick/26178453420/in/dateposted-public/" title="StoryBirdAlbum"&gt;&lt;img src="https://farm2.staticflickr.com/1465/26178453420_488f9407f8_o.jpg" width="600" height="800" alt="StoryBirdAlbum"&gt;&lt;/a&gt;&lt;script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"&gt;&lt;/script&gt;&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>The Creation Engine No. 2</title><link>http://jimpurbrick.com/</link><description></description><atom:link href="http://jimpurbrick.com/feeds/rss/blog/index.html" rel="self"></atom:link><lastBuildDate>Sun, 17 Apr 2016 00:00:00 +0100</lastBuildDate><item><title>Towards A Generic Media Type System</title><link>http://jimpurbrick.com/2016/04/17/towards-a-generic-media-type-system/</link><description>&lt;p&gt;The early days of RESTful hypermedia &lt;span class="caps"&gt;API&lt;/span&gt; design tends to involve lots of
+homogeneous collections. In the case of &lt;span class="caps"&gt;CREST&lt;/span&gt; vnd.ccp.eve.Api-v1
+pointed to the logged in vnd.ccp.eve.ccp.Capsuleer-v1 which pointed to
+a vnd.eve.ccp.CharacterCollection-v1 of contacts which pointed to many
+vnd.ccp.eve.Capsuleer-v1 representations, one for each capsuleer&amp;nbsp;contact.&lt;/p&gt;
+&lt;p&gt;Adding search makes things more complicated. A typical search resource
+will accept a query and return a collection of hyperlinks to
+heterogeneous resources. &lt;span class="caps"&gt;EVE&lt;/span&gt; allows capsuleers to have contacts that
+might be other capsuleers, agents, corporations or alliances. In the
+future capsuleers may also be able to have coallitions in their
+contacts list. In this hypothetical future a contacts management
+application developed now would end up receiving search results that
+it wouldn&amp;#8217;t understand. After requesting a resource and receiving an
+unknown representation the client can ignore the resource, but it
+would be better to filter out unknown resources as part of the&amp;nbsp;query.&lt;/p&gt;
+&lt;p&gt;Server side filtering is typically added to search via extra query
+parameters. In our &lt;span class="caps"&gt;CREST&lt;/span&gt; example we might add q=Jayne&amp;amp;type=capsuleer
+parameters if we just wanted to find the capsuleer Jayne Fillon. An
+unfortunate consequence of this design is that we end up with
+application level types used to filer searches as well as Media Types
+used for &lt;span class="caps"&gt;HTTP&lt;/span&gt; content&amp;nbsp;negotiation.&lt;/p&gt;
+&lt;p&gt;It would be nice to just use content negotiation, but we want to
+filter the resources that are referenced by the returned resource, not
+the returned representation itself. The search request might return a
+vnd.ccp.eve.Collection-v1 representation, but we want to make sure
+that the hyperlinks in that collection only point to
+vnd.ccp.eve.Capsuleer-v1&amp;nbsp;resources.&lt;/p&gt;
+&lt;p&gt;As a client we&amp;#8217;d like to specify is that we want search to return a
+vnd.ccp.eve.CollectionOfCapsuleerReferences. If the client wants to
+include corporations in the search results it should be able to
+specify a CollectionOfCapsuleerOrCorporationReferences. We&amp;#8217;d like a
+richer media type&amp;nbsp;system.&lt;/p&gt;
+&lt;p&gt;While this could be implemented in the backend just by switching on
+the Accept type, the combinatorial explosion of potential search
+results quickly makes this impractical. A simpler way to experiment
+with this approach would be to implement a proxy which can query the
+&lt;span class="caps"&gt;API&lt;/span&gt; for Collection-v1 representations and convert them in to arbitrary
+CollectionOfFooAndBarReference&amp;nbsp;representations.&lt;/p&gt;
+&lt;p&gt;The proxy could also be used to inline reprsentations, allowing
+clients to request a CollectionOfFooAndBars rather than a collection
+of hyperlinks. If clients only wanted a subset of the full Foo and Bar
+representations thay might ask for
+CollectionOfJustNameFromFooAndJustNameFromBars. These additions would
+address some of the biggest headaches caused by &lt;span class="caps"&gt;API&lt;/span&gt; designers who have
+to decide which fields to denormalise in to collection resources to
+avoid clients having to make a huge number of requests in order to
+provide meaningful choices to&amp;nbsp;users.&lt;/p&gt;
+&lt;p&gt;This approach potentially provides a lot of the benefits of GraphQL to
+RESTful clients just through normal &lt;span class="caps"&gt;HTTP&lt;/span&gt; content negotiation protocols
+and maintains the benefits of maintaining a small number of versions
+to &lt;span class="caps"&gt;API&lt;/span&gt; developers. If a composite type refers to a type which is
+deprecated in the underlying &lt;span class="caps"&gt;API&lt;/span&gt;, it can return as deprecated response
+as&amp;nbsp;normal.&lt;/p&gt;
+&lt;p&gt;As with programming languages, it seems that if we&amp;#8217;re going to support
+strong media types it&amp;#8217;s useful to also support generic media&amp;nbsp;types.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Jim Purbrick</dc:creator><pubDate>Sun, 17 Apr 2016 00:00:00 +0100</pubDate><guid>tag:jimpurbrick.com,2016-04-17:2016/04/17/towards-a-generic-media-type-system/</guid><category>REST</category><category>APIs</category><category>CREST</category><category>CCP</category><category>EVE</category><category>GraphQL</category></item><item><title>#recordstoreday</title><link>http://jimpurbrick.com/2016/04/15/recordstoreday/</link><description>&lt;p&gt;&lt;a data-flickr-embed="true"  href="https://www.flickr.com/photos/jimpurbrick/26178453420/in/dateposted-public/" title="StoryBirdAlbum"&gt;&lt;img src="https://farm2.staticflickr.com/1465/26178453420_488f9407f8_o.jpg" width="600" height="800" alt="StoryBirdAlbum"&gt;&lt;/a&gt;&lt;script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"&gt;&lt;/script&gt;&lt;/p&gt;
 &lt;p&gt;3 weeks ago I spent a few hours with photoshop working on the &lt;a href="http://storybird.band/"&gt;Story
 Bird&lt;/a&gt; logo that Linda made a while ago to make
 it suitable for print. 2 weeks ago I spent a few hours researching the

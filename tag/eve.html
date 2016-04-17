@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2016/01/03/crestmatic/"><h1>crestmatic</h1></a>
-            Sun 03 January 2016
+            <a href="http://jimpurbrick.com/2016/04/17/towards-a-generic-media-type-system/"><h1>Towards A Generic Media Type&nbsp;System</h1></a>
+            Sun 17 April 2016
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,118 +74,64 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><div class="flex-video widescreen"><iframe src="http://www.youtube.com/embed/QMQOjUjrZIo" frameborder="0" allowfullscreen=""></iframe></div>
-
-<p>A year ago I gave a talk at <a href="http://vegas.eveonline.com/"><span class="caps">EVE</span> Vegas</a>
-about building RESTful <span class="caps">CREST</span> applications. My <a href="https://youtu.be/QMQOjUjrZIo?t=697">#1
-recommendation</a> was to specify
-representations in requests, but that&#8217;s hard to do when there is
-little documentation on which representations are available and what
-they&nbsp;contain.</p>
-<p>Fortunately <span class="caps">CREST</span> is <a href="https://www.youtube.com/watch?v=QMQOjUjrZIo&amp;t=1369">self
-describing</a>: send
-an <span class="caps">OPTIONS</span> request to a <span class="caps">CREST</span> <span class="caps">URI</span> and a list of methods and
-representations that can be used with that <span class="caps">URI</span> is returned. The
-metadata isn’t in a standard format, so I built the
-<a href="https://github.com/jimpurbrick/crestschema">crestschema</a> library
-which can convert the <span class="caps">CREST</span> format in to more useful <a href="http://json-schema.org/latest/json-schema-core.html"><span class="caps">JSON</span>
-schema</a>s. The
-library works in browsers, in applications like
-<a href="https://github.com/jimpurbrick/crestexplorerjs">crestexplorer</a>, and
-from <a href="https://nodejs.org/">node</a> in applications like
-<a href="https://github.com/jimpurbrick/crestschema/blob/master/crestschemaspider.js">crestschemaspider</a>
-which can crawl the <span class="caps">CREST</span> <span class="caps">API</span> to find all reachable
-representations. Converted schemas can then be used with wide variety
-of <a href="http://json-schema.org/implementations.html">software, libraries and
-languages</a> to validate
-data from the live <span class="caps">CREST</span> <span class="caps">API</span>, generate parsers or automatically
-generate&nbsp;documentation.</p>
-<p>With the schemas converted it&#8217;s easy to build
-<a href="https://github.com/jimpurbrick/crestmatic">crestmatic</a> which uses
-crestschema and <a href="https://github.com/mattyod/matic">matic</a> to generate
-the documentation. Adding a <a href="https://travis-ci.org/">travis</a> step to
-publish the generated documentation to
-<a href="http://jimpurbrick.com/crestmatic/">gh-pages</a> and wiring up
-<a href="https://nightli.es/">nightli.es</a> to trigger a build every night
-ensures that the documentation is automatically kept up to date. If
-you&#8217;d like to see some changes please feel free to submit a pull
-request or just donate some <span class="caps">ISK</span> to Capt Out if you find the
-<a href="http://jimpurbrick.com/crestmatic/">documentation</a> or
-<a href="https://github.com/jimpurbrick/crestmatic">code</a>&nbsp;useful.</p></div>
+        <div><p>The early days of RESTful hypermedia <span class="caps">API</span> design tends to involve lots of
+homogeneous collections. In the case of <span class="caps">CREST</span> vnd.ccp.eve.Api-v1
+pointed to the logged in vnd.ccp.eve.ccp.Capsuleer-v1 which pointed to
+a vnd.eve.ccp.CharacterCollection-v1 of contacts which pointed to many
+vnd.ccp.eve.Capsuleer-v1 representations, one for each capsuleer&nbsp;contact.</p>
+<p>Adding search makes things more complicated. A typical search resource
+will accept a query and return a collection of hyperlinks to
+heterogeneous resources. <span class="caps">EVE</span> allows capsuleers to have contacts that
+might be other capsuleers, agents, corporations or alliances. In the
+future capsuleers may also be able to have coallitions in their
+contacts list. In this hypothetical future a contacts management
+application developed now would end up receiving search results that
+it wouldn&#8217;t understand. After requesting a resource and receiving an
+unknown representation the client can ignore the resource, but it
+would be better to filter out unknown resources as part of the&nbsp;query.</p>
+<p>Server side filtering is typically added to search via extra query
+parameters. In our <span class="caps">CREST</span> example we might add q=Jayne&amp;type=capsuleer
+parameters if we just wanted to find the capsuleer Jayne Fillon. An
+unfortunate consequence of this design is that we end up with
+application level types used to filer searches as well as Media Types
+used for <span class="caps">HTTP</span> content&nbsp;negotiation.</p>
+<p>It would be nice to just use content negotiation, but we want to
+filter the resources that are referenced by the returned resource, not
+the returned representation itself. The search request might return a
+vnd.ccp.eve.Collection-v1 representation, but we want to make sure
+that the hyperlinks in that collection only point to
+vnd.ccp.eve.Capsuleer-v1&nbsp;resources.</p>
+<p>As a client we&#8217;d like to specify is that we want search to return a
+vnd.ccp.eve.CollectionOfCapsuleerReferences. If the client wants to
+include corporations in the search results it should be able to
+specify a CollectionOfCapsuleerOrCorporationReferences. We&#8217;d like a
+richer media type&nbsp;system.</p>
+<p>While this could be implemented in the backend just by switching on
+the Accept type, the combinatorial explosion of potential search
+results quickly makes this impractical. A simpler way to experiment
+with this approach would be to implement a proxy which can query the
+<span class="caps">API</span> for Collection-v1 representations and convert them in to arbitrary
+CollectionOfFooAndBarReference&nbsp;representations.</p>
+<p>The proxy could also be used to inline reprsentations, allowing
+clients to request a CollectionOfFooAndBars rather than a collection
+of hyperlinks. If clients only wanted a subset of the full Foo and Bar
+representations thay might ask for
+CollectionOfJustNameFromFooAndJustNameFromBars. These additions would
+address some of the biggest headaches caused by <span class="caps">API</span> designers who have
+to decide which fields to denormalise in to collection resources to
+avoid clients having to make a huge number of requests in order to
+provide meaningful choices to&nbsp;users.</p>
+<p>This approach potentially provides a lot of the benefits of GraphQL to
+RESTful clients just through normal <span class="caps">HTTP</span> content negotiation protocols
+and maintains the benefits of maintaining a small number of versions
+to <span class="caps">API</span> developers. If a composite type refers to a type which is
+deprecated in the underlying <span class="caps">API</span>, it can return as deprecated response
+as&nbsp;normal.</p>
+<p>As with programming languages, it seems that if we&#8217;re going to support
+strong media types it&#8217;s useful to also support generic media&nbsp;types.</p></div>
         <hr />
     </div>
 		
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://jimpurbrick.com/2014/01/29/beyond-time-dilation/"><h2>Beyond Time&nbsp;Dilation?</h2></a>
-        <div class= "well small"> Wed 29 January 2014
-
-by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
- 
-
-
- </div>
-        <div class="summary"><p><img alt="The Battle of B-R5RB" src="http://i.imgur.com/LOVyhw4.jpg" title="The Battle of B-R5RB" /></p>
-<p><span class="caps">EVE</span> online is <a href="http://community.eveonline.com/news/news-channels/eve-online-news/eve-online-featured-in-applied-design-at-the-museum-of-modern-art/">a remarkable game</a>. On Monday <a href="http://themittani.com/news/b-r5rb-biggest-battle-all-eve">over 2000 people
-spent over 20 hours destroying virtual spaceships worth 200,000 <span class="caps">USD</span> in
-real money</a> in what was the likely the largest battle in a video game
-ever. That <span class="caps">EVE</span> is capaple of supporting such large engagements is an
-amazing ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2014/01/29/beyond-time-dilation/">read more</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://jimpurbrick.com/2013/01/10/one-universe-many-scales/"><h2>One Universe, Many&nbsp;Scales</h2></a>
-        <div class= "well small"> Thu 10 January 2013
-
-by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
- 
-
-
- </div>
-        <div class="summary"><p>
-<div class="flex-video widescreen"><iframe width="560" height="315" src="http://www.youtube.com/embed/45mlVuLs_Nw" frameborder="0" allowfullscreen></iframe></div>
-</p>
-
-<p>One epic meta-game design I first remember talking about a decade ago
-while working on <a href="http://massively.joystiq.com/2011/07/12/the-game-archaeologist-and-the-what-ifs-climaxs-warhammer-onli/">Warhammer Online</a> is the multi-scale online game: a
-system of interconnected games in which you choose to be a solo
-operative, work in a small group, or command epic forces or huge space
-fleets and ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2013/01/10/one-universe-many-scales/">read more</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://jimpurbrick.com/2012/11/11/caching-restricted-data-ningx/"><h2>Caching Shared, Private Data With&nbsp;Ningx</h2></a>
-        <div class= "well small"> Sun 11 November 2012
-
-by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
- 
-
-
- </div>
-        <div class="summary"><p>As with many other social services, a large amount of the data in
-<a href="http://www.eveonline.com/"><span class="caps"><span class="caps">EVE</span></span> Online</a> and <a href="http://www.dust514.com/">Dust 514</a>‘s New Eden
-universe is shared between subsets of users. Some corporation data
-should only be accessible to the corporation’s members, market prices
-should only be accessible to capsuleers and infantry ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/11/11/caching-restricted-data-ningx/">read more</a></div>
-    </div>	
-				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Previous</a></li>

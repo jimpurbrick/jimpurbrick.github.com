@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2012/05/05/super-hyperpolyglot/"><h1>Super&nbsp;Hyperpolyglot</h1></a>
-            Sat 05 May 2012
+            <a href="http://jimpurbrick.com/2016/08/21/crestexplorer/"><h1>crestexplorer</h1></a>
+            Sun 21 August 2016
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,43 +74,65 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><p>A few years ago nearly all the code I wrote was in C++, but increasingly
+        <div><div class="flex-video widescreen"><iframe src="https://www.youtube.com/watch?v=zYU2lier4GA" frameborder="0" allowfullscreen=""></iframe></div>
+
+<p>At the 3rd Party Dev State of the Union at <span class="caps">EVE</span> Fanfest 2016 earlier
+this year, <span class="caps">CCP</span> FoxFour drew my attention to a limitation of the
+current approach used by
+<a href="http://jimpurbrick.com/2016/01/03/crestmatic/">crestmatic</a> to
+generate <span class="caps">CREST</span> documentation: it only discovers resources always
+reachable from the <span class="caps">API</span> root from the perspective of the authorised
+character at generation time. As <span class="caps">CREST</span> now includes APIs for transient
+resources like
+<a href="https://forums.eveonline.com/default.aspx?g=posts&amp;t=475607">fleets</a>
+the entire <span class="caps">API</span> isn&#8217;t reachable for documentation from a nightly run
+using the credentials of a character not in a&nbsp;fleet.</p>
+<p>There are a couple of ways to fix this. At the <span class="caps">API</span> level <span class="caps">OPTIONS</span>
+responses could refer to linked representations that can exist. An
+alternative is to extend
+<a href="http://jimpurbrick.com/crestexplorerjs/#https://crest-tq.eveonline.com/">crestexplorerjs</a>
+with <span class="caps">OPTIONS</span> metadata to make it expose live documentation about
+reachable&nbsp;resources.</p>
+<p>At a recent hackathon I took the second approach. crestexplorer now
+makes <span class="caps">OPTIONS</span> requests to each resource it requests and uses
+<a href="https://github.com/jimpurbrick/crestschema">crestschema</a> and data
+urls to generate downloadable <a href="http://json-schema.org/latest/json-schema-core.html"><span class="caps">JSON</span>
+schema</a>
+descriptions for each of the representations available for a
+resource. It also hyperlinks to the alternative representations so now
+all representations of all reachable resources are available in
+crestschema and the human readable descriptions of each field are
+added to the rendered resource as&nbsp;hovertext.</p>
+<p>Now documentation for any valid <span class="caps">CREST</span> resource live
+by specifying the <span class="caps">URI</span> for the resource as the crestexplorer hash
+fragment. Even when the resources are transient documentation is
+available for resources while they&nbsp;exist.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2012/05/05/super-hyperpolyglot/"><h2>Super&nbsp;Hyperpolyglot</h2></a>
+        <div class= "well small"> Sat 05 May 2012
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>A few years ago nearly all the code I wrote was in C++, but increasingly
 I’m finding myself writing in a variety of mostly C-style languages and
 having to perform crunching mental gear changes as I switch&nbsp;between them.</p>
 </p>
 
-<p>In the interests of making these language switches less painful I
-thought about listing the commonly used features of the languages I
-commonly use in a side-by-side format. Luckily I’m a lazy programmer,
-the web is large and there’s nothing new under the sun, so I quickly
-found <a href="http://hyperpolyglot.org/">Hyperpolyglot</a> which provides commonly used programming
-language features in a side-by-side format, which is what I&nbsp;wanted. Nearly.</p>
-</p>
-
-<p>Hyperpolyglot organizes it’s language comparisons in to several
-catagories: scripting languages, C++ family languages, embeddable
-languages and so on. In my case (and I suspect in many cases) the
-languages I wanted to compare were spread across&nbsp;several pages.</p>
-</p>
-
-<p>After briefly considering some cut and paste to get what I wanted I
-started playing with Google Spreadsheets, which has a very nifty
-importHtml function which allowed me to pull the Hyperpolyglot data in
-to several sheets which can be combined to produce arbitrary&nbsp;language comparisons.</p>
-</p>
-
-<p>It’s not perfect as different languages have different features and in
-some cases the Hyperpolyglot data doesn’t use exactly the same terms
-across tables (“version used” vs “versions used”) and I’m not a
-spreadsheet ninja, but it’s good enough to generate PDFs like this
-<a href="http://jimpurbrick.com/media/SuperHyperpolyglotJavaScriptPythonJavaCPP.pdf">JavaScript Python Java C++ Comparision</a>. As a Hyperpolyglot
-derivative work, The <a href="https://docs.google.com/spreadsheet/ccc?key=0Ahc1HVbwPgp0dDBTTTlOV0VtU21iazVwU1ptMmdScVE">Super Hyperpolyglot Spreadsheet</a> is licensed
-under the <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 License</a>,
-please let me know if you&nbsp;improve it.</p>
-</p></div>
-        <hr />
-    </div>
-		
+<p>In the interests of making these language switches less painful ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/05/05/super-hyperpolyglot/">read more</a></div>
+    </div>	
+				
     
  
         

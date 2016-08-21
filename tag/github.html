@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2016/01/03/crestmatic/"><h1>crestmatic</h1></a>
-            Sun 03 January 2016
+            <a href="http://jimpurbrick.com/2016/08/21/crestexplorer/"><h1>crestexplorer</h1></a>
+            Sun 21 August 2016
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,7 +74,58 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><div class="flex-video widescreen"><iframe src="http://www.youtube.com/embed/QMQOjUjrZIo" frameborder="0" allowfullscreen=""></iframe></div>
+        <div><div class="flex-video widescreen"><iframe src="https://www.youtube.com/watch?v=zYU2lier4GA" frameborder="0" allowfullscreen=""></iframe></div>
+
+<p>At the 3rd Party Dev State of the Union at <span class="caps">EVE</span> Fanfest 2016 earlier
+this year, <span class="caps">CCP</span> FoxFour drew my attention to a limitation of the
+current approach used by
+<a href="http://jimpurbrick.com/2016/01/03/crestmatic/">crestmatic</a> to
+generate <span class="caps">CREST</span> documentation: it only discovers resources always
+reachable from the <span class="caps">API</span> root from the perspective of the authorised
+character at generation time. As <span class="caps">CREST</span> now includes APIs for transient
+resources like
+<a href="https://forums.eveonline.com/default.aspx?g=posts&amp;t=475607">fleets</a>
+the entire <span class="caps">API</span> isn&#8217;t reachable for documentation from a nightly run
+using the credentials of a character not in a&nbsp;fleet.</p>
+<p>There are a couple of ways to fix this. At the <span class="caps">API</span> level <span class="caps">OPTIONS</span>
+responses could refer to linked representations that can exist. An
+alternative is to extend
+<a href="http://jimpurbrick.com/crestexplorerjs/#https://crest-tq.eveonline.com/">crestexplorerjs</a>
+with <span class="caps">OPTIONS</span> metadata to make it expose live documentation about
+reachable&nbsp;resources.</p>
+<p>At a recent hackathon I took the second approach. crestexplorer now
+makes <span class="caps">OPTIONS</span> requests to each resource it requests and uses
+<a href="https://github.com/jimpurbrick/crestschema">crestschema</a> and data
+urls to generate downloadable <a href="http://json-schema.org/latest/json-schema-core.html"><span class="caps">JSON</span>
+schema</a>
+descriptions for each of the representations available for a
+resource. It also hyperlinks to the alternative representations so now
+all representations of all reachable resources are available in
+crestschema and the human readable descriptions of each field are
+added to the rendered resource as&nbsp;hovertext.</p>
+<p>Now documentation for any valid <span class="caps">CREST</span> resource live
+by specifying the <span class="caps">URI</span> for the resource as the crestexplorer hash
+fragment. Even when the resources are transient documentation is
+available for resources while they&nbsp;exist.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2016/01/03/crestmatic/"><h2>crestmatic</h2></a>
+        <div class= "well small"> Sun 03 January 2016
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><div class="flex-video widescreen"><iframe src="http://www.youtube.com/embed/QMQOjUjrZIo" frameborder="0" allowfullscreen=""></iframe></div>
 
 <p>A year ago I gave a talk at <a href="http://vegas.eveonline.com/"><span class="caps">EVE</span> Vegas</a>
 about building RESTful <span class="caps">CREST</span> applications. My <a href="https://youtu.be/QMQOjUjrZIo?t=697">#1
@@ -83,38 +134,9 @@ representations in requests, but that&#8217;s hard to do when there is
 little documentation on which representations are available and what
 they&nbsp;contain.</p>
 <p>Fortunately <span class="caps">CREST</span> is <a href="https://www.youtube.com/watch?v=QMQOjUjrZIo&amp;t=1369">self
-describing</a>: send
-an <span class="caps">OPTIONS</span> request to a <span class="caps">CREST</span> <span class="caps">URI</span> and a list of methods and
-representations that can be used with that <span class="caps">URI</span> is returned. The
-metadata isn’t in a standard format, so I built the
-<a href="https://github.com/jimpurbrick/crestschema">crestschema</a> library
-which can convert the <span class="caps">CREST</span> format in to more useful <a href="http://json-schema.org/latest/json-schema-core.html"><span class="caps">JSON</span>
-schema</a>s. The
-library works in browsers, in applications like
-<a href="https://github.com/jimpurbrick/crestexplorerjs">crestexplorer</a>, and
-from <a href="https://nodejs.org/">node</a> in applications like
-<a href="https://github.com/jimpurbrick/crestschema/blob/master/crestschemaspider.js">crestschemaspider</a>
-which can crawl the <span class="caps">CREST</span> <span class="caps">API</span> to find all reachable
-representations. Converted schemas can then be used with wide variety
-of <a href="http://json-schema.org/implementations.html">software, libraries and
-languages</a> to validate
-data from the live <span class="caps">CREST</span> <span class="caps">API</span>, generate parsers or automatically
-generate&nbsp;documentation.</p>
-<p>With the schemas converted it&#8217;s easy to build
-<a href="https://github.com/jimpurbrick/crestmatic">crestmatic</a> which uses
-crestschema and <a href="https://github.com/mattyod/matic">matic</a> to generate
-the documentation. Adding a <a href="https://travis-ci.org/">travis</a> step to
-publish the generated documentation to
-<a href="http://jimpurbrick.com/crestmatic/">gh-pages</a> and wiring up
-<a href="https://nightli.es/">nightli.es</a> to trigger a build every night
-ensures that the documentation is automatically kept up to date. If
-you&#8217;d like to see some changes please feel free to submit a pull
-request or just donate some <span class="caps">ISK</span> to Capt Out if you find the
-<a href="http://jimpurbrick.com/crestmatic/">documentation</a> or
-<a href="https://github.com/jimpurbrick/crestmatic">code</a>&nbsp;useful.</p></div>
-        <hr />
-    </div>
-		
+describing</a>: send ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2016/01/03/crestmatic/">read more</a></div>
+    </div>	
+				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Previous</a></li>

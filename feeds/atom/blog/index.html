@@ -1,5 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>The Creation Engine No. 2</title><link href="http://jimpurbrick.com/" rel="alternate"></link><link href="http://jimpurbrick.com/feeds/atom/blog/index.html" rel="self"></link><id>http://jimpurbrick.com/</id><updated>2016-05-10T00:00:00+01:00</updated><entry><title>Strange Tales From Other Worlds</title><link href="http://jimpurbrick.com/2016/05/10/strange-tales-from-other-worlds/" rel="alternate"></link><updated>2016-05-10T00:00:00+01:00</updated><author><name>Jim Purbrick</name></author><id>tag:jimpurbrick.com,2016-05-10:2016/05/10/strange-tales-from-other-worlds/</id><summary type="html">&lt;div class="flex-video widescreen"&gt;&lt;iframe src="https://www.youtube.com/embed/WAh-6nEHwqI" frameborder="0" allowfullscreen=""&gt;&lt;/iframe&gt;&lt;/div&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>The Creation Engine No. 2</title><link href="http://jimpurbrick.com/" rel="alternate"></link><link href="http://jimpurbrick.com/feeds/atom/blog/index.html" rel="self"></link><id>http://jimpurbrick.com/</id><updated>2016-08-21T21:48:00+01:00</updated><entry><title>crestexplorer</title><link href="http://jimpurbrick.com/2016/08/21/crestexplorer/" rel="alternate"></link><updated>2016-08-21T21:48:00+01:00</updated><author><name>Jim Purbrick</name></author><id>tag:jimpurbrick.com,2016-08-21:2016/08/21/crestexplorer/</id><summary type="html">&lt;div class="flex-video widescreen"&gt;&lt;iframe src="https://www.youtube.com/watch?v=zYU2lier4GA" frameborder="0" allowfullscreen=""&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+&lt;p&gt;At the 3rd Party Dev State of the Union at &lt;span class="caps"&gt;EVE&lt;/span&gt; Fanfest 2016 earlier
+this year, &lt;span class="caps"&gt;CCP&lt;/span&gt; FoxFour drew my attention to a limitation of the
+current approach used by
+&lt;a href="http://jimpurbrick.com/2016/01/03/crestmatic/"&gt;crestmatic&lt;/a&gt; to
+generate &lt;span class="caps"&gt;CREST&lt;/span&gt; documentation: it only discovers resources always
+reachable from the &lt;span class="caps"&gt;API&lt;/span&gt; root from the perspective of the authorised
+character at generation time. As &lt;span class="caps"&gt;CREST&lt;/span&gt; now includes APIs for transient
+resources like
+&lt;a href="https://forums.eveonline.com/default.aspx?g=posts&amp;amp;t=475607"&gt;fleets&lt;/a&gt;
+the entire &lt;span class="caps"&gt;API&lt;/span&gt; isn&amp;#8217;t reachable for documentation from a nightly run
+using the credentials of a character not in a&amp;nbsp;fleet.&lt;/p&gt;
+&lt;p&gt;There are a couple of ways to fix this. At the &lt;span class="caps"&gt;API&lt;/span&gt; level &lt;span class="caps"&gt;OPTIONS&lt;/span&gt;
+responses could refer to linked representations that can exist. An
+alternative is to extend
+&lt;a href="http://jimpurbrick.com/crestexplorerjs/#https://crest-tq.eveonline.com/"&gt;crestexplorerjs&lt;/a&gt;
+with &lt;span class="caps"&gt;OPTIONS&lt;/span&gt; metadata to make it expose live documentation about
+reachable&amp;nbsp;resources.&lt;/p&gt;
+&lt;p&gt;At a recent hackathon I took the second approach. crestexplorer now
+makes &lt;span class="caps"&gt;OPTIONS&lt;/span&gt; requests to each resource it requests and uses
+&lt;a href="https://github.com/jimpurbrick/crestschema"&gt;crestschema&lt;/a&gt; and data
+urls to generate downloadable &lt;a href="http://json-schema.org/latest/json-schema-core.html"&gt;&lt;span class="caps"&gt;JSON&lt;/span&gt;
+schema&lt;/a&gt;
+descriptions for each of the representations available for a
+resource. It also hyperlinks to the alternative representations so now
+all representations of all reachable resources are available in
+crestschema and the human readable descriptions of each field are
+added to the rendered resource as&amp;nbsp;hovertext.&lt;/p&gt;
+&lt;p&gt;Now documentation for any valid &lt;span class="caps"&gt;CREST&lt;/span&gt; resource live
+by specifying the &lt;span class="caps"&gt;URI&lt;/span&gt; for the resource as the crestexplorer hash
+fragment. Even when the resources are transient documentation is
+available for resources while they&amp;nbsp;exist.&lt;/p&gt;</summary><category term="eve"></category><category term="ccp"></category><category term="technology"></category><category term="rest"></category><category term="web"></category><category term="tools"></category><category term="github"></category><category term="javascript"></category></entry><entry><title>Strange Tales From Other Worlds</title><link href="http://jimpurbrick.com/2016/05/10/strange-tales-from-other-worlds/" rel="alternate"></link><updated>2016-05-10T00:00:00+01:00</updated><author><name>Jim Purbrick</name></author><id>tag:jimpurbrick.com,2016-05-10:2016/05/10/strange-tales-from-other-worlds/</id><summary type="html">&lt;div class="flex-video widescreen"&gt;&lt;iframe src="https://www.youtube.com/embed/WAh-6nEHwqI" frameborder="0" allowfullscreen=""&gt;&lt;/iframe&gt;&lt;/div&gt;
 
 &lt;p&gt;At the end of last year, &lt;a href="www.brunton-spall.co.uk"&gt;Michael
 Brunton-Spall&lt;/a&gt; and &lt;a href="https://twitter.com/jtopper"&gt;Jon

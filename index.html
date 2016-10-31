@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2016/08/21/crestexplorer/"><h1>crestexplorer</h1></a>
-            Sun 21 August 2016
+            <a href="http://jimpurbrick.com/2016/10/31/creating-a-safe-environment-for-people-in-vr/"><h1>Creating A Safe Environment For People In&nbsp;<span class="caps">VR</span></h1></a>
+            Mon 31 October 2016
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,42 +74,61 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><div class="flex-video widescreen"><iframe src="https://www.youtube.com/embed/zYU2lier4GA" frameborder="0" allowfullscreen=""></iframe></div>
+        <div><div class="flex-video widescreen"><iframe src="https://www.youtube.com/watch?v=JEWHaDt-qiE" frameborder="0" allowfullscreen=""></iframe></div>
+
+<p>I was very happy that <a href="https://www.oculus.com/">Oculus</a> found time at
+<a href="https://www.oculusconnect.com/"><span class="caps">OC3</span></a> to host a panel on creating a
+safe environment for people in <span class="caps">VR</span>. As social <span class="caps">VR</span> becomes more popular
+over the next few years it will quickly have to learn how to keep
+people safe together in shared environments. Some of the challenges
+are new: tracked hands make it easier to violate other avatars and
+gesture abusively without resorting to custom animations or scripts;
+invading personal space is a much bigger issue and increased presence
+makes all experiences more visceral for better or worse. Some novel
+solutions have already been developed for these challenges, notably
+the personal space bubbles developed for
+<a href="http://bigscreenvr.com/">Bigscreen</a> and widely used in other social
+<span class="caps">VR</span> experiences. However, a lot of these problems have been experienced
+in virtual worlds since <a href="https://en.wikipedia.org/wiki/MUD1"><span class="caps">MUD1</span></a>
+launched nearly 40 years ago. I was particularly struck by how the
+experiences with filtering, reporting and governance in <a href="https://altvr.com/">Altspace
+<span class="caps">VR</span></a> reminded me of the story of
+<a href="https://en.wikipedia.org/wiki/LambdaMOO">LambdaMOO</a> becoming a
+self-governing community told by <a href="http://juliandibbell.com/">Julian
+Dibbell</a> in <a href="http://www.lulu.com/shop/julian-dibbell/my-tiny-life-crime-and-passion-in-a-virtual-world/ebook/product-17492539.html">My Tiny
+Life</a>. People
+like Julian, <a href="http://www.youhaventlived.com/qblog/">Richard Bartle</a>
+and <a href="http://www.raphkoster.com/">Raph Koster</a> have been wrestling with
+and thinking about these problems for decades. The pioneers of this
+generation of <span class="caps">VR</span> should make sure they learn from those&nbsp;experiences.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2016/08/21/crestexplorer/"><h2>crestexplorer</h2></a>
+        <div class= "well small"> Sun 21 August 2016
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><div class="flex-video widescreen"><iframe src="https://www.youtube.com/embed/zYU2lier4GA" frameborder="0" allowfullscreen=""></iframe></div>
 
 <p>At the 3rd Party Dev State of the Union at <span class="caps">EVE</span> Fanfest 2016 earlier
 this year, <span class="caps">CCP</span> FoxFour drew my attention to a limitation of the
 current approach used by
 <a href="http://jimpurbrick.com/2016/01/03/crestmatic/">crestmatic</a> to
 generate <span class="caps">CREST</span> documentation: it only discovers resources always
-reachable from the <span class="caps">API</span> root from the perspective of the authorised
-character at generation time. As <span class="caps">CREST</span> now includes APIs for transient
-resources like
-<a href="https://forums.eveonline.com/default.aspx?g=posts&amp;t=475607">fleets</a>
-the entire <span class="caps">API</span> isn&#8217;t reachable for documentation from a nightly run
-using the credentials of a character not in a&nbsp;fleet.</p>
-<p>There are a couple of ways to fix this. At the <span class="caps">API</span> level <span class="caps">OPTIONS</span>
-responses could refer to linked representations that can exist. An
-alternative is to extend
-<a href="http://jimpurbrick.com/crestexplorerjs/#https://crest-tq.eveonline.com/">crestexplorerjs</a>
-with <span class="caps">OPTIONS</span> metadata to make it expose live documentation about
-reachable&nbsp;resources.</p>
-<p>At a recent hackathon I took the second approach. crestexplorer now
-makes <span class="caps">OPTIONS</span> requests to each resource it requests and uses
-<a href="https://github.com/jimpurbrick/crestschema">crestschema</a> and data
-urls to generate downloadable <a href="http://json-schema.org/latest/json-schema-core.html"><span class="caps">JSON</span>
-schema</a>
-descriptions for each of the representations available for a
-resource. It also hyperlinks to the alternative representations so now
-all representations of all reachable resources are available in
-crestschema and the human readable descriptions of each field are
-added to the rendered resource as&nbsp;hovertext.</p>
-<p>Now documentation for any valid <span class="caps">CREST</span> resource live
-by specifying the <span class="caps">URI</span> for the resource as the crestexplorer hash
-fragment. Even when the resources are transient documentation is
-available for resources while they&nbsp;exist.</p></div>
-        <hr />
-    </div>
-		
+reachable from the <span class="caps">API</span> root from the perspective of the ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2016/08/21/crestexplorer/">read more</a></div>
+    </div>	
+				
     
  
         
@@ -530,28 +549,6 @@ Second Life at Linden Lab, my Dad worked at an innovative technology
 company with a large consumer photography business: <a href="http://www.kodak.com/">Kodak</a>. From
 January next year I’ll be working at an innovative technology company
 with a large ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/11/12/following-my-fathers-footsteps/">read more</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://jimpurbrick.com/2012/11/11/caching-restricted-data-ningx/"><h2>Caching Shared, Private Data With&nbsp;Ningx</h2></a>
-        <div class= "well small"> Sun 11 November 2012
-
-by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
- 
-
-
- </div>
-        <div class="summary"><p>As with many other social services, a large amount of the data in
-<a href="http://www.eveonline.com/"><span class="caps"><span class="caps">EVE</span></span> Online</a> and <a href="http://www.dust514.com/">Dust 514</a>‘s New Eden
-universe is shared between subsets of users. Some corporation data
-should only be accessible to the corporation’s members, market prices
-should only be accessible to capsuleers and infantry ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/11/11/caching-restricted-data-ningx/">read more</a></div>
     </div>	
 				
             <div class="pagination">

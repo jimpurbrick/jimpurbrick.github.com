@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2016/08/21/crestexplorer/"><h1>crestexplorer</h1></a>
-            Sun 21 August 2016
+            <a href="http://jimpurbrick.com/2017/01/04/vr-redux/"><h1><span class="caps">VR</span>&nbsp;Redux</h1></a>
+            Wed 04 January 2017
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,42 +74,93 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><div class="flex-video widescreen"><iframe src="https://www.youtube.com/embed/zYU2lier4GA" frameborder="0" allowfullscreen=""></iframe></div>
+        <div><p><a href="https://twitter.com/m1k3">Mike</a> and I have been talking about how to
+easily build simple networked social applications with
+<a href="https://facebookincubator.github.io/react-vr/">ReactVR</a> for a while,
+so I spent some time hacking over the Christmas break to see if I
+could build a ReactVR version of the pairs game in <a href="https://www.youtube.com/watch?v=MqAGl2JmH4I">Oculus
+Rooms</a>. Pairs is simple
+and fun, but also interesting as it’s real time and has the potential
+to generate conflicting updates that need to be&nbsp;resolved.</p>
+<p><a href="http://redux.js.org/">Redux</a> seemed like a promising starting point
+as it reifies events and allows flexible event processing in a similar
+way to
+<a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.100.7556"><span class="caps">MASSIVE</span>-3</a>.
+I used
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API">websockets</a>
+as they are already supported by ReactVR along with
+<a href="https://www.npmjs.com/package/wsrelay">wsrelay</a> to network the&nbsp;clients.</p>
+<p>With those pieces in place the simplest way to network the clients is
+to implement a middleware function to send every action generated in
+one client to all the others. In the case of actions which show a tile
+this is sufficient as the action is idempotent. If two players click
+on a square at the same the order that the actions are reduced in
+doesn’t matter, in either case the result is that the element is
+revealed. We can exploit the idempotency by optimistically processing
+the action locally before sending it to other clients to minimise
+network&nbsp;latency.</p>
+<script src="http://gist-it.appspot.com/https://github.com/jimpurbrick/pairs/blob/18e2184bda3e5472c5ad077fde4a87de7293b7f3/index.vr.js#L62-L71"></script>
+
+<p>Scoring is trickier. While each client can tell when a pair has been
+revealed, only the first player to reveal the pair should score a
+point. As the actions to reveal tiles are potentially processed in
+different orders on each client that could lead to inconsistent scores
+even if only the first is processed. A simple way to avoid this
+inconsistency is to nominate one client to be the master and only have
+that client generate score actions. This can be implemented as another
+middleware to avoid generating actions inside a&nbsp;reducer.</p>
+<script src="http://gist-it.appspot.com/https://github.com/jimpurbrick/pairs/blob/18e2184bda3e5472c5ad077fde4a87de7293b7f3/index.vr.js#L47-L60"></script>
+
+<p>The master client can also be made responsible for sending the current
+state of the simulation to new clients to support late&nbsp;joining.</p>
+<script src="http://gist-it.appspot.com/https://github.com/jimpurbrick/pairs/blob/18e2184bda3e5472c5ad077fde4a87de7293b7f3/index.vr.js#L78-L94"></script>
+
+<p>With those parts done the app is usable and makes an interesting
+example of one possible way to network ReactVR applications. This was
+the first time I’d used React, ReactVR or Redux and I was very
+impressed by how easy to use and flexible they are. With the addition
+of some small pieces of middleware Redux can be used to implement a
+distributed simulation with flexible consistency mechanisms to trade
+off latency and consistency. The pairs example shows that even within
+a simple application applying different consistency mechanisms to
+different actions and parts of the application state is&nbsp;useful.</p>
+<p>The next things to experiment with are using
+<a href="https://webrtc.org/">WebRTC</a> to allow peer to peer communication
+between clients to further reduce latency, add a server to allow
+trusted and hidden state and allowing clients to subscribe to a subset
+of actions to allow heterogeneous clients and <a href="https://scholar.google.com/scholar?q=interest+management+virtual+environments&amp;hl=en&amp;as_sdt=0&amp;as_vis=1&amp;oi=scholart&amp;sa=X&amp;ved=0ahUKEwi3peaslYXOAhVM6iYKHZ_pCd8QgQMIJTAA">interest
+management</a>.</p>
+<p>If you&#8217;d like to play the ReactVR version of pairs or see the rest of
+the code, it&#8217;s available on
+<a href="https://github.com/jimpurbrick/pairs">github</a>&nbsp;here.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2016/08/21/crestexplorer/"><h2>crestexplorer</h2></a>
+        <div class= "well small"> Sun 21 August 2016
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><div class="flex-video widescreen"><iframe src="https://www.youtube.com/embed/zYU2lier4GA" frameborder="0" allowfullscreen=""></iframe></div>
 
 <p>At the 3rd Party Dev State of the Union at <span class="caps">EVE</span> Fanfest 2016 earlier
 this year, <span class="caps">CCP</span> FoxFour drew my attention to a limitation of the
 current approach used by
 <a href="http://jimpurbrick.com/2016/01/03/crestmatic/">crestmatic</a> to
 generate <span class="caps">CREST</span> documentation: it only discovers resources always
-reachable from the <span class="caps">API</span> root from the perspective of the authorised
-character at generation time. As <span class="caps">CREST</span> now includes APIs for transient
-resources like
-<a href="https://forums.eveonline.com/default.aspx?g=posts&amp;t=475607">fleets</a>
-the entire <span class="caps">API</span> isn&#8217;t reachable for documentation from a nightly run
-using the credentials of a character not in a&nbsp;fleet.</p>
-<p>There are a couple of ways to fix this. At the <span class="caps">API</span> level <span class="caps">OPTIONS</span>
-responses could refer to linked representations that can exist. An
-alternative is to extend
-<a href="http://jimpurbrick.com/crestexplorerjs/#https://crest-tq.eveonline.com/">crestexplorerjs</a>
-with <span class="caps">OPTIONS</span> metadata to make it expose live documentation about
-reachable&nbsp;resources.</p>
-<p>At a recent hackathon I took the second approach. crestexplorer now
-makes <span class="caps">OPTIONS</span> requests to each resource it requests and uses
-<a href="https://github.com/jimpurbrick/crestschema">crestschema</a> and data
-urls to generate downloadable <a href="http://json-schema.org/latest/json-schema-core.html"><span class="caps">JSON</span>
-schema</a>
-descriptions for each of the representations available for a
-resource. It also hyperlinks to the alternative representations so now
-all representations of all reachable resources are available in
-crestschema and the human readable descriptions of each field are
-added to the rendered resource as&nbsp;hovertext.</p>
-<p>Now documentation for any valid <span class="caps">CREST</span> resource live
-by specifying the <span class="caps">URI</span> for the resource as the crestexplorer hash
-fragment. Even when the resources are transient documentation is
-available for resources while they&nbsp;exist.</p></div>
-        <hr />
-    </div>
-		
+reachable from the <span class="caps">API</span> root from the perspective of the ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2016/08/21/crestexplorer/">read more</a></div>
+    </div>	
+				
     
  
         

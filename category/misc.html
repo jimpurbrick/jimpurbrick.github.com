@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2016/10/31/creating-a-safe-environment-for-people-in-vr/"><h1>Creating A Safe Environment For People In&nbsp;<span class="caps">VR</span></h1></a>
-            Mon 31 October 2016
+            <a href="http://jimpurbrick.com/2017/01/04/vr-redux/"><h1><span class="caps">VR</span>&nbsp;Redux</h1></a>
+            Wed 04 January 2017
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,36 +74,92 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><div class="flex-video widescreen"><iframe src="https://www.youtube.com/embed/JEWHaDt-qiE" frameborder="0" allowfullscreen=""></iframe></div>
+        <div><p><a href="https://twitter.com/m1k3">Mike</a> and I have been talking about how to
+easily build simple networked social applications with
+<a href="https://facebookincubator.github.io/react-vr/">ReactVR</a> for a while,
+so I spent some time hacking over the Christmas break to see if I
+could build a ReactVR version of the pairs game in <a href="https://www.youtube.com/watch?v=MqAGl2JmH4I">Oculus
+Rooms</a>. Pairs is simple
+and fun, but also interesting as it’s real time and has the potential
+to generate conflicting updates that need to be&nbsp;resolved.</p>
+<p><a href="http://redux.js.org/">Redux</a> seemed like a promising starting point
+as it reifies events and allows flexible event processing in a similar
+way to
+<a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.100.7556"><span class="caps">MASSIVE</span>-3</a>.
+I used
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API">websockets</a>
+as they are already supported by ReactVR along with
+<a href="https://www.npmjs.com/package/wsrelay">wsrelay</a> to network the&nbsp;clients.</p>
+<p>With those pieces in place the simplest way to network the clients is
+to implement a middleware function to send every action generated in
+one client to all the others. In the case of actions which show a tile
+this is sufficient as the action is idempotent. If two players click
+on a square at the same the order that the actions are reduced in
+doesn’t matter, in either case the result is that the element is
+revealed. We can exploit the idempotency by optimistically processing
+the action locally before sending it to other clients to minimise
+network&nbsp;latency.</p>
+<script src="http://gist-it.appspot.com/https://github.com/jimpurbrick/pairs/blob/18e2184bda3e5472c5ad077fde4a87de7293b7f3/index.vr.js#L62-L71"></script>
+
+<p>Scoring is trickier. While each client can tell when a pair has been
+revealed, only the first player to reveal the pair should score a
+point. As the actions to reveal tiles are potentially processed in
+different orders on each client that could lead to inconsistent scores
+even if only the first is processed. A simple way to avoid this
+inconsistency is to nominate one client to be the master and only have
+that client generate score actions. This can be implemented as another
+middleware to avoid generating actions inside a&nbsp;reducer.</p>
+<script src="http://gist-it.appspot.com/https://github.com/jimpurbrick/pairs/blob/18e2184bda3e5472c5ad077fde4a87de7293b7f3/index.vr.js#L47-L60"></script>
+
+<p>The master client can also be made responsible for sending the current
+state of the simulation to new clients to support late&nbsp;joining.</p>
+<script src="http://gist-it.appspot.com/https://github.com/jimpurbrick/pairs/blob/18e2184bda3e5472c5ad077fde4a87de7293b7f3/index.vr.js#L78-L94"></script>
+
+<p>With those parts done the app is usable and makes an interesting
+example of one possible way to network ReactVR applications. This was
+the first time I’d used React, ReactVR or Redux and I was very
+impressed by how easy to use and flexible they are. With the addition
+of some small pieces of middleware Redux can be used to implement a
+distributed simulation with flexible consistency mechanisms to trade
+off latency and consistency. The pairs example shows that even within
+a simple application applying different consistency mechanisms to
+different actions and parts of the application state is&nbsp;useful.</p>
+<p>The next things to experiment with are using
+<a href="https://webrtc.org/">WebRTC</a> to allow peer to peer communication
+between clients to further reduce latency, add a server to allow
+trusted and hidden state and allowing clients to subscribe to a subset
+of actions to allow heterogeneous clients and <a href="https://scholar.google.com/scholar?q=interest+management+virtual+environments&amp;hl=en&amp;as_sdt=0&amp;as_vis=1&amp;oi=scholart&amp;sa=X&amp;ved=0ahUKEwi3peaslYXOAhVM6iYKHZ_pCd8QgQMIJTAA">interest
+management</a>.</p>
+<p>If you&#8217;d like to play the ReactVR version of pairs or see the rest of
+the code, it&#8217;s available on
+<a href="https://github.com/jimpurbrick/pairs">github</a>&nbsp;here.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2016/10/31/creating-a-safe-environment-for-people-in-vr/"><h2>Creating A Safe Environment For People In&nbsp;<span class="caps">VR</span></h2></a>
+        <div class= "well small"> Mon 31 October 2016
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><div class="flex-video widescreen"><iframe src="https://www.youtube.com/embed/JEWHaDt-qiE" frameborder="0" allowfullscreen=""></iframe></div>
 
 <p>I was very happy that <a href="https://www.oculus.com/">Oculus</a> found time at
 <a href="https://www.oculusconnect.com/"><span class="caps">OC3</span></a> to host a panel on creating a
 safe environment for people in <span class="caps">VR</span>. As social <span class="caps">VR</span> becomes more popular
 over the next few years it will quickly have to learn how to keep
-people safe together in shared environments. Some of the challenges
-are new: tracked hands make it easier to violate other avatars and
-gesture abusively without resorting to custom animations or scripts;
-invading personal space is a much bigger issue and increased presence
-makes all experiences more visceral for better or worse. Some novel
-solutions have already been developed for these challenges, notably
-the personal space bubbles developed for
-<a href="http://bigscreenvr.com/">Bigscreen</a> and widely used in other social
-<span class="caps">VR</span> experiences. However, a lot of these problems have been experienced
-in virtual worlds since <a href="https://en.wikipedia.org/wiki/MUD1"><span class="caps">MUD1</span></a>
-launched nearly 40 years ago. I was particularly struck by how the
-experiences with filtering, reporting and governance in <a href="https://altvr.com/">Altspace
-<span class="caps">VR</span></a> reminded me of the story of
-<a href="https://en.wikipedia.org/wiki/LambdaMOO">LambdaMOO</a> becoming a
-self-governing community told by <a href="http://juliandibbell.com/">Julian
-Dibbell</a> in <a href="http://www.lulu.com/shop/julian-dibbell/my-tiny-life-crime-and-passion-in-a-virtual-world/ebook/product-17492539.html">My Tiny
-Life</a>. People
-like Julian, <a href="http://www.youhaventlived.com/qblog/">Richard Bartle</a>
-and <a href="http://www.raphkoster.com/">Raph Koster</a> have been wrestling with
-and thinking about these problems for decades. The pioneers of this
-generation of <span class="caps">VR</span> should make sure they learn from those&nbsp;experiences.</p></div>
-        <hr />
-    </div>
-		
+people safe together in shared environments. Some ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2016/10/31/creating-a-safe-environment-for-people-in-vr/">read more</a></div>
+    </div>	
+				
     
  
         
@@ -526,29 +582,6 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
 is Creatarr: a creative, collaborative social game. Creatarr’s goal is
 to bring some of the magical collaborative creation found in <a href="http://secondlife.com">Second
 Life</a> to a wider audience and to push creativity in ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2013/01/09/creatarr/">read more</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://jimpurbrick.com/2012/11/12/following-my-fathers-footsteps/"><h2>Following In My Father&#8217;s&nbsp;Footsteps</h2></a>
-        <div class= "well small"> Mon 12 November 2012
-
-by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
- 
-
-
- </div>
-        <div class="summary"><p><a href="http://www.flickr.com/photos/jimpurbrick/7865450260/" title="Tintin Hair by Jim Purbrick, on Flickr"><img src="http://farm9.staticflickr.com/8431/7865450260_1651236443.jpg" width="318" height="500" alt="Tintin Hair"></a></p>
-<p>From 2 years before I was born, until just before I started working on
-Second Life at Linden Lab, my Dad worked at an innovative technology
-company with a large consumer photography business: <a href="http://www.kodak.com/">Kodak</a>. From
-January next year I’ll be working at an innovative technology company
-with a large ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/11/12/following-my-fathers-footsteps/">read more</a></div>
     </div>	
 				
             <div class="pagination">

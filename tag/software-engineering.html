@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2009/04/27/langnet-3-years/"><h1>Lang.<span class="caps">NET</span> 3 Years&nbsp;On</h1></a>
-            Mon 27 April 2009
+            <a href="http://jimpurbrick.com/2017/01/04/vr-redux/"><h1><span class="caps">VR</span>&nbsp;Redux</h1></a>
+            Wed 04 January 2017
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,91 +74,89 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><p>It was incredibly satisfying to be able to go back to
-Lang.<span class="caps"><span class="caps">NET</span></span> 3 years on to be able to say that we
-actually managed to make <a href="http://download.microsoft.com/download/9/4/1/94138e2a-d9dc-435a-9240-bcd985bf5bd7/Jim-Cory-SecondLife.wmv">all the crazy plans we had for Mono in 2006</a>
-work. My talk is now <a href="http://download.microsoft.com/download/B/F/0/BF0DAE51-F096-4DB4-8707-ACBDB7680BC0/17-JimPurbrick-SecondLife.wmv">online here</a>. Lots of people hadn’t seen the
-2006 talk and were blown away with us adding support for continuations
-on the <span class="caps"><span class="caps">CLR</span></span> and enough new stuff to keep those
-that had seen the first talk interested. In particular the anecdote
-about flywheel exploits for the Mono scheduler got a laugh from&nbsp;Anders Hejlsberg.</p>
-</p>
+        <div><p><a href="https://twitter.com/m1k3">Mike</a> and I have been talking about how to
+easily build simple networked social applications with
+<a href="https://facebookincubator.github.io/react-vr/">ReactVR</a> for a while,
+so I spent some time hacking over the Christmas break to see if I
+could build a ReactVR version of the pairs game in <a href="https://www.youtube.com/watch?v=MqAGl2JmH4I">Oculus
+Rooms</a>. Pairs is simple
+and fun, but also interesting as it’s real time and has the potential
+to generate conflicting updates that need to be&nbsp;resolved.</p>
+<p><a href="http://redux.js.org/">Redux</a> seemed like a promising starting point
+as it reifies events and allows flexible event processing in a similar
+way to
+<a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.100.7556"><span class="caps">MASSIVE</span>-3</a>.
+I used
+<a href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API">websockets</a>
+as they are already supported by ReactVR along with
+<a href="https://www.npmjs.com/package/wsrelay">wsrelay</a> to network the&nbsp;clients.</p>
+<p>With those pieces in place the simplest way to network the clients is
+to implement a middleware function to send every action generated in
+one client to all the others. In the case of actions which show a tile
+this is sufficient as the action is idempotent. If two players click
+on a square at the same the order that the actions are reduced in
+doesn’t matter, in either case the result is that the element is
+revealed. We can exploit the idempotency by optimistically processing
+the action locally before sending it to other clients to minimise
+network&nbsp;latency.</p>
+<script src="http://gist-it.appspot.com/https://github.com/jimpurbrick/pairs/blob/18e2184bda3e5472c5ad077fde4a87de7293b7f3/index.vr.js#L62-L71"></script>
 
-<p>The other highlights on Tuesday were <a href="http://download.microsoft.com/download/B/F/0/BF0DAE51-F096-4DB4-8707-ACBDB7680BC0/02-MadsTorgersen-CSharp4Dynamic.wmv">Mads Torgeson’s talk</a>, which
-gave some nice insights in to the process that led up to the final C#
-4.0 Dynamic design. Mads did a good job capturing some of the concerns
-that static advocates have with dynamic languages. Gilad Bracha’s talk
-on <a href="http://download.microsoft.com/download/B/F/0/BF0DAE51-F096-4DB4-8707-ACBDB7680BC0/08-GiladBracha-Hopscotch.wmv">Newspeak and the Hopscotch <span class="caps"><span class="caps">IDE</span></span></a> showed
-what’s possible with a really dynamic language: extending the
-<span class="caps"><span class="caps">IDE</span></span> and debugging it from inside itself. The
-access that newspeak has to it’s call stack was particularly
-interesting: it would be much easier to move a newspeak stack around
-than build the infrastructure we needed to move a
-<span class="caps"><span class="caps">CLI</span></span> stack. I spoke to Gilad about his
-experiences building newspeak on Sqeak afterwards. His impression is
-that Squeak is runtime mostly used for education and has no support for
-security or running untrusted code. Having spent a decade seeing the
-various security problems with bytecode verification in Java, Gilad
-isn’t convinced that a bytecode level sandbox is the right approach, but
-although he has some ideas for object capability based security for the
-post squeak Newspeak implementation it seems a long&nbsp;way off.</p>
-</p>
+<p>Scoring is trickier. While each client can tell when a pair has been
+revealed, only the first player to reveal the pair should score a
+point. As the actions to reveal tiles are potentially processed in
+different orders on each client that could lead to inconsistent scores
+even if only the first is processed. A simple way to avoid this
+inconsistency is to nominate one client to be the master and only have
+that client generate score actions. This can be implemented as another
+middleware to avoid generating actions inside a&nbsp;reducer.</p>
+<script src="http://gist-it.appspot.com/https://github.com/jimpurbrick/pairs/blob/18e2184bda3e5472c5ad077fde4a87de7293b7f3/index.vr.js#L47-L60"></script>
 
-<p>The highlight on Wednesday was definitely <a href="http://download.microsoft.com/download/7/6/A/76A69AE5-72B5-4005-BBD9-7EA5F4795014/18-LarsBak-JavaScript.wmv">Lars Bak’s talk on V8</a>,
-which I had missed last year at <span class="caps"><span class="caps">JAOO</span></span>. The
-mechanism for discovering emergent types in dynamic languages to allow
-indexed lookup instead of hash table lookup is a very nice hack. Lar’s
-super competitive heckling of everyone at Microsoft for the rest of the
-day was also fun. Other highlights included Erik Meijer throwing coins
-around while talking about mathematical duality and <a href="http://download.microsoft.com/download/7/6/A/76A69AE5-72B5-4005-BBD9-7EA5F4795014/21-AmanderLauter-FSharpConcurrency.wmv">Amanda Lauter</a>
-and <a href="http://download.microsoft.com/download/7/6/A/76A69AE5-72B5-4005-BBD9-7EA5F4795014/25-LukeHoban-FSharpProductization.wmv">Luke Hoban</a> talking about F#. Potentially relevant to Linden Lab
-if we get to the point where we can support debugging scripts in Second
-Life was Herman Venter’s talk on the <a href="http://download.microsoft.com/download/7/6/A/76A69AE5-72B5-4005-BBD9-7EA5F4795014/26-HermanVenter-CCI.wmv">Common Compiler Infrastructure</a>
-a newly open sourced library which can allow
-<span class="caps"><span class="caps">CLI</span></span> assembly rewriting while preserving&nbsp;debug information.</p>
-</p>
+<p>The master client can also be made responsible for sending the current
+state of the simulation to new clients to support late&nbsp;joining.</p>
+<script src="http://gist-it.appspot.com/https://github.com/jimpurbrick/pairs/blob/18e2184bda3e5472c5ad077fde4a87de7293b7f3/index.vr.js#L78-L94"></script>
 
-<p>The <a href="http://msdn.microsoft.com/en-us/oslo/dd727707.aspx">Meta Introduction to Domain Specific Languages</a> was a really good
-opening for the DevCon, but the talk most relevant to Second Life was
-Paul Cowan talking about <a href="http://msdn.microsoft.com/en-us/oslo/dd727726.aspx">DSLs in the Horn Package Manager</a>. Paul
-talked about creating DSLs by extending <a href="http://boo.codehaus.org/">Boo</a>, something that should
-be possible when we get to the point where Second Life can accept
-arbitrary <span class="caps"><span class="caps">CLI</span></span> assemblies. I got a first Boo
-script compiling against the Second Life assemblies at the DevCon and
-have some plans to experiment building a <span class="caps"><span class="caps">DSL</span></span>
-for virtual ecosystems in Second Life over the next few weeks.
-Supporting C# as a general purpose language and Boo as a meta language
-for building DSLs in Second Life would be an&nbsp;excellent combination.</p>
-</p>
-
-<p>A lot of the talks at the DevCon seemed to involve doing terrifying
-language somersaults to create more natural DSLs that run on the
-<span class="caps"><span class="caps">JVM</span></span> or <span class="caps"><span class="caps">CLI</span></span> which
-then can’t be easily debugged due to the huge chained expressions or
-nested types that the languages boil down to. There seems to be a large
-opportunity for disaster here when these DSLs need to be extended or
-maintained in 10 years time after the original authors have moved on.
-Although Martin deflected a lot of these questions by saying you can get
-bad frameworks as easily as bad DSLs, I feel a lot more comfortable
-unpicking a bad framework or wrapping a library than trying to fix or
-extend a broken language (maybe several years reimplementing
-<span class="caps"><span class="caps">LSL</span></span>’s quirks&nbsp;did that).</p>
-</p>
-
-<p>The ultimate promise of DSLs was hinted at by <a href="http://msdn.microsoft.com/en-us/oslo/dd727740.aspx">Magnus Christerson’s
-talk</a> which demoed Intentional’s amazing Domain Workbench. Instead of
-building DSLs on top of mainstream runtimes, the Domain Workbench models
-the domain and can then project the model as code or using domain
-specific projections like interactive circuit diagrams that can be
-manipulated and debugged interactively. Magnus started his talk saying
-that we used to have to enter programs on punch cards that evolved in to
-sequential programs and that we don’t need to do that any more. If the
-Domain Workbench’s promise is fulfilled it could change the way we
-develop&nbsp;software forever.</p>
-</p></div>
+<p>With those parts done the app is usable and makes an interesting
+example of one possible way to network ReactVR applications. This was
+the first time I’d used React, ReactVR or Redux and I was very
+impressed by how easy to use and flexible they are. With the addition
+of some small pieces of middleware Redux can be used to implement a
+distributed simulation with flexible consistency mechanisms to trade
+off latency and consistency. The pairs example shows that even within
+a simple application applying different consistency mechanisms to
+different actions and parts of the application state is&nbsp;useful.</p>
+<p>The next things to experiment with are using
+<a href="https://webrtc.org/">WebRTC</a> to allow peer to peer communication
+between clients to further reduce latency, add a server to allow
+trusted and hidden state and allowing clients to subscribe to a subset
+of actions to allow heterogeneous clients and <a href="https://scholar.google.com/scholar?q=interest+management+virtual+environments&amp;hl=en&amp;as_sdt=0&amp;as_vis=1&amp;oi=scholart&amp;sa=X&amp;ved=0ahUKEwi3peaslYXOAhVM6iYKHZ_pCd8QgQMIJTAA">interest
+management</a>.</p>
+<p>If you&#8217;d like to play the ReactVR version of pairs or see the rest of
+the code, it&#8217;s available on
+<a href="https://github.com/jimpurbrick/pairs">github</a>&nbsp;here.</p></div>
         <hr />
     </div>
 		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2009/04/27/langnet-3-years/"><h2>Lang.<span class="caps">NET</span> 3 Years&nbsp;On</h2></a>
+        <div class= "well small"> Mon 27 April 2009
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>It was incredibly satisfying to be able to go back to
+Lang.<span class="caps"><span class="caps">NET</span></span> 3 years on to be able to say that we
+actually managed to make <a href="http://download.microsoft.com/download/9/4/1/94138e2a-d9dc-435a-9240-bcd985bf5bd7/Jim-Cory-SecondLife.wmv">all the crazy plans we had for Mono in 2006</a>
+work. My talk is now <a href="http://download.microsoft.com/download/B/F/0/BF0DAE51-F096-4DB4-8707-ACBDB7680BC0/17-JimPurbrick-SecondLife.wmv">online here</a>. Lots of people hadn’t seen ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2009/04/27/langnet-3-years/">read more</a></div>
+    </div>	
+				
             <div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Previous</a></li>

@@ -87,11 +87,11 @@ round trip to those actions. So, I did some more&nbsp;hacking.</p>
 network logic I kept the network code in a redux middleware and moved
 the application logic to an isValid callback which returns true if an
 action can be safely&nbsp;reduced:</p>
-<script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/da1c9371d889ace2411c0fbacbb725a7d3610a91/Examples/Pairs/reducers/validate.js?slice=27:44&footer=0"></script>
+<script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/da1c9371d889ace2411c0fbacbb725a7d3610a91/Examples/Pairs/reducers/validate.js?slice=26:44&footer=0"></script>
 
 <p>With this in place the simple, conservative, dumbTerminalConsistency
 policy can be implemented in a few lines of&nbsp;code:</p>
-<script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/da1c9371d889ace2411c0fbacbb725a7d3610a91/Examples/Pairs/replicate.js?slice=20:37&footer=0"></script>
+<script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/da1c9371d889ace2411c0fbacbb725a7d3610a91/Examples/Pairs/replicate.js?slice=19:37&footer=0"></script>
 
 <p>Clients generate actions in response to <span class="caps">UI</span> interactions and send those
 actions to the master. The master returns valid actions which are then
@@ -103,7 +103,7 @@ consistent view at the cost of a round-trip to the master for all&nbsp;actions.<
 <p>The same isValid method can be reused to implement an optimistic
 clientPredictionConsistency policy which treats the clients as
 decoupled&nbsp;simulations:</p>
-<script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/da1c9371d889ace2411c0fbacbb725a7d3610a91/Examples/Pairs/replicate.js?slice=39:59&footer=0"></script>
+<script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/da1c9371d889ace2411c0fbacbb725a7d3610a91/Examples/Pairs/replicate.js?slice=38:59&footer=0"></script>
 
 <p>When using this middleware, clients immediately reduce actions which
 are valid given their local state and distribute local actions to all
@@ -157,7 +157,12 @@ future. Modern <span class="caps">VR</span> hardware provides incredibly low mot
 latency and it would be a shame to see the sense of presence it can
 create broken by the network round-trips inherent in client-server
 architectures. Optimistic updates, client prediction and zero latency
-should be the&nbsp;default.</p></div>
+should be the&nbsp;default.</p>
+<p>If you&#8217;d like to play the ReactVR version of pairs or see the rest of
+the code, it&#8217;s available on github
+<a href="https://github.com/facebook/react-vr/tree/master/Examples/Pairs">here</a>.</p>
+<p>All code in this post is made available under the <a href="https://github.com/facebook/react-vr/blob/master/LICENSE-examples">ReactVR examples
+license</a>.</p></div>
         <hr />
     </div>
 		

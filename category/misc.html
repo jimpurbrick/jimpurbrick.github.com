@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2017/06/03/generation-jpod/"><h1>Generation&nbsp;JPod</h1></a>
-            Sat 03 June 2017
+            <a href="http://jimpurbrick.com/2017/07/04/react-vr-redux-revisited/"><h1>ReactVR Redux&nbsp;Revisited</h1></a>
+            Tue 04 July 2017
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,115 +74,118 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><p><a href="https://en.wikipedia.org/wiki/File:JPod.jpg"><img src="https://upload.wikimedia.org/wikipedia/en/f/fa/JPod.jpg"></a></p>
+        <div><p>There were a couple of aspects of my <a href="http://jimpurbrick.com/2017/01/04/vr-redux/">previous
+experiments</a> building
+networked <a href="https://facebook.github.io/react-vr/">ReactVR</a> experiences
+with <a href="http://redux.js.org/">Redux</a> that were unsatisfactory: there
+wasn&#8217;t a clean separation between the application logic and network
+code and, while the example exploited idempotency to reduce latency
+for some actions, actions which could generate conflicts used a
+conservative consistency mechanism which added a at least a network
+round trip to those actions. So, I did some more&nbsp;hacking.</p>
+<p>In an attempt to create a clean separation between application and
+network logic I kept the network code in a redux middleware and moved
+the application logic to an isValid callback which returns true if an
+action can be safely&nbsp;reduced:</p>
+<script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/da1c9371d889ace2411c0fbacbb725a7d3610a91/Examples/Pairs/reducers/validate.js?slice=27:44&footer=0"></script>
+
+<p>With this in place the simple, conservative, dumbTerminalConsistency
+policy can be implemented in a few lines of&nbsp;code:</p>
+<script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/da1c9371d889ace2411c0fbacbb725a7d3610a91/Examples/Pairs/replicate.js?slice=20:37&footer=0"></script>
+
+<p>Clients generate actions in response to <span class="caps">UI</span> interactions and send those
+actions to the master. The master returns valid actions which are then
+reduced.  Conflicts are resolved by serializing actions through the
+master client: isValid will return true for the first event, which
+will be distributed to all clients, but false for subsequent
+conflicting actions which are discarded. All clients see a single,
+consistent view at the cost of a round-trip to the master for all&nbsp;actions.</p>
+<p>The same isValid method can be reused to implement an optimistic
+clientPredictionConsistency policy which treats the clients as
+decoupled&nbsp;simulations:</p>
+<script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/da1c9371d889ace2411c0fbacbb725a7d3610a91/Examples/Pairs/replicate.js?slice=39:59&footer=0"></script>
+
+<p>When using this middleware, clients immediately reduce actions which
+are valid given their local state and distribute local actions to all
+other clients. If a conflict is detected, the master client uses the
+same setState mechanism used to allow late joining to reset the
+decoupled simulations to the master state. The effects of actions are
+seen immediately at the cost of occasionally seeing the effects of
+actions roll back when the state is reset. By designing reducers to be
+idempotent and making the isValid callback as permissive as possible
+the number of state reset actions can be minimized. In the case of
+pairs, state resets only occur when two clients try to get the points
+for the same pair, or if a client tries to hide half of a pair which
+has been&nbsp;scored.</p>
+<p>Testing pairs with the two different consistency policies over a high latency
+ngrok connection gives wildly different experiences. With dumbTerminalConsistency
+introducing 500ms round-trip latencies between clicking and seeing results the
+experience feels laggy, slow and clumsy. With clientPredictionConsistency
+the effects of local actions are seen with 0 latency and the experience is fast,
+snappy and frantic. Glitches caused by state resets are occasionally jarring,
+but often go unnoticed as the focus of attention is on the board during the game
+before switching to the scores at the end once they are eventually consistent.
+While it may make sense to use conservative consistency for some applications,
+pairs definitely benefits from an optimistic&nbsp;approach.</p>
+<p>Being able to independently develop application logic and consistency
+mechanisms is extremely valuable. While developing the pairs example I
+was able to get the dumbTerminalConsistency middleware working, then
+the pairs game logic and then switch between the
+dumbTerminalConsistency and clientPredictionConsistency policies to
+determine whether I had a problem with the game logic or middleware
+while getting optimistic local updates working. I could imagine a
+similar approach being valuable for other applications. Conservative
+consistency could be used during development, then optimistic
+consistency policies could be experimented with to find the right
+trade off between latency and consistency without worrying about
+breaking the application logic by mixing in tightly coupled local
+update&nbsp;logic.</p>
+<p>Its easy to imagine more sophisticated optimistic consistency
+mechanisms: middleware which generates anti-events to avoid full state
+resets when the state becomes too large, approaches which use Redux
+time travel approaches to rewrite history when conflicts are detected
+or policies which extrapolate predictions or interpolate corrections
+to avoid discontinuities for example. Many of these approaches could
+be implemented in generic ways, but developers would still have the
+option to build middleware which exploits application specific
+knowledge where&nbsp;appropriate.</p>
+<p>The Redux approach of defining the next state as a function of an
+action applied to the current state lends itself to building
+sophisticated decoupled simulations. I hope to see these approaches
+become standard in networked ReactVR applications in the near
+future. Modern <span class="caps">VR</span> hardware provides incredibly low motion to photon
+latency and it would be a shame to see the sense of presence it can
+create broken by the network round-trips inherent in client-server
+architectures. Optimistic updates, client prediction and zero latency
+should be the&nbsp;default.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2017/06/03/generation-jpod/"><h2>Generation&nbsp;JPod</h2></a>
+        <div class= "well small"> Sat 03 June 2017
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><a href="https://en.wikipedia.org/wiki/File:JPod.jpg"><img src="https://upload.wikimedia.org/wikipedia/en/f/fa/JPod.jpg"></a></p>
 <p>I&#8217;ve just got back from <a href="https://en.wikipedia.org/wiki/Ka%C5%9F">Kaş</a>
 where I spent a lovely few days celebrating <a href="https://www.flickr.com/photos/jimpurbrick/albums/72157681607365593">Pinar and Simon&#8217;s
 wedding</a>
 and while there spent a few hours reading <a href="http://www.harpercollins.ca/9780008185329/now-we-are-40">Now We Are
 40</a>: a
 thoughtful and entertaining look at everything from house music to
-house prices from the perspective of Generation&nbsp;X.</p>
-<p>While a lot of the book was familiar, I was surprised how different my
-experience has been. I don&#8217;t feel part of the last generation who grew
-up without digital technology, but part of the first generation to grow up
-with&nbsp;it.</p>
-<p>I learned to program at school, started writing code professionally at
-18 and haven&#8217;t stopped. I didn&#8217;t work many
-<a href="https://en.wikipedia.org/wiki/McJob">McJob</a>s, but have worked in many
-<a href="https://en.wikipedia.org/wiki/JPod">JPod</a>s (and seen friends move
-to Vancouver to work in the games industry there). I may have bought my
-first smartphone when I got my first job, but my life has
-felt digital from the&nbsp;start.</p>
-<p>One focus of &#8220;Now We Are 40&#8221; is the changes in music over the last few
-decades from the pre-digital rave scene to the current over-saturation
-of recorded music available from streaming services which has rendered
-selling recorded music unsustainable for almost everyone. Food and
-drink followed on as the next big thing, something I&#8217;ve experienced
-personally as my
-<a href="https://www.instagram.com/3scoopsplease/">brother-in-law</a> morphed
-from hip hop pimp to sommelier. You may not need to buy
-recorded music any more, but you still need to eat and&nbsp;drink.</p>
-<p>In fact raves, clubs, cafes and restaurants are mostly a place to hang
-out. When people were incredulous at the idea of spending real money
-on virtual goods <a href="http://ondrejka.net/">Cory</a> and I used to point out
-that most of what you were buying in Starbucks was not coffee or
-service, but an experience just as ephemeral as a <a href="http://terranova.blogs.com/terra_nova/2004/12/you_cant_take_i.html">virtual
-hat</a>.</p>
-<p>Virtual worlds like <a href="http://secondlife.com/">Second Life</a> and now
-<a href="https://www.oculus.com/blog/join-friends-in-vr-with-oculus-rooms-and-parties/">Social
-<span class="caps">VR</span></a>
-showed that you could digitise the hanging out too. It&#8217;s already
-proving to be an <a href="http://jimpurbrick.com/2013/12/15/osprey-therian/">invaluable
-lifeline</a> to people
-who find it hard to hang out in real life. While festivals, clubs and
-gigs are where musicians are increasingly making money in real life,
-they also work in virtual worlds. I first saw the
-<a href="http://www.theqemists.com/">Qemists</a>, now one of my favourite bands,
-on the <a href="https://ninjatune.net/">Ninja Tune</a> stage at a festival in
-Second Life organised by
-<a href="http://www.alekskrotoski.com/">Aleks</a>. Later,
-<a href="https://twitter.com/l3onx">Leon</a> poked me on Facebook to ask me to
-advise his new tech startup because, after music and food, technology
-is apparently the new rock and&nbsp;roll.</p>
-<p>For most of my career I have been building experiences which
-compliment the real world and working at Facebook is the first time
-that I have felt like I might be working somewhere that has been
-disrupting existing industries. The view that Facebook is an
-existential threat to <a href="http://anildash.com/2012/12/the-web-we-lost.html">the open
-web</a> (a prospect
-that <a href="http://www.serpentine.com/blog/">Bryan</a> likens to the bug sucking
-the wildebeest dry) is relatively widespread and I remember a circle
-forming around me when I told <a href="https://ar.al/">Aral</a> and some of the
-other web developers at a <a href="http://www.theskiff.org/">Skiff</a> Christmas
-party that I was going to work&nbsp;there.</p>
-<p>In fact I&#8217;ve spent much of the last few years working on
-<a href="https://buckbuild.com/">open</a> <a href="http://fbinfer.com/">source</a> tools
-that will benefit the wider web while also being able to support my family
-more sustainably than I could working in a games industry where
-redundancies and closures were more common than <a href="https://en.wikipedia.org/wiki/Philip_Rosedale">Philip
-Rosedale</a> being asked
-how much he would sell Second Life for at&nbsp;Davos.</p>
-<p>While the software industry seems to be constantly changing with new
-tools, languages, platforms and frameworks arriving all the time, a
-deeper disruption is potentially coming to the business of writing
-code for a living. Increasingly large parts of software systems are
-<a href="https://www.wired.com/2016/05/the-end-of-code/">learned by machines rather than programed by
-humans</a>. As Jeff Dean
-at Google observed: &#8220;If Google were created from scratch today, much
-of it would be learned, not coded.&#8221; When I started studying Computer
-Science in Nottingham my dad advised me not to become just a computer
-caretaker. It&#8217;s very possible that I may end up becoming a computer
-trainer&nbsp;instead.</p>
-<p>If my experience has felt so radically different despite being only a
-few years younger than <a href="https://www.harpercollins.co.uk/9780008185329/now-we-are-40">Tiffanie
-Darke</a> -
-if I feel more Generation JPod than Generation X - are we already at
-the point where technological change is <a href="https://en.wikipedia.org/wiki/Generation_Z#Successors">rendering the use of 15-20 year
-long generations
-obsolete</a>?</p>
-<p>The difference may also just be because <a href="https://en.wikiquote.org/wiki/William_Gibson">&#8220;The future is
-already here — it&#8217;s just not very evenly
-distributed.&#8221;</a>. If you
-were connecting early modems to
-<a href="https://en.wikipedia.org/wiki/Bulletin_board_system"><span class="caps">BBS</span></a>es at the
-start of the 90s it was easy to become a digital native. If you were
-busy dancing to Charly in a warehouse you may have had to catch up&nbsp;later.</p>
-<p>One thing that is clear is that we need to work out how our
-increasingly disrupted and automated society will function. If
-<a href="http://a16z.com/2016/08/20/why-software-is-eating-the-world/">software is eating the
-world</a>
-and software is increasingly learned, then we&#8217;re going to have to find
-a way for people to flourish in that future. Brexit and Trump show
-what happens when people are worried about their place in the
-world. I&#8217;d like to see my children grow up in a future which is closer
-to the <a href="https://en.wikipedia.org/wiki/The_Culture">The Culture</a> than
-<a href="https://en.wikipedia.org/wiki/Mad_Max">Mad Max</a>. There&#8217;s a <a href="https://en.wikipedia.org/wiki/United_Kingdom_general_election,_2017">general
-election in the <span class="caps">UK</span> next
-week</a>. My
-next plan is to vote for a more progressive&nbsp;future.</p></div>
-        <hr />
-    </div>
-		
+house prices from the perspective of Generation ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2017/06/03/generation-jpod/">read more</a></div>
+    </div>	
+				
     
  
         
@@ -602,27 +605,6 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
         <div class="summary"><div class="flex-video widescreen"><iframe src="http://www.youtube.com/embed/Xo7nXk0jgAA" frameborder="0" allowfullscreen=""></iframe></div>
 
 <p>The <a href="http://www.brightondigitalfestival.co.uk/">Brighton Digital Festival</a> starts this week and I&#8217;m very happy to be helping out with <a href="http://www.facebook.com/facebooklondon">Facebook London</a>&#8216;s contributions: <a href="http://www.brightondigitalfestival.co.uk/events/parse-by-the-sea/">Parse By The Sea</a>, a mobile app Hackathon featuring <a href="https://www.parse.com/">Parse</a> on the 26th of September, and helping to <a href="http://www.brightondigitalfestival.co.uk/connecting-the-brighton-digital-festival/">Connect The Brighton Digital Festival</a> by sponsoring <a href="http://www.metranet.co.uk/">Metranet</a> to provide high ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2013/09/04/brighton-digital-festival/">read more</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://jimpurbrick.com/2013/07/04/final-score/"><h2>Final&nbsp;Score</h2></a>
-        <div class= "well small"> Thu 04 July 2013
-
-by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
- 
-
-
- </div>
-        <div class="summary"><p><img alt="Google Reader" src="http://jimpurbrick.com/static/media/reader.png" title="Google Reader" /></p>
-<p>Using Reader on my <a href="http://en.wikipedia.org/wiki/HTC_Wizard"><span class="caps">HTC</span> Wizard</a> on the loo 
-was probably responsible for my biggest increase in clue&nbsp;ever.</p>
-<p>Goodbye <a href="http://www.google.com/reader/about/">Reader</a>, you&#8217;ll be&nbsp;missed.</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2013/07/04/final-score/">read more</a></div>
     </div>	
 				
             <div class="pagination">

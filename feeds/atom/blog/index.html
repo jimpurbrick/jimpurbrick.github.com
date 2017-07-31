@@ -1,5 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>The Creation Engine No. 2</title><link href="http://jimpurbrick.com/" rel="alternate"></link><link href="http://jimpurbrick.com/feeds/atom/blog/index.html" rel="self"></link><id>http://jimpurbrick.com/</id><updated>2017-07-04T20:29:00+01:00</updated><entry><title>ReactVR Redux Revisited</title><link href="http://jimpurbrick.com/2017/07/04/react-vr-redux-revisited/" rel="alternate"></link><updated>2017-07-04T20:29:00+01:00</updated><author><name>Jim Purbrick</name></author><id>tag:jimpurbrick.com,2017-07-04:2017/07/04/react-vr-redux-revisited/</id><summary type="html">&lt;p&gt;There were a couple of aspects of my &lt;a href="http://jimpurbrick.com/2017/01/04/vr-redux/"&gt;previous
+<feed xmlns="http://www.w3.org/2005/Atom"><title>The Creation Engine No. 2</title><link href="http://jimpurbrick.com/" rel="alternate"></link><link href="http://jimpurbrick.com/feeds/atom/blog/index.html" rel="self"></link><id>http://jimpurbrick.com/</id><updated>2017-07-31T20:29:00+01:00</updated><entry><title>Testing Replicated Redux</title><link href="http://jimpurbrick.com/2017/07/31/testing-replicated-redux/" rel="alternate"></link><updated>2017-07-31T20:29:00+01:00</updated><author><name>Jim Purbrick</name></author><id>tag:jimpurbrick.com,2017-07-31:2017/07/31/testing-replicated-redux/</id><summary type="html">&lt;p&gt;Opening a couple of browser windows and clicking around was more than
+sufficient for testing the initial version of &lt;a href="http://jimpurbrick.com/2017/01/04/vr-redux/"&gt;ReactVR
+pairs&lt;/a&gt;. Implementing a
+simple middleware to log actions took advantage of the
+&lt;a href="http://redux.js.org/"&gt;Redux&lt;/a&gt; approach of reifying events to allow a
+glance at the console to reveal precisely which sequence of actions
+caused a&amp;nbsp;problem.&lt;/p&gt;
+&lt;p&gt;Adding support for &lt;a href="http://jimpurbrick.com/2017/07/04/react-vr-redux-revisited/"&gt;optimistic
+consistency&lt;/a&gt;
+made testing more challenging. In order to test conflict resolution,
+conflicting actions needed to be generated on multiple clients almost
+simultaneously. After a couple of sessions testing broken versions of
+pairs with friends it was clear that a more efficient process was
+required. Fortunately Redux actions are independent of the &lt;span class="caps"&gt;UI&lt;/span&gt; events
+which generate them. This separation of concerns made it trivial to
+randomly generate and dispatch actions without driving the &lt;span class="caps"&gt;UI&lt;/span&gt;. Opening
+clients dispatching several randomly generated actions per second made
+it easy to generate conflicts to test optimistic consistency policies
+while watching games play out made it easy to eyeball the results to
+check that they were correct. This random action generation mechanism
+can be enabled by adding &lt;code&gt;?random&lt;/code&gt; as the query string when opening
+the Pairs example in a&amp;nbsp;browser.&lt;/p&gt;
+&lt;div class="flex-video"&gt;&lt;iframe width="560" height="315" src="https://www.youtube.com/embed/RgjhPTVjjQI?rel=0&amp;amp;controls=0&amp;amp;showinfo=0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+&lt;p&gt;One of the problems found by this approach was that clients didn&amp;#8217;t
+always end up eventually consistent. One client would end up with all
+squares shown and all pairs scored, while another would have some
+squares hidden. After some digging it turned out that in these cases
+the master would be reducing a &lt;code&gt;hide&lt;/code&gt; action followed by a &lt;code&gt;score&lt;/code&gt;
+action, while the other client would reduce the actions in the reverse
+order, causing the &lt;code&gt;hide&lt;/code&gt; acton to be invalid. Without a way for a
+non-master client to let the master know about the conflict the master
+would not send a &lt;code&gt;sync&lt;/code&gt; action and the clients would not end up
+eventually&amp;nbsp;consistent.&lt;/p&gt;
+&lt;p&gt;This problem identified a limitation with the optimistic
+&lt;code&gt;clientPredictionConsistency&lt;/code&gt; policy: if any sequence of action causes
+a conflict then every ordering of those actions must also cause a
+conflict in order for the clients to end up eventually consistent. The
+fix for the &lt;code&gt;hide&lt;/code&gt;-&lt;code&gt;score&lt;/code&gt; case seemed clear: if the &lt;code&gt;score&lt;/code&gt; action
+was only valid if the pair was shown then both orderings of those
+actions would generate a conflict and so the master would generate a
+sync action regardless of the order in which it reduced the actions.
+Some more eyeballing seemed to suggest that the problem had been
+solved, but a better way to test the property that &lt;code&gt;sync&lt;/code&gt; action
+generation is independent of action order was to write a property
+based&amp;nbsp;test.&lt;/p&gt;
+&lt;p&gt;Fortunately some Googling revealed that my Facebook colleague &lt;a href="https://twitter.com/leeb"&gt;Lee
+Byron&lt;/a&gt; had written a JavaScript property
+based testing framework called
+&lt;a href="https://github.com/leebyron/testcheck-js"&gt;test-check&lt;/a&gt; which was
+compatible with the &lt;a href="https://facebook.github.io/jest/"&gt;Jest&lt;/a&gt; framework
+used by &lt;a href="https://facebook.github.io/react-vr/"&gt;ReactVR&lt;/a&gt; tests.  After
+a small amount of hacking I had a test which could generate an
+arbitrary sequence of actions, dispatch them and check that if the
+sequence of actions generated a &lt;code&gt;sync&lt;/code&gt; action then dispatching the
+same sequence of actions in reverse would also generate a &lt;code&gt;sync&lt;/code&gt;
+action. I could now test that the property held for 1000s of action
+sequences in a few seconds and so I found the next bug almost
+immediately. While my change to make any ordering of test then hide
+generate a sync had fixed one problem it had introduced another. The
+validity of &lt;code&gt;score&lt;/code&gt; events was now dependent on the preceding &lt;code&gt;show&lt;/code&gt;
+events, so it was possible for &lt;code&gt;show&lt;/code&gt;, &lt;code&gt;show&lt;/code&gt;, &lt;code&gt;score&lt;/code&gt; to be valid but
+for every other order of those events to cause the &lt;code&gt;score&lt;/code&gt; event to be
+invalid and so not&amp;nbsp;reduced.&lt;/p&gt;
+&lt;script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/1b1d323cf0063e57c60a7209369cd8097dfb9beb/Examples/Pairs/property.spec.js?slice=114:134&amp;footer=0"&gt;&lt;/script&gt;
+
+&lt;p&gt;At this point I took a step back. The only situation that should cause
+a conflict that needs to be resolved is when more than one player
+tries to &lt;code&gt;score&lt;/code&gt; the same pair. In this situation clients don&amp;#8217;t have
+enough information to resolve the conflict and a master client needs
+to pick an ordering and communicate the result to the other
+clients. In the case of &lt;code&gt;hide&lt;/code&gt; and &lt;code&gt;score&lt;/code&gt; actions every client can do
+the right thing. Hide actions can be made to not hide scored squares
+and score actions can be made to show pairs. With the reducers changed
+to work in this way hide actions can always be reduced and score
+actions are only invalid when they conflict with each other. With
+these changes in place the validation logic becomes dramatically
+simpler to reason about and the property based tests were unable to
+find any more cases which would not be eventually consistent even
+after 1000s of&amp;nbsp;runs.&lt;/p&gt;
+&lt;p&gt;Testing distributed systems is hard, but combining replicated Redux
+with property based tests has proved to be a powerful way to gain a
+high degree of confidence that applications will work correctly
+despite limitations in the current simplistic
+&lt;code&gt;clientPredictionConsistency&lt;/code&gt; mechanism. The same property based tests
+will enable new optimistic consistency mechanisms without those
+limitations to be developed far more quickly in&amp;nbsp;future.&lt;/p&gt;
+&lt;p&gt;If you&amp;#8217;d like to play the ReactVR version of pairs or see the rest of
+the code, it&amp;#8217;s available on github
+&lt;a href="https://github.com/facebook/react-vr/tree/master/Examples/Pairs"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;All code in this post is made available under the &lt;a href="https://github.com/facebook/react-vr/blob/master/LICENSE-examples"&gt;ReactVR examples
+license&lt;/a&gt;.&lt;/p&gt;</summary><category term="vr"></category><category term="javascript"></category><category term="simulation"></category><category term="development"></category><category term="software engineering"></category></entry><entry><title>ReactVR Redux Revisited</title><link href="http://jimpurbrick.com/2017/07/04/react-vr-redux-revisited/" rel="alternate"></link><updated>2017-07-04T20:29:00+01:00</updated><author><name>Jim Purbrick</name></author><id>tag:jimpurbrick.com,2017-07-04:2017/07/04/react-vr-redux-revisited/</id><summary type="html">&lt;p&gt;There were a couple of aspects of my &lt;a href="http://jimpurbrick.com/2017/01/04/vr-redux/"&gt;previous
 experiments&lt;/a&gt; building
 networked &lt;a href="https://facebook.github.io/react-vr/"&gt;ReactVR&lt;/a&gt; experiences
 with &lt;a href="http://redux.js.org/"&gt;Redux&lt;/a&gt; that were unsatisfactory: there

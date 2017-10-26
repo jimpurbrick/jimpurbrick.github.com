@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2017/07/31/testing-replicated-redux/"><h1>Testing Replicated&nbsp;Redux</h1></a>
-            Mon 31 July 2017
+            <a href="http://jimpurbrick.com/2017/10/26/building-safety-in-to-social-vr/"><h1>Building Safety in to Social&nbsp;<span class="caps">VR</span></h1></a>
+            Thu 26 October 2017
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,99 +74,54 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><p>Opening a couple of browser windows and clicking around was more than
+        <div><div class="flex-video widescreen"><iframe src="https://www.youtube.com/embed/oSAldGIRkUY" frameborder="0" allowfullscreen=""></iframe></div>
+
+<p>Last year I hosted a panel on <a href="https://youtu.be/JEWHaDt-qiE">creating a safe environment for people
+in <span class="caps">VR</span></a> with <a href="https://twitter.com/tonysheng">Tony
+Sheng</a> and <a href="https://twitter.com/DShankar">Darshan
+Shankar</a> at <span class="caps">OC3</span>. I <a href="http://jimpurbrick.com/2016/10/31/creating-a-safe-environment-for-people-in-vr/">commented at the
+time</a>
+that the discussion reminded me of the story of
+<a href="https://en.wikipedia.org/wiki/LambdaMOO">LambdaMOO</a> becoming a
+self-governing community told by <a href="http://juliandibbell.com/">Julian
+Dibbell</a> in <a href="http://www.lulu.com/shop/julian-dibbell/my-tiny-life-crime-and-passion-in-a-virtual-world/ebook/product-17492539.html">My Tiny
+Life</a>,
+so I was very happy to have the opportunity to compare the established
+and novel approaches to Building Safety in to Social <span class="caps">VR</span> at
+<a href="https://www.oculusconnect.com/"><span class="caps">OC4</span></a> with <a href="https://twitter.com/ross_beaf">Mike
+Howard</a>.</p>
+<p>While technology changes, people stay the same, so it&#8217;s important that
+we don&#8217;t lose the lessons learned by people like Julian, <a href="http://www.youhaventlived.com/qblog/">Richard
+Bartle</a>, <a href="http://www.raphkoster.com/">Raph
+Koster</a>, <a href="http://www.zenofdesign.com/">Damion
+Schubert</a> and the many others who have
+been wrestling with and thinking about these problems for&nbsp;decades.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2017/07/31/testing-replicated-redux/"><h2>Testing Replicated&nbsp;Redux</h2></a>
+        <div class= "well small"> Mon 31 July 2017
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>Opening a couple of browser windows and clicking around was more than
 sufficient for testing the initial version of <a href="http://jimpurbrick.com/2017/01/04/vr-redux/">ReactVR
 pairs</a>. Implementing a
 simple middleware to log actions took advantage of the
 <a href="http://redux.js.org/">Redux</a> approach of reifying events to allow a
-glance at the console to reveal precisely which sequence of actions
-caused a&nbsp;problem.</p>
-<p>Adding support for <a href="http://jimpurbrick.com/2017/07/04/react-vr-redux-revisited/">optimistic
-consistency</a>
-made testing more challenging. In order to test conflict resolution,
-conflicting actions needed to be generated on multiple clients almost
-simultaneously. After a couple of sessions testing broken versions of
-pairs with friends it was clear that a more efficient process was
-required. Fortunately, Redux actions are independent of the <span class="caps">UI</span> events
-which generate them. This separation of concerns made it trivial to
-randomly generate and dispatch actions without driving the <span class="caps">UI</span>. Opening
-clients dispatching several randomly generated actions per second made
-it easy to generate conflicts to test optimistic consistency policies
-while watching games play out made it easy to eyeball the results to
-check that they were correct. This random action generation mechanism
-can be enabled by adding <code>?random</code> as the query string when opening
-the Pairs example in a&nbsp;browser.</p>
-<div class="flex-video"><iframe width="560" height="315" src="https://www.youtube.com/embed/RgjhPTVjjQI?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe></div>
-
-<p>One of the problems found by this approach was that clients didn&#8217;t
-always end up eventually consistent. One client would end up with all
-squares shown and all pairs scored, while another would have some
-squares hidden. After some digging it turned out that in these cases
-the master would be reducing a hide action followed by a score action,
-while the other client would reduce the actions in the reverse order,
-causing the hide acton to be invalid. Without a way for a non-master
-client to let the master know about the conflict the master would not
-send a sync action and the clients would not end up eventually&nbsp;consistent.</p>
-<p>This problem identified a limitation with the optimistic
-<code>clientPredictionConsistency</code> policy: if any sequence of actions
-causes a conflict then every ordering of those actions must also cause
-a conflict in order for the clients to end up eventually
-consistent. The fix for the hide-score case seemed clear: if the score
-action was only valid if the pair was shown then both orderings of
-those actions would generate a conflict and so the master would
-generate a sync action regardless of the order in which it reduced the
-actions.  Some more eyeballing seemed to suggest that the problem had
-been solved, but a better way to test the property that sync action
-generation is independent of action order was to write a property
-based&nbsp;test.</p>
-<p>Some Googling revealed that my Facebook colleague <a href="https://twitter.com/leeb">Lee
-Byron</a> had written a JavaScript property
-based testing framework called
-<a href="https://github.com/leebyron/testcheck-js">test-check</a> which was
-compatible with the <a href="https://facebook.github.io/jest/">Jest</a> framework
-used by <a href="https://facebook.github.io/react-vr/">ReactVR</a> tests, so I started
-hacking. I soon had a test which could generate an arbitrary sequence of
-actions, dispatch them and check that if the sequence of actions generated a
-sync action then dispatching the
-same sequence of actions in reverse would also generate a sync&nbsp;action.</p>
-<script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/1b1d323cf0063e57c60a7209369cd8097dfb9beb/Examples/Pairs/property.spec.js?slice=114:134&footer=0"></script>
-
-<p>I could now test that the property held for thousands of action
-sequences in a few seconds and so I found the next bug almost
-immediately. While my change to make any ordering of test then hide
-generate a sync had fixed one problem it had introduced another. The
-validity of score events was now dependent on the preceding show
-events, so it was possible for show-show-score to be valid but for
-every other order of those events to cause the score event to be
-invalid and so not&nbsp;reduced.</p>
-<p>At this point I took a step back. The only situation that should cause
-a conflict that needs to be resolved is when more than one player
-tries to score the same pair. In this situation clients don&#8217;t have
-enough information to resolve the conflict and a master client needs
-to pick an ordering and communicate the result to the other
-clients. In the case of hide and score actions every client can do the
-right thing. Hide actions can be made to not hide scored squares and
-score actions can be made to show pairs. With the reducers changed to
-work in this way hide actions can always be reduced and score actions
-are only invalid when they conflict with each other. With these
-changes in place the validation logic becomes dramatically simpler to
-reason about and the property based tests were unable to find any more
-cases which would not be eventually consistent even after thousands of&nbsp;runs.</p>
-<p>Testing distributed systems is hard, but combining replicated Redux
-with property based tests has proved to be a powerful way to gain a
-high degree of confidence that applications will work correctly
-despite limitations in the current simplistic
-<code>clientPredictionConsistency</code> mechanism. The same property based tests
-will enable new optimistic consistency mechanisms without those
-limitations to be developed far more quickly in&nbsp;future.</p>
-<p>If you&#8217;d like to play the ReactVR version of pairs or see the rest of
-the code, it&#8217;s available on github
-<a href="https://github.com/facebook/react-vr/tree/master/Examples/Pairs">here</a>.</p>
-<p>All code in this post is made available under the <a href="https://github.com/facebook/react-vr/blob/master/LICENSE-examples">ReactVR examples
-license</a>.</p></div>
-        <hr />
-    </div>
-		
+glance at the console to reveal precisely which sequence of ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2017/07/31/testing-replicated-redux/">read more</a></div>
+    </div>	
+				
     
  
         
@@ -593,28 +548,6 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  </div>
         <div class="summary"><p><a href="http://www.flickr.com/photos/jimpurbrick/9979507534/" title="#parsebythesea by Jim Purbrick, on Flickr"><img src="http://farm3.staticflickr.com/2805/9979507534_99d21e4e2f.jpg" width="500" height="334" alt="#parsebythesea"></a></p>
 <p>A few weeks ago <a href="https://www.facebook.com/facebooklondon">Facebook London</a> hosted the <a href="http://www.brightondigitalfestival.co.uk/events/parse-by-the-sea/">Parse By The Sea</a> hackathon at the <a href="http://brightondome.org/">Brighton Dome</a> as part of the <a href="http://www.brightondigitalfestival.co.uk/">Brighton Digital Festival</a>. The idea was to take one of our internal hackathons on the road and invite members of the public to join us, turning a hackathon in ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2013/10/19/parse-by-the-sea/">read more</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://jimpurbrick.com/2013/09/16/facebook-hackathons/"><h2>Facebook&nbsp;Hackathons</h2></a>
-        <div class= "well small"> Mon 16 September 2013
-
-by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
- 
-
-
- </div>
-        <div class="summary"><p>I&#8217;ve been a big fan of hackathons since one of the first Yahoo! Hack
-Days I attended at Alexandra Palace was <a href="http://www.wired.com/software/coolapps/news/2007/06/hackday">struck by
-lightning</a>. The
-lightning caused the fire alarms to go off which opened the roof to
-let the torrential rain pour on to hundreds of geeks and ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2013/09/16/facebook-hackathons/">read more</a></div>
     </div>	
 				
             <div class="pagination">

@@ -1,5 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>The Creation Engine No. 2</title><link href="http://jimpurbrick.com/" rel="alternate"></link><link href="http://jimpurbrick.com/feeds/atom/blog/index.html" rel="self"></link><id>http://jimpurbrick.com/</id><updated>2017-10-26T23:07:00+01:00</updated><entry><title>Building Safety in to Social VR</title><link href="http://jimpurbrick.com/2017/10/26/building-safety-in-to-social-vr/" rel="alternate"></link><updated>2017-10-26T23:07:00+01:00</updated><author><name>Jim Purbrick</name></author><id>tag:jimpurbrick.com,2017-10-26:2017/10/26/building-safety-in-to-social-vr/</id><summary type="html">&lt;div class="flex-video widescreen"&gt;&lt;iframe src="https://www.youtube.com/embed/oSAldGIRkUY" frameborder="0" allowfullscreen=""&gt;&lt;/iframe&gt;&lt;/div&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>The Creation Engine No. 2</title><link href="http://jimpurbrick.com/" rel="alternate"></link><link href="http://jimpurbrick.com/feeds/atom/blog/index.html" rel="self"></link><id>http://jimpurbrick.com/</id><updated>2017-11-10T22:56:00+00:00</updated><entry><title>Replaying Replicated Redux</title><link href="http://jimpurbrick.com/2017/11/10/replaying-repllicated-redux/" rel="alternate"></link><updated>2017-11-10T22:56:00+00:00</updated><author><name>Jim Purbrick</name></author><id>tag:jimpurbrick.com,2017-11-10:2017/11/10/replaying-repllicated-redux/</id><summary type="html">&lt;p&gt;While &lt;a href="http://jimpurbrick.com/2017/07/31/testing-replicated-redux/"&gt;property based tests proved to be a powerful tool for finding
+and fixing problems with ReactVR
+pairs&lt;/a&gt;,
+the limitations in the simplistic &amp;#8216;clientPredictionConstistenty&amp;#8217; 
+mechanism&amp;nbsp;remained.&lt;/p&gt;
+&lt;p&gt;It&amp;#8217;s easy to think of applications where one order of a sequence of
+actions is valid, but another order of the same actions are
+invalid. Imagine an application which models a door which can be
+locked: an &lt;code&gt;unlock&lt;/code&gt; action followed by an &lt;code&gt;open&lt;/code&gt; action should be
+valid, but an &amp;#8216;open&amp;#8217; action followed by &lt;code&gt;unlock&lt;/code&gt; should be invalid
+given a starting state where the door is locked. It&amp;#8217;s a lot more
+difficult to imagine how every ordering of this simple sequence of
+actions can be made either valid or&amp;nbsp;invalid.&lt;/p&gt;
+&lt;p&gt;The limitation of &lt;code&gt;clientPredictionConsistency&lt;/code&gt; is caused by the
+master client having to see an invalid action before it notices that
+clients need resyncing. An obvious way to avoid this limitation would
+be to have all other clients let the master know if they have seen an
+invalid action, but this solution becomes more complicated when you
+want to avoid the master sending duplicate sync actions if multiple
+clients report invalid actions&amp;nbsp;simultaneously.&lt;/p&gt;
+&lt;p&gt;At this point, I took a step back: even if clients could report
+conflicts without duplicate resyncs, the improved
+&lt;code&gt;clientPredictionConsistency&lt;/code&gt; would centralise conflict resolution in
+the master. Clients receiving a state sync action would have no
+context on the conflict and so would be unable to do anything more
+than reset their local state. Reusing the state sync mechanism which
+allows late joining is simple, but doesn&amp;#8217;t allow anything more than
+effectively&amp;nbsp;rejoining.&lt;/p&gt;
+&lt;p&gt;One of the nice things about Redux actions is that they are more
+meaningful than either &lt;span class="caps"&gt;UI&lt;/span&gt; events or state updates: it would be nice if
+clients could use the context they have in the actions to resolve
+conflicts and reconcile optimistic updates with authoritative actions
+gracefully. This made me think of the &lt;a href="https://developer.valvesoftware.com/wiki/Latency_Compensating_Methods_in_Client/Server_In-game_Protocol_Design_and_Optimization"&gt;optimistic update mechanism
+used by Half
+Life&lt;/a&gt;
+which keeps a list of actions which have been predicted locally and
+reapplies the predictions to new states received by the server. &lt;a href="https://www.youtube.com/watch?v=xsSnOQynTHs"&gt;Redux
+was built to easily support this kind of time
+travel&lt;/a&gt; through
+application history, so I wondered whether something similar could be
+built for replicated&amp;nbsp;redux.&lt;/p&gt;
+&lt;p&gt;Some hacking on these ideas produced &amp;#8216;replayConsistency&amp;#8217;: a
+generalisation of the Half Life optimistic update ideas applied to
+arbitrary Redux actions. When a non-master client generates a valid
+local action it is sent to the master, immediately reduced locally,
+but also appended to a list of predicted actions. When the client
+recieves a new action from the master it rewinds the state back to the
+start of the prediction, applies the new master validated action and
+then reapplies the predicted actions if they are still
+valid. Eventually every predicted action becomes part of the total
+ordering defined by the series of actions validated by the master and
+is sent back to the client, or the state which caused the prediction
+to be invalid on the master is reached on the client. In either case
+the prediction is discarded. In the case where a prediction becomes
+invalid the client has the state before the prediction, the action
+which invalidated the prediction and the list of predicted actions
+available when &lt;code&gt;updatePredictions&lt;/code&gt; is called and so is able to do
+something significantly more sophisticated to fix the local state than
+simply reseting the entire state due to a state sync. In fact
+&amp;#8216;replayConsistency&amp;#8217; does not need to send state syncs at all, making
+it significantly more efficient than &amp;#8216;clientPredictionConsistency&lt;code&gt;which I renamed&lt;/code&gt;resyncConsistency` to make the differences between
+the two optimistic consistency policies&amp;nbsp;clear.&lt;/p&gt;
+&lt;script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/506c98dcd4a94bdee22431ef719e0bfbfa65b591/Examples/Pairs/replicate.js?slice=135:159&amp;footer=0"&gt;&lt;/script&gt;
+
+&lt;p&gt;Switching out &lt;code&gt;resyncConsistency&lt;/code&gt; for &lt;code&gt;replayConsistency&lt;/code&gt; and
+eyeballing several games of ReactVR Pairs suggested that the new
+consistency mechanism was working as intended, but finding all of the
+kinks in &amp;#8216;resyncConsistency&lt;code&gt;had required testing thousands of
+sequences of actions using property based tests. My existing tests
+didn't apply here: they made sure that an application would work given
+the limitations of 'resyncConsistency&lt;/code&gt;. The property I really wanted
+to ensure held for all consistency mechanisms is that regardless of
+the predictions made at each client, eventually all clients would be&amp;nbsp;consistent.&lt;/p&gt;
+&lt;script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/506c98dcd4a94bdee22431ef719e0bfbfa65b591/Examples/Pairs/property.spec.js?slice=158:216&amp;footer=0"&gt;&lt;/script&gt;
+
+&lt;p&gt;This test generates a sequence of pairs actions which might be sent by
+the master or one of two non master clients and then checks that all
+clients are eventually consistent even in the pathological case where
+each non-master predicts all of its actions before getting any actions
+from the master. A nice feature of this test is that it is idependent
+of the consistency mechanism and so the same test can be run to ensure
+that both &lt;code&gt;resyncConsistency&lt;/code&gt; and &lt;code&gt;replayConsistency&lt;/code&gt; result in all
+clients being eventually consistent for thousands of sequences of&amp;nbsp;actions.&lt;/p&gt;
+&lt;p&gt;With my tests passing I had high confidence that &lt;code&gt;replayConsistency&lt;/code&gt;
+was working and didn&amp;#8217;t impose any limitations on event ordering making
+it a much more general and efficient solution than &lt;code&gt;resyncConsistency&lt;/code&gt;
+as well as much easier to use as it doesn&amp;#8217;t require complicated
+reasoning about application event ordering. The potential to perform
+sophisticated application specific state reconciliation when
+predictions are invalidated rather than simply jumping to a new state
+is also interested and I&amp;#8217;m excited to see what we can do with it in&amp;nbsp;future.&lt;/p&gt;
+&lt;p&gt;If you&amp;#8217;d like to play the ReactVR version of pairs or see the rest of
+the code, it&amp;#8217;s available on github
+&lt;a href="https://github.com/facebook/react-vr/tree/master/Examples/Pairs"&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;All code in this post is made available under the &lt;a href="https://github.com/facebook/react-vr/blob/master/LICENSE-examples"&gt;ReactVR examples
+license&lt;/a&gt;.&lt;/p&gt;</summary><category term="vr"></category><category term="javascript"></category><category term="simulation"></category><category term="development"></category><category term="software engineering"></category></entry><entry><title>Building Safety in to Social VR</title><link href="http://jimpurbrick.com/2017/10/26/building-safety-in-to-social-vr/" rel="alternate"></link><updated>2017-10-26T23:07:00+01:00</updated><author><name>Jim Purbrick</name></author><id>tag:jimpurbrick.com,2017-10-26:2017/10/26/building-safety-in-to-social-vr/</id><summary type="html">&lt;div class="flex-video widescreen"&gt;&lt;iframe src="https://www.youtube.com/embed/oSAldGIRkUY" frameborder="0" allowfullscreen=""&gt;&lt;/iframe&gt;&lt;/div&gt;
 
 &lt;p&gt;Last year I hosted a panel on &lt;a href="https://youtu.be/JEWHaDt-qiE"&gt;creating a safe environment for people
 in &lt;span class="caps"&gt;VR&lt;/span&gt;&lt;/a&gt; with &lt;a href="https://twitter.com/tonysheng"&gt;Tony

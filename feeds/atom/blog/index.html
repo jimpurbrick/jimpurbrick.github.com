@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>The Creation Engine No. 2</title><link href="http://jimpurbrick.com/" rel="alternate"></link><link href="http://jimpurbrick.com/feeds/atom/blog/index.html" rel="self"></link><id>http://jimpurbrick.com/</id><updated>2017-11-10T22:56:00+00:00</updated><entry><title>Replaying Replicated Redux</title><link href="http://jimpurbrick.com/2017/11/10/replaying-repllicated-redux/" rel="alternate"></link><updated>2017-11-10T22:56:00+00:00</updated><author><name>Jim Purbrick</name></author><id>tag:jimpurbrick.com,2017-11-10:2017/11/10/replaying-repllicated-redux/</id><summary type="html">&lt;p&gt;While &lt;a href="http://jimpurbrick.com/2017/07/31/testing-replicated-redux/"&gt;property based tests proved to be a powerful tool for finding
+<feed xmlns="http://www.w3.org/2005/Atom"><title>The Creation Engine No. 2</title><link href="http://jimpurbrick.com/" rel="alternate"></link><link href="http://jimpurbrick.com/feeds/atom/blog/index.html" rel="self"></link><id>http://jimpurbrick.com/</id><updated>2017-11-10T22:56:00+00:00</updated><entry><title>Replaying Replicated Redux</title><link href="http://jimpurbrick.com/2017/11/10/replaying-replicated-redux/" rel="alternate"></link><updated>2017-11-10T22:56:00+00:00</updated><author><name>Jim Purbrick</name></author><id>tag:jimpurbrick.com,2017-11-10:2017/11/10/replaying-replicated-redux/</id><summary type="html">&lt;p&gt;While &lt;a href="http://jimpurbrick.com/2017/07/31/testing-replicated-redux/"&gt;property based tests proved to be a powerful tool for finding
 and fixing problems with ReactVR
 pairs&lt;/a&gt;,
 the limitations of the simplistic &lt;code&gt;clientPredictionConstistenty&lt;/code&gt;
@@ -75,10 +75,10 @@ the predictions made at each client, eventually all clients would be&amp;nbsp;co
 &lt;script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/506c98dcd4a94bdee22431ef719e0bfbfa65b591/Examples/Pairs/property.spec.js?slice=157:216&amp;footer=0"&gt;&lt;/script&gt;
 
 &lt;p&gt;This test generates a sequence of pairs actions which might be sent by
-the master or one of two non master clients and then checks that all
+the master or one of two non-master clients and then checks that all
 clients are eventually consistent even in the pathological case where
 each non-master predicts all of its actions before getting any actions
-from the master. A nice feature of this test is that it is idependent
+from the master. A nice feature of this test is that it is independent
 of the consistency mechanism and so the same test can be run to ensure
 that both &lt;code&gt;resyncConsistency&lt;/code&gt; and &lt;code&gt;replayConsistency&lt;/code&gt; result in all
 clients being eventually consistent for thousands of sequences of&amp;nbsp;actions.&lt;/p&gt;

@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2015/06/11/free-tests-for-everyone/"><h1>Free Tests For&nbsp;Everyone!</h1></a>
-            Thu 11 June 2015
+            <a href="http://jimpurbrick.com/2018/05/22/replicated-redux-movie/"><h1>Replicated Redux: The&nbsp;Movie</h1></a>
+            Tue 22 May 2018
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,67 +74,52 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><p><img src="http://fbinfer.com/static/logo.png" width="400"></p>
+        <div><div class="flex-video"><iframe width="640" height="360"
+src="https://www.youtube.com/embed/Fr3vp0C22H0?feature=player_detailpage"
+frameborder="0" allowfullscreen></iframe></div>
+
+<p>The recording of my recent <a href="https://www.youtube.com/watch?v=Fr3vp0C22H0">React Europe talk about Replicated Redux
+is now online</a> and I&#8217;ve
+written several other posts describing <a href="http://jimpurbrick.com/2017/07/04/react-vr-redux-revisited/">the
+design</a>,
+<a href="http://jimpurbrick.com/2017/07/31/testing-replicated-redux/">testing</a>
+and
+<a href="http://jimpurbrick.com/2017/11/10/replaying-replicated-redux/">generalising</a>
+the library if you would like to know more about the details. If you’d
+like to play the ReactVR version of pairs or see the rest of the code,
+it’s available on github
+<a href="https://github.com/facebook/react-360/tree/master/Examples/Pairs">here</a>.</p>
+<p>People often describe multi-user networked <span class="caps">VR</span> experiences as laggy,
+but code to hide latency by optimisticly predicting the effects of
+local actions is hard to write, difficult to test and often
+application specific. So it feels great to have helped make this
+problem a little easier to solve for ReactVR developers by building Replicated&nbsp;Redux.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2015/06/11/free-tests-for-everyone/"><h2>Free Tests For&nbsp;Everyone!</h2></a>
+        <div class= "well small"> Thu 11 June 2015
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><img src="http://fbinfer.com/static/logo.png" width="400"></p>
 <p>Modern software development is sometimes colourfully described as
 being similar to firing tracer bullets at a target. Rather than
 spending time doing a lot of research, design and specification up
 front, the smallest, simplest version of the software is built and the
-feedback gathered from its use is used to improve the next
-version. Being able to continuously integrate, test and deploy
-software means that we can make this feedback loop incredibly tight
-but because the same engineers are developing the software and the
-tests we constantly have to think carefully about the testing
-investments we make and their opportunity&nbsp;costs.</p>
-<p>Software engineers allow themselves to use knowledge of how the
-software works to pick good white box tests. They rely on code
-reviewers to catch important test cases that they&#8217;ve missed. They rely
-on unit tests to exercise pathological cases which are hard to
-exercise in end-to-end or integration tests. They use bugs discovered
-in previous releases to inform tests cases developed for the next. The
-goal is to ensure that the next version of the software provides
-feedback on how close it is to the target rather than just exploding
-on&nbsp;impact.</p>
-<p>The decisions around which tests to write are hard because tests have
-costs. They take time to write and maintain and need to be changed and
-updated along with the software they test. What would happen if some
-or all of the tests could be&nbsp;free?</p>
-<p>This question has tantalised computer scientists since Turing’s work
-on the <a href="http://en.wikipedia.org/wiki/Halting_problem">halting problem</a>
-in the 1930s and while academic progress has been made, tools based on
-that work have tended to either only work on small codebases; perform
-trivial analysis; generate a high percentage of false positives;
-produce difficult to understand reports or impose other overheads on
-the development process that make the resulting testing pretty far
-from free. As a result while we theoretically know how to do
-sophisticated analysis, in practice we tend to rely mostly on linters
-doing trivial checks alongside automated tests which check a handful
-of paths through the software written by&nbsp;engineers.</p>
-<p>So it was wonderful when my mixture of hope, anticipation and
-scepticism gave way to delight when the Infer static analyser
-delivered on the promise of useful, non-trivial static analysis at
-Facebook. While Infer currently only reports on a small subset of the
-errors that it can detect, for those classes of errors Infer&#8217;s output
-is generally as useful as seeing a failing test case: Infer&#8217;s 80% fix
-rate on the non-trivial bugs it finds and reports on is extraordinary
-in an environment like&nbsp;Facebook&#8217;s.</p>
-<p>Infer and tools like it won&#8217;t completely replace test cases written by
-engineers. To paraphrase Cristiano, without application specific
-information, no formula will be able to determine whether a piece of
-software is working as intended. As a companion to test suites though,
-static analysis will be transformative. It&#8217;s likely that sophisticated
-static analysers will soon be used by everyone from the smallest
-software engineering teams to the biggest tech companies. When high
-quality tests are free, why wouldn&#8217;t you run&nbsp;them?</p>
-<p>Working with Infer in production at Facebook over the last year has
-been like living in the future. It has changed the way I think about
-testing and about the testing investments that should be made. I’m
-incredibly excited to see its public release as an <a href="https://github.com/facebook/infer">open
-source</a> tool that can be used by
-everyone and very grateful to have been able to help distribute this
-future more&nbsp;widely.</p></div>
-        <hr />
-    </div>
-		
+feedback gathered from its use is used to ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2015/06/11/free-tests-for-everyone/">read more</a></div>
+    </div>	
+				
     
  
         

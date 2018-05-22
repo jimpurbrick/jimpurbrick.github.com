@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2017/11/10/replaying-replicated-redux/"><h1>Replaying Replicated&nbsp;Redux</h1></a>
-            Fri 10 November 2017
+            <a href="http://jimpurbrick.com/2018/05/22/replicated-redux-movie/"><h1>Replicated Redux: The&nbsp;Movie</h1></a>
+            Tue 22 May 2018
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,105 +74,53 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><p>While <a href="http://jimpurbrick.com/2017/07/31/testing-replicated-redux/">property based tests proved to be a powerful tool for finding
+        <div><div class="flex-video"><iframe width="640" height="360"
+src="https://www.youtube.com/embed/Fr3vp0C22H0?feature=player_detailpage"
+frameborder="0" allowfullscreen></iframe></div>
+
+<p>The recording of my recent <a href="https://www.youtube.com/watch?v=Fr3vp0C22H0">React Europe talk about Replicated Redux
+is now online</a> and I&#8217;ve
+written several other posts describing <a href="http://jimpurbrick.com/2017/07/04/react-vr-redux-revisited/">the
+design</a>,
+<a href="http://jimpurbrick.com/2017/07/31/testing-replicated-redux/">testing</a>
+and
+<a href="http://jimpurbrick.com/2017/11/10/replaying-replicated-redux/">generalising</a>
+the library if you would like to know more about the details. If you’d
+like to play the ReactVR version of pairs or see the rest of the code,
+it’s available on github
+<a href="https://github.com/facebook/react-360/tree/master/Examples/Pairs">here</a>.</p>
+<p>People often describe multi-user networked <span class="caps">VR</span> experiences as laggy,
+but code to hide latency by optimisticly predicting the effects of
+local actions is hard to write, difficult to test and often
+application specific. So it feels great to have helped make this
+problem a little easier to solve for ReactVR developers by building Replicated&nbsp;Redux.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2017/11/10/replaying-replicated-redux/"><h2>Replaying Replicated&nbsp;Redux</h2></a>
+        <div class= "well small"> Fri 10 November 2017
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>While <a href="http://jimpurbrick.com/2017/07/31/testing-replicated-redux/">property based tests proved to be a powerful tool for finding
 and fixing problems with ReactVR
 pairs</a>,
 the limitations of the simplistic <code>clientPredictionConstistenty</code>
 mechanism&nbsp;remained.</p>
 <p>It&#8217;s easy to think of applications where one order of a sequence of
-actions is valid, but another order is invalid. Imagine an application
-which models a door which can be locked: an <code>unlock</code> action followed
-by an <code>open</code> action should be valid, but an <code>open</code> action followed by
-<code>unlock</code> should be invalid given a starting state where the door is
-locked. It&#8217;s a lot more difficult to imagine how every ordering of
-this simple sequence of actions can be made either valid or&nbsp;invalid.</p>
-<p>The limitation of <code>clientPredictionConsistency</code> is caused by the
-master client having to see an invalid action before it notices that
-clients need resyncing. An obvious way to avoid this limitation would
-be to have all other clients let the master know if they have seen an
-invalid action, but this solution becomes more complicated when you
-want to avoid the master sending duplicate sync actions if multiple
-clients report invalid actions&nbsp;simultaneously.</p>
-<p>At this point, I took a step back: even if clients could report
-conflicts without duplicate resyncs, the improved
-<code>clientPredictionConsistency</code> would centralise conflict resolution in
-the master. Clients receiving a state sync action would have no
-context on the conflict and so would be unable to do anything more
-than reset their local state. Reusing the state sync mechanism which
-allows late joining is simple, but doesn&#8217;t allow anything more than
-effectively&nbsp;rejoining.</p>
-<p>One of the nice things about Redux actions is that they are more
-meaningful than either <span class="caps">UI</span> events or state updates: it would be nice if
-clients could use the context they have in the actions to resolve
-conflicts and reconcile optimistic updates with authoritative actions
-gracefully. This made me think of the <a href="https://developer.valvesoftware.com/wiki/Latency_Compensating_Methods_in_Client/Server_In-game_Protocol_Design_and_Optimization">optimistic update mechanism
-used by Half
-Life</a>
-which keeps a list of actions which have been predicted locally and
-reapplies the predictions to new states received by the server. <a href="https://www.youtube.com/watch?v=xsSnOQynTHs">Redux
-was built to easily support this kind of time
-travel</a> through
-application history, so I wondered whether something similar could be
-built for replicated&nbsp;redux.</p>
-<p>Some hacking on these ideas produced <code>replayConsistency</code>: a
-generalisation of the Half Life optimistic update ideas applied to
-arbitrary Redux actions. When a non-master client generates a valid
-local action it is sent to the master, immediately reduced locally,
-but also appended to a list of predicted actions. When the client
-recieves a new action from the master it rewinds the state back to the
-start of the prediction, applies the new master validated action and
-then reapplies the predicted actions if they are still
-valid. Eventually every predicted action becomes part of the total
-ordering defined by the series of actions validated by the master and
-is sent back to the client, or the state which caused the prediction
-to be invalid on the master is reached on the client. In either case
-the prediction is discarded. In the case where a prediction becomes
-invalid, the client has the state before the prediction, the master
-validated action and the list of predicted actions available when
-<code>updatePredictions</code> is called. This context allows the client to do
-something significantly more sophisticated to fix the local state than
-simply reseting the entire local state. In fact <code>replayConsistency</code>
-does not need to send state syncs at all, making it significantly more
-efficient than <code>clientPredictionConsistency</code> which I renamed
-<code>resyncConsistency</code> to make the differences between the two optimistic
-consistency policies&nbsp;clear.</p>
-<script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/506c98dcd4a94bdee22431ef719e0bfbfa65b591/Examples/Pairs/replicate.js?slice=134:159&footer=0"></script>
-
-<p>Switching out <code>resyncConsistency</code> for <code>replayConsistency</code> and
-eyeballing several games of ReactVR Pairs suggested that the new
-consistency mechanism was working as intended, but finding all of the
-kinks in <code>resyncConsistency</code> had required testing thousands of
-sequences of actions using property based tests. My existing tests
-didn&#8217;t apply here: they made sure that an application would work given
-the limitations of <code>resyncConsistency</code>. The property I really wanted
-to ensure held for all consistency mechanisms is that regardless of
-the predictions made at each client, eventually all clients would be&nbsp;consistent.</p>
-<script src="http://gist-it.appspot.com/https://github.com/facebook/react-vr/blob/506c98dcd4a94bdee22431ef719e0bfbfa65b591/Examples/Pairs/property.spec.js?slice=157:216&footer=0"></script>
-
-<p>This test generates a sequence of pairs actions which might be sent by
-the master or one of two non-master clients and then checks that all
-clients are eventually consistent even in the pathological case where
-each non-master predicts all of its actions before getting any actions
-from the master. A nice feature of this test is that it is independent
-of the consistency mechanism and so the same test can be run to ensure
-that both <code>resyncConsistency</code> and <code>replayConsistency</code> result in all
-clients being eventually consistent for thousands of sequences of&nbsp;actions.</p>
-<p>With my tests passing I had high confidence that <code>replayConsistency</code>
-was working and didn&#8217;t impose any limitations on event ordering making
-it a much more general and efficient solution than <code>resyncConsistency</code>
-as well as much easier to use as it doesn&#8217;t require complicated
-reasoning about application event ordering. The potential to perform
-sophisticated application specific state reconciliation when
-predictions are invalidated is also interesting and I&#8217;m excited to see
-what we can do with it in&nbsp;future.</p>
-<p>If you&#8217;d like to play the ReactVR version of pairs or see the rest of
-the code, it&#8217;s available on github
-<a href="https://github.com/facebook/react-vr/tree/master/Examples/Pairs">here</a>.</p>
-<p>All code in this post is made available under the <a href="https://github.com/facebook/react-vr/blob/master/LICENSE-examples">ReactVR examples
-license</a>.</p></div>
-        <hr />
-    </div>
-		
+actions is valid, but another order is invalid. Imagine an ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2017/11/10/replaying-replicated-redux/">read more</a></div>
+    </div>	
+				
     
  
         
@@ -611,27 +559,6 @@ spent over 20 hours destroying virtual spaceships worth 200,000 <span class="cap
 real money</a> in what was the likely the largest battle in a video game
 ever. That <span class="caps">EVE</span> is capaple of supporting such large engagements is an
 amazing ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2014/01/29/beyond-time-dilation/">read more</a></div>
-    </div>	
-				
-    
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="http://jimpurbrick.com/2013/12/15/osprey-therian/"><h2>Osprey&nbsp;Therian</h2></a>
-        <div class= "well small"> Sun 15 December 2013
-
-by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
- 
-
-
- </div>
-        <div class="summary"><p>In mid-2004 I first started exploring Second Life. Version 1.4 had
-just been released and Philip Rosedale had said in the press release
-<a href="http://www.businesswire.com/news/home/20040615005481/en/Life-3D-Online-World-Users-Power-Character">&#8220;My fantasy is to be Uma Thurman in Kill Bill, and now I can. I&#8217;d pay
-$10 for her yellow jumpsuit and sword moves and ...</a></p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2013/12/15/osprey-therian/">read more</a></div>
     </div>	
 				
             <div class="pagination">

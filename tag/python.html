@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2012/05/05/super-hyperpolyglot/"><h1>Super&nbsp;Hyperpolyglot</h1></a>
-            Sat 05 May 2012
+            <a href="http://jimpurbrick.com/2013/07/02/pelican-powered/"><h1>Pelican&nbsp;Powered</h1></a>
+            Tue 02 July 2013
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,43 +74,85 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><p>A few years ago nearly all the code I wrote was in C++, but increasingly
+        <div><p>Almost exactly 5 years ago I set up 
+<a href="http://jimpurbrick.com/2008/07/01/hello-world/">The Creation Engine No. 2</a> as a 
+<a href="https://bitbucket.org/piranha/byteflow/wiki/Home">Byteflow</a> blog running on 
+<a href="https://www.djangoproject.com/">Django</a> when the original 
+<a href="http://secondlife.blogs.com/babbage/">Creation Engine</a> blog hosted
+by <a href="http://lindenlab.com">Linden Lab</a> stopped being a suitable place for my 
+thoughts on technology as a platform for&nbsp;creativity.</p>
+<p>Byteflow and Django served me well until late last year when 
+<a href="http://www.google.com/recaptcha">Recaptcha</a> finally crumbled and I found 
+myself spending an increasingly tedious amount of time cleaning up spam&nbsp;comments.</p>
+<p>I considered just replacing the comment system with Disqus and Akismet, a 
+particularly slick combination which I used on <a href="http://creatarr.com/">Creatarr</a>, 
+but without comments Byteflow&#8217;s full Django openid account system started looking 
+pretty archiaic and heavyweight, especially when compared to the 
+<a href="http://octopress.org/">Octopress</a> on <a href="https://github.com/">github</a> blogs that 
+all the cool kids are&nbsp;using.</p>
+<p>After some playing around with various <a href="http://modernstatic.com/">modern static</a> 
+frameworks I settled on Pelican, a python framework with some nice, responsive 
+<a href="http://pelicanthemes.com/">themes</a> built with Django based Jinja 2 templates 
+which would be easy for me to hack&nbsp;around.</p>
+<p>In a couple of hours I had a new 
+<a href="https://github.com/jimpurbrick/thecreationengine.git">git repository</a> 
+containing my blog posts <a href="http://docs.getpelican.com/en/3.2/importer.html">imported</a> 
+in to a content directory, a <a href="https://github.com/jimpurbrick/pelican-themes.git">
+fork of the pelican themes</a> 
+in a theme directory, my <a href="https://github.com/jimpurbrick/jimpurbrick.github.com">jimpurbrick.github.com</a> 
+repository in an output
+directory and all of the pelican dependencies listed in a requirements.txt
+ready to be pip installed in to a python virtual&nbsp;environment.</p>
+<p>Moving jimpurbrick.com to gh-pages simply required adding a 
+<a href="https://help.github.com/articles/setting-up-a-custom-domain-with-pages"><span class="caps">CNAME</span> file</a> 
+to the <a href="https://github.com/jimpurbrick/jimpurbrick.github.com">jimpurbrick.github.com</a> repository 
+and pointing <span class="caps">DNS</span> to github and it
+was possible to emulate Bytemark&#8217;s clean URLs with Pelican by combining the
+post date and slug in it&#8217;s <span class="caps">URL</span> and storing each post in an index.html file so
+that requests to the clean <span class="caps">URL</span> at github return the index.html&nbsp;file. </p>
+<p>The same hack works to support the existing clean feed URLs which are valid
+<a href="http://validator.w3.org/feed/check.cgi?url=http%3A%2F%2Fjimpurbrick.github.com%2Ffeeds%2Fatom%2Fblog%2F">Atom</a> 
+and <a href="http://validator.w3.org/feed/check.cgi?url=http%3A%2F%2Fjimpurbrick.github.com%2Ffeeds%2Frss%2Fblog%2F"><span class="caps">RSS</span></a> 
+feeds, which could be consumed by the late 
+<a href="http://reader.google.com">Google Reader</a> despite the &#8220;.html&#8221; extension 
+causing github to return the feeds with an <span class="caps">HTML</span> content&nbsp;type.</p>
+<div class="highlight"><pre><span class="n">ARTICLE_URL</span> <span class="o">=</span> <span class="s">&quot;{date:%Y}/{date:%m}/{date:</span><span class="si">%d</span><span class="s">}/{slug}/&quot;</span>
+<span class="n">ARTICLE_SAVE_AS</span> <span class="o">=</span> <span class="s">&quot;{date:%Y}/{date:%m}/{date:</span><span class="si">%d</span><span class="s">}/{slug}/index.html&quot;</span>
+<span class="n">FEED_ATOM</span> <span class="o">=</span> <span class="s">&quot;feeds/atom/blog/index.html&quot;</span>
+<span class="n">FEED_RSS</span> <span class="o">=</span> <span class="s">&quot;feeds/rss/blog/index.html&quot;</span>
+</pre></div>
+
+
+<p>A few theme tweaks later and I have a lightweight responsive, lightweight
+blog that allows me to author posts offline, supports all of the existing 
+jimpurbrick.com permalinks and is hopefully ready for the next 5 years of 
+The Creation Engine in the mobile first, post Google Reader&nbsp;era.</p></div>
+        <hr />
+    </div>
+		
+    
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2012/05/05/super-hyperpolyglot/"><h2>Super&nbsp;Hyperpolyglot</h2></a>
+        <div class= "well small"> Sat 05 May 2012
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>A few years ago nearly all the code I wrote was in C++, but increasingly
 I’m finding myself writing in a variety of mostly C-style languages and
 having to perform crunching mental gear changes as I switch&nbsp;between them.</p>
 </p>
 
-<p>In the interests of making these language switches less painful I
-thought about listing the commonly used features of the languages I
-commonly use in a side-by-side format. Luckily I’m a lazy programmer,
-the web is large and there’s nothing new under the sun, so I quickly
-found <a href="http://hyperpolyglot.org/">Hyperpolyglot</a> which provides commonly used programming
-language features in a side-by-side format, which is what I&nbsp;wanted. Nearly.</p>
-</p>
-
-<p>Hyperpolyglot organizes it’s language comparisons in to several
-catagories: scripting languages, C++ family languages, embeddable
-languages and so on. In my case (and I suspect in many cases) the
-languages I wanted to compare were spread across&nbsp;several pages.</p>
-</p>
-
-<p>After briefly considering some cut and paste to get what I wanted I
-started playing with Google Spreadsheets, which has a very nifty
-importHtml function which allowed me to pull the Hyperpolyglot data in
-to several sheets which can be combined to produce arbitrary&nbsp;language comparisons.</p>
-</p>
-
-<p>It’s not perfect as different languages have different features and in
-some cases the Hyperpolyglot data doesn’t use exactly the same terms
-across tables (“version used” vs “versions used”) and I’m not a
-spreadsheet ninja, but it’s good enough to generate PDFs like this
-<a href="http://jimpurbrick.com/media/SuperHyperpolyglotJavaScriptPythonJavaCPP.pdf">JavaScript Python Java C++ Comparision</a>. As a Hyperpolyglot
-derivative work, The <a href="https://docs.google.com/spreadsheet/ccc?key=0Ahc1HVbwPgp0dDBTTTlOV0VtU21iazVwU1ptMmdScVE">Super Hyperpolyglot Spreadsheet</a> is licensed
-under the <a href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 License</a>,
-please let me know if you&nbsp;improve it.</p>
-</p></div>
-        <hr />
-    </div>
-		
+<p>In the interests of making these language switches less painful ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/05/05/super-hyperpolyglot/">read more</a></div>
+    </div>	
+				
     
  
         

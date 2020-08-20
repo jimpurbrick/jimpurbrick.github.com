@@ -44,8 +44,8 @@
 
         <div class="nav-collapse">
         <ul class="nav">
-                    
-                                </ul>
+            
+        </ul>
         </div>
         
     </div>
@@ -57,7 +57,7 @@
     <div class="row">
 
         <div class="span9">
-                
+        
 
         
 
@@ -65,7 +65,7 @@
     <div class='article'>
         <div class="content-title">
             <a href="http://jimpurbrick.com/2012/10/14/adding-vary-header-support-nginx/"><h1>Adding Vary Header Support To&nbsp;Nginx</h1></a>
-            Sun 14 October 2012
+Sun 14 October 2012
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -77,12 +77,12 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
         <div><p>Although Nginx supports proxy caching it doesn&#8217;t provide support for the <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.44"><span class="caps">HTTP</span> Vary</a> header out of the box. This is a problem if you want to use Nginx to proxy different versions of the same <span class="caps">URI</span> which Vary on <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.12">Content-Language</a> or proxy different representations of a RESTful resource specified via the  <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1">Accept</a>&nbsp;header.</p>
 <p>Fortunately it&#8217;s relatively easy to add support for the Vary header using the <a href="http://wiki.nginx.org/HttpLuaModule">Nginx Lua</a> module and a small amount of Lua, which is much easier than building and maintaining a 3rd party module and doesn&#8217;t greatly impact&nbsp;performance.</p>
 <p>First, we define a dictionary in the nginx config which will store a mapping from URIs to Vary&nbsp;headers:</p>
-<div class="highlight"><pre><span class="k">lua_shared_dict</span> <span class="s">uriToVary</span> <span class="mi">10m</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="k">lua_shared_dict</span> <span class="s">uriToVary</span> <span class="mi">10m</span><span class="p">;</span>
 </pre></div>
 
 
 <p>Next we define the default location in the nginx&nbsp;config.</p>
-<div class="highlight"><pre><span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
 
     <span class="c1"># make subrequest to /proxy_request, then store response headers</span>
     <span class="kn">content_by_lua</span> <span class="s">&#39;</span>
@@ -94,31 +94,31 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
 
 
 <p>This will use the lua ProxyRequest function to make a subrequest to /proxy_request then store the Vary header in the response in the&nbsp;dictionary.</p>
-<div class="highlight"><pre><span class="k">function</span> <span class="nf">ProxyRequest</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nf">ProxyRequest</span><span class="p">()</span>
 
     <span class="c1">-- make subrequest and capture response</span>
-    <span class="kd">local</span> <span class="n">response</span> <span class="o">=</span> <span class="n">ngx</span><span class="p">.</span><span class="n">location</span><span class="p">.</span><span class="n">capture</span><span class="p">(</span><span class="s2">&quot;</span><span class="s">/proxy_request&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="kd">local</span> <span class="n">response</span> <span class="o">=</span> <span class="n">ngx</span><span class="p">.</span><span class="n">location</span><span class="p">.</span><span class="n">capture</span><span class="p">(</span><span class="s2">&quot;/proxy_request&quot;</span><span class="p">,</span> <span class="p">{</span>
         <span class="n">method</span> <span class="o">=</span> <span class="n">GetRequestMethod</span><span class="p">(</span><span class="n">ngx</span><span class="p">.</span><span class="n">var</span><span class="p">.</span><span class="n">request_method</span><span class="p">),</span> <span class="n">body</span> <span class="o">=</span> <span class="n">ngx</span><span class="p">.</span><span class="n">req</span><span class="p">.</span><span class="n">get_body_data</span><span class="p">()})</span>
 
-    <span class="c1">-- forward <span class="caps">HTTP</span> headers from response</span>
-    <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="k">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">header</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1">-- forward HTTP headers from response</span>
+    <span class="kr">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">header</span><span class="p">)</span> <span class="kr">do</span>
         <span class="n">ngx</span><span class="p">.</span><span class="n">header</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
-    <span class="k">end</span>
+    <span class="kr">end</span>
 
-    <span class="n">ngx</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">uriToVary</span><span class="p">:</span><span class="n">set</span><span class="p">(</span><span class="n">ngx</span><span class="p">.</span><span class="n">var</span><span class="p">.</span><span class="n">request_uri</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;</span><span class="s">Vary&quot;</span><span class="p">])</span>
+    <span class="n">ngx</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">uriToVary</span><span class="p">:</span><span class="n">set</span><span class="p">(</span><span class="n">ngx</span><span class="p">.</span><span class="n">var</span><span class="p">.</span><span class="n">request_uri</span><span class="p">,</span> <span class="n">response</span><span class="p">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;Vary&quot;</span><span class="p">])</span>
 
     <span class="c1">-- forward status and body from response</span>
     <span class="n">ngx</span><span class="p">.</span><span class="n">status</span> <span class="o">=</span> <span class="n">response</span><span class="p">.</span><span class="n">status</span>
     <span class="n">ngx</span><span class="p">.</span><span class="n">print</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">body</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">response</span>
+    <span class="kr">return</span> <span class="n">response</span>
 
-<span class="k">end</span>
+<span class="kr">end</span>
 </pre></div>
 
 
 <p>Finally, we define the /proxy_request&nbsp;location.</p>
-<div class="highlight"><pre><span class="k">location</span> <span class="s">/proxy_request</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><span class="k">location</span> <span class="s">/proxy_request</span> <span class="p">{</span>
     <span class="kn">internal</span><span class="p">;</span>
 
     <span class="c1"># set defaults</span>
@@ -143,37 +143,37 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
 
 
 <p>This will use the lua RewriteCache function to combine the uri with the vary headers to generate the final cache key used by the proxy_cache&nbsp;module.</p>
-<div class="highlight"><pre><span class="k">function</span> <span class="nf">RewriteCache</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nf">RewriteCache</span><span class="p">()</span>
 
     <span class="kd">local</span> <span class="n">varyOn</span> <span class="o">=</span> <span class="n">ngx</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">uriToVary</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">ngx</span><span class="p">.</span><span class="n">var</span><span class="p">.</span><span class="n">request_uri</span><span class="p">)</span>
     <span class="kd">local</span> <span class="n">cacheKey</span> <span class="o">=</span> <span class="kc">nil</span>
 
     <span class="c1">-- if vary unknown for this uri, bypass cache and do not cache</span>
-    <span class="k">if</span> <span class="n">varyOn</span> <span class="o">==</span> <span class="kc">nil</span> <span class="k">then</span>
-        <span class="k">return</span>
-    <span class="k">end</span>
+    <span class="kr">if</span> <span class="n">varyOn</span> <span class="o">==</span> <span class="kc">nil</span> <span class="kr">then</span>
+        <span class="kr">return</span>
+    <span class="kr">end</span>
 
     <span class="n">cacheKey</span> <span class="o">=</span> <span class="n">ngx</span><span class="p">.</span><span class="n">var</span><span class="p">.</span><span class="n">request_uri</span> <span class="o">..</span> <span class="n">GenerateCacheKey</span><span class="p">(</span><span class="n">varyOn</span><span class="p">,</span> <span class="n">ngx</span><span class="p">.</span><span class="n">req</span><span class="p">.</span><span class="n">get_headers</span><span class="p">())</span>
     <span class="n">ngx</span><span class="p">.</span><span class="n">var</span><span class="p">.</span><span class="n">noCache</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">ngx</span><span class="p">.</span><span class="n">var</span><span class="p">.</span><span class="n">cacheKey</span> <span class="o">=</span> <span class="n">cacheKey</span>
     <span class="n">ngx</span><span class="p">.</span><span class="n">var</span><span class="p">.</span><span class="n">cacheBypass</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="k">end</span>
+<span class="kr">end</span>
 
-<span class="k">function</span> <span class="nf">GenerateCacheKey</span><span class="p">(</span><span class="n">varyOnStr</span><span class="p">,</span> <span class="n">requestHeaders</span><span class="p">)</span>
+<span class="kr">function</span> <span class="nf">GenerateCacheKey</span><span class="p">(</span><span class="n">varyOnStr</span><span class="p">,</span> <span class="n">requestHeaders</span><span class="p">)</span>
 
-    <span class="kd">local</span> <span class="n">cacheKey</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="s">&quot;</span>
-    <span class="k">for</span> <span class="n">part</span> <span class="k">in</span> <span class="nb">string.gmatch</span><span class="p">(</span><span class="n">varyOnStr</span><span class="p">,</span> <span class="s2">&quot;</span><span class="s">([^,%s+]+)&quot;</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kd">local</span> <span class="n">cacheKey</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="kr">for</span> <span class="n">part</span> <span class="kr">in</span> <span class="nb">string.gmatch</span><span class="p">(</span><span class="n">varyOnStr</span><span class="p">,</span> <span class="s2">&quot;([^,%s+]+)&quot;</span><span class="p">)</span> <span class="kr">do</span>
 
-        <span class="k">if</span> <span class="n">requestHeaders</span><span class="p">[</span><span class="n">part</span><span class="p">]</span> <span class="k">then</span>
-            <span class="n">cacheKey</span> <span class="o">=</span> <span class="n">cacheKey</span> <span class="o">..</span> <span class="s2">&quot;</span><span class="s">:&quot;</span> <span class="o">..</span> <span class="n">requestHeaders</span><span class="p">[</span><span class="n">part</span><span class="p">]</span>
-        <span class="k">end</span>
+        <span class="kr">if</span> <span class="n">requestHeaders</span><span class="p">[</span><span class="n">part</span><span class="p">]</span> <span class="kr">then</span>
+            <span class="n">cacheKey</span> <span class="o">=</span> <span class="n">cacheKey</span> <span class="o">..</span> <span class="s2">&quot;:&quot;</span> <span class="o">..</span> <span class="n">requestHeaders</span><span class="p">[</span><span class="n">part</span><span class="p">]</span>
+        <span class="kr">end</span>
 
-    <span class="k">end</span>
+    <span class="kr">end</span>
 
-    <span class="k">return</span> <span class="n">cacheKey</span>
+    <span class="kr">return</span> <span class="n">cacheKey</span>
 
-<span class="k">end</span>
+<span class="kr">end</span>
 </pre></div>
 
 
@@ -183,7 +183,7 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
         <hr />
     </div>
 		
-    
+
  
         
 
@@ -203,10 +203,10 @@ I’m finding myself writing in a variety of mostly C-style languages and
 having to perform crunching mental gear changes as I switch&nbsp;between them.</p>
 </p>
 
-<p>In the interests of making these language switches less painful ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/05/05/super-hyperpolyglot/">read more</a></div>
+<p>In the interests of making these language switches less painful …</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/05/05/super-hyperpolyglot/">read more</a></div>
     </div>	
 				
-    
+
  
         
 
@@ -226,10 +226,10 @@ term and we spent Wednesday having a lovely time finishing off a game we
 started a couple of months&nbsp;ago: Bouncaline.</p>
 </p>
 
-<p>Luke has been interested in making games for a while: he made a level ...</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2009/11/03/bouncaline/">read more</a></div>
+<p>Luke has been interested in making games for a while: he made a level …</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2009/11/03/bouncaline/">read more</a></div>
     </div>	
 				
-            <div class="pagination">
+<div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Previous</a></li>
 
@@ -238,7 +238,7 @@ started a couple of months&nbsp;ago: Bouncaline.</p>
     <li class="next disabled"><a href="#">&rarr; Next</a></li>
 
 </ul>
-</div>    
+</div>
  
   
         </div>
@@ -254,57 +254,57 @@ started a couple of months&nbsp;ago: Bouncaline.</p>
                 <li><a href="http://jimpurbrick.com/">Archives</a>
                 <li><a href="http://jimpurbrick.com/tags.html">Tags</a>
                 <li><a href="http://jimpurbrick.com/feeds/atom/blog/index.html" rel="alternate">Atom feed</a></li>
-                                <li><a href="http://jimpurbrick.com/feeds/rss/blog/index.html" rel="alternate">RSS feed</a></li>
-                            </ul>
+                <li><a href="http://jimpurbrick.com/feeds/rss/blog/index.html" rel="alternate">RSS feed</a></li>
+            </ul>
             </div>
 
 
-            
 
-                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
                 <li class="nav-header"> 
                 Links
                 </li>
             
-                            <li><a href="http://psychochild.org/">Brian Green</a></li>
-                            <li><a href="http://www.zenofdesign.com/">Damion Schubert</a></li>
-                            <li><a href="http://www.raphkoster.com/">Raph Koster</a></li>
-                            <li><a href="http://gwynethllewelyn.net/">Gwyneth Llewelyn</a></li>
-                            <li><a href="http://nwn.blogs.com/">James Au</a></li>
-                            <li><a href="http://t-machine.org/">Adam Martin</a></li>
-                            <li><a href="http://alekskrotoski.com/">Aleks Krotoski</a></li>
-                            <li><a href="http://www.wonderlandblog.com/">Alice Taylor</a></li>
-                            <li><a href="http://epredator.com/">Ian Hughes</a></li>
-                            <li><a href="http://andypiper.co.uk/">Andy Piper</a></li>
-                            <li><a href="http://davehillier.wordpress.com/">Dave Hillier</a></li>
-                            <li><a href="http://ondrejka.net/">Cory Ondrejka</a></li>
-                            <li><a href="http://www.serpentine.com/">Bryan O'Sullivan</a></li>
-                            <li><a href="http://blog.rocketpoweredjetpants.com/">Simon Stewart</a></li>
-                        </ul>
+                <li><a href="http://psychochild.org/">Brian Green</a></li>
+                <li><a href="http://www.zenofdesign.com/">Damion Schubert</a></li>
+                <li><a href="http://www.raphkoster.com/">Raph Koster</a></li>
+                <li><a href="http://gwynethllewelyn.net/">Gwyneth Llewelyn</a></li>
+                <li><a href="http://nwn.blogs.com/">James Au</a></li>
+                <li><a href="http://t-machine.org/">Adam Martin</a></li>
+                <li><a href="http://alekskrotoski.com/">Aleks Krotoski</a></li>
+                <li><a href="http://www.wonderlandblog.com/">Alice Taylor</a></li>
+                <li><a href="http://epredator.com/">Ian Hughes</a></li>
+                <li><a href="http://andypiper.co.uk/">Andy Piper</a></li>
+                <li><a href="http://davehillier.wordpress.com/">Dave Hillier</a></li>
+                <li><a href="http://ondrejka.net/">Cory Ondrejka</a></li>
+                <li><a href="http://www.serpentine.com/">Bryan O'Sullivan</a></li>
+                <li><a href="http://blog.rocketpoweredjetpants.com/">Simon Stewart</a></li>
+            </ul>
             </div>
-            
 
-                        <div class="social">
+
+            <div class="social">
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
                 <li class="nav-header"> 
                 Social
                 </li>
            
-                                <li><a href="http://facebook.com/jimpurbrick">facebook</a></li>
-                                <li><a href="http://twitter.com/jimpurbrick">twitter</a></li>
-                                <li><a href="http://uk.linkedin.com/in/jimpurbrick">linkedin</a></li>
-                                <li><a href="http://delicious.com/JimPurbrick">delicious</a></li>
-                                <li><a href="http://github.com/jimpurbrick">github</a></li>
-                                <li><a href="http://bitbucket.org/jimpurbrick">bitbucket</a></li>
-                                <li><a href="http://stackoverflow.com/users/932594/jim-purbrick">stackoverflow</a></li>
-                                <li><a href="http://last.fm/user/jimpurbrick">lastfm</a></li>
-                                <li><a href="http://flickr.com/jimpurbrick">flickr</a></li>
-                            </ul>
+                <li><a href="http://facebook.com/jimpurbrick">facebook</a></li>
+                <li><a href="http://twitter.com/jimpurbrick">twitter</a></li>
+                <li><a href="http://uk.linkedin.com/in/jimpurbrick">linkedin</a></li>
+                <li><a href="http://delicious.com/JimPurbrick">delicious</a></li>
+                <li><a href="http://github.com/jimpurbrick">github</a></li>
+                <li><a href="http://bitbucket.org/jimpurbrick">bitbucket</a></li>
+                <li><a href="http://stackoverflow.com/users/932594/jim-purbrick">stackoverflow</a></li>
+                <li><a href="http://last.fm/user/jimpurbrick">lastfm</a></li>
+                <li><a href="http://flickr.com/jimpurbrick">flickr</a></li>
+            </ul>
             </div>
             </div>
-            
+
         </div>  
     </div>     </div> 
 <footer>

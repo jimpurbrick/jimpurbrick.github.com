@@ -44,8 +44,8 @@
 
         <div class="nav-collapse">
         <ul class="nav">
-                    
-                                </ul>
+            
+        </ul>
         </div>
         
     </div>
@@ -57,7 +57,7 @@
     <div class="row">
 
         <div class="span9">
-                
+        
 
         
 
@@ -65,7 +65,7 @@
     <div class='article'>
         <div class="content-title">
             <a href="http://jimpurbrick.com/2012/07/30/load-balancing-stateful-services-nginx/"><h1>Load Balancing Stateful Services With&nbsp;Nginx</h1></a>
-            Mon 30 July 2012
+Mon 30 July 2012
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -77,7 +77,7 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
         <div><p>The <a href="http://eveonline.com"><span class="caps">EVE</span> online</a> network architecture uses stateful proxy servers which manage sessions for players connected to the cluster via the <span class="caps">EVE</span> client. The client sends requests to the proxy which are forwarded on to sol servers maintaining the game state and the sols send notifications to the proxy which are sent on to the&nbsp;client.</p>
 <p>In developing the <a href="http://wiki.eveonline.com/en/wiki/CREST_Documentation"><span class="caps">CREST</span> <span class="caps">API</span></a> we extended the <span class="caps">EVE</span> proxies to talk <span class="caps">HTTP</span>, then added <a href="http://wiki.nginx.org/Main">nginx</a> reverse proxies to the service to provide <span class="caps">SSL</span> termination and caching while shielding the <span class="caps">EVE</span> proxies from potentially malicious&nbsp;requests.</p>
 <p>So, how does nginx know which <span class="caps">EVE</span> proxy to send a request to? In the first instance, it just guesses. We set up a set of proxies and use <a href="http://wiki.nginx.org/HttpProxyModule#proxy_pass">proxy_pass</a> to have nginx just pick&nbsp;one.</p>
-<div class="highlight"><pre><span class="k">upstream</span> <span class="s">eveproxies</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><span class="k">upstream</span> <span class="s">eveproxies</span> <span class="p">{</span>
     <span class="c1"># List all eveproxies</span>
 <span class="p">}</span>
 
@@ -88,7 +88,7 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
 
 
 <p>The proxy can then use the <span class="caps">CCP</span> cluster&#8217;s <span class="caps">RPC</span> machinery to find the character&#8217;s session. If nginx has been lucky the request is processed and the response sent back to nginx and from there to the player. If no session exists for the character on any proxy a new session is created and then the request processed as above. If the character session is on a different node the proxy returns an <a href="http://wiki.nginx.org/X-accel">X-accel</a> response to a location which extracts the correct proxy <span class="caps">URI</span> from the path and resends the&nbsp;request.</p>
-<div class="highlight"><pre><span class="k">location</span> <span class="p">~</span><span class="sr">*</span> <span class="s">^/internal_redirect/(.*)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><span class="k">location</span> <span class="p">~</span><span class="sr">*</span> <span class="s">^/internal_redirect/(.*)</span> <span class="p">{</span>
     <span class="kn">internal</span><span class="p">;</span>
     <span class="kn">proxy_pass</span> <span class="s">http://</span><span class="nv">$1$is_args$args</span><span class="p">;</span>
 <span class="p">}</span>
@@ -96,7 +96,7 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
 
 
 <p>The performance of this approach can be greatly improved by caching the mapping of authorization headers to proxies, which can be done using a dict and a small piece of <a href="http://wiki.nginx.org/HttpLuaModule">lua</a>.</p>
-<div class="highlight"><pre><span class="k">lua_shared_dict</span> <span class="s">tokenToProxy</span> <span class="mi">10m</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><span class="k">lua_shared_dict</span> <span class="s">tokenToProxy</span> <span class="mi">10m</span><span class="p">;</span>
 
 <span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
 
@@ -106,7 +106,7 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
             <span class="kn">method</span> <span class="p">=</span> <span class="s">GetRequestMethod(ngx.var.request_method),</span>
             <span class="s">body</span> <span class="p">=</span> <span class="s">ngx.req.get_body_data()</span><span class="err">}</span><span class="s">)</span>
 
-        <span class="s">--</span> <span class="s">forward</span> <span class="s"><span class="caps">HTTP</span></span> <span class="s">headers</span> <span class="s">from</span> <span class="s">response</span>
+        <span class="s">--</span> <span class="s">forward</span> <span class="s">HTTP</span> <span class="s">headers</span> <span class="s">from</span> <span class="s">response</span>
         <span class="s">for</span> <span class="s">k,v</span> <span class="s">in</span> <span class="s">pairs(response.header)</span> <span class="s">do</span>
                 <span class="s">ngx.header[k]</span> <span class="p">=</span> <span class="s">v</span>
         <span class="s">end</span>
@@ -141,7 +141,7 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
         <hr />
     </div>
 		
-            <div class="pagination">
+<div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Previous</a></li>
 
@@ -150,7 +150,7 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
     <li class="next disabled"><a href="#">&rarr; Next</a></li>
 
 </ul>
-</div>    
+</div>
  
   
         </div>
@@ -166,57 +166,57 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
                 <li><a href="http://jimpurbrick.com/">Archives</a>
                 <li><a href="http://jimpurbrick.com/tags.html">Tags</a>
                 <li><a href="http://jimpurbrick.com/feeds/atom/blog/index.html" rel="alternate">Atom feed</a></li>
-                                <li><a href="http://jimpurbrick.com/feeds/rss/blog/index.html" rel="alternate">RSS feed</a></li>
-                            </ul>
+                <li><a href="http://jimpurbrick.com/feeds/rss/blog/index.html" rel="alternate">RSS feed</a></li>
+            </ul>
             </div>
 
 
-            
 
-                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
                 <li class="nav-header"> 
                 Links
                 </li>
             
-                            <li><a href="http://psychochild.org/">Brian Green</a></li>
-                            <li><a href="http://www.zenofdesign.com/">Damion Schubert</a></li>
-                            <li><a href="http://www.raphkoster.com/">Raph Koster</a></li>
-                            <li><a href="http://gwynethllewelyn.net/">Gwyneth Llewelyn</a></li>
-                            <li><a href="http://nwn.blogs.com/">James Au</a></li>
-                            <li><a href="http://t-machine.org/">Adam Martin</a></li>
-                            <li><a href="http://alekskrotoski.com/">Aleks Krotoski</a></li>
-                            <li><a href="http://www.wonderlandblog.com/">Alice Taylor</a></li>
-                            <li><a href="http://epredator.com/">Ian Hughes</a></li>
-                            <li><a href="http://andypiper.co.uk/">Andy Piper</a></li>
-                            <li><a href="http://davehillier.wordpress.com/">Dave Hillier</a></li>
-                            <li><a href="http://ondrejka.net/">Cory Ondrejka</a></li>
-                            <li><a href="http://www.serpentine.com/">Bryan O'Sullivan</a></li>
-                            <li><a href="http://blog.rocketpoweredjetpants.com/">Simon Stewart</a></li>
-                        </ul>
+                <li><a href="http://psychochild.org/">Brian Green</a></li>
+                <li><a href="http://www.zenofdesign.com/">Damion Schubert</a></li>
+                <li><a href="http://www.raphkoster.com/">Raph Koster</a></li>
+                <li><a href="http://gwynethllewelyn.net/">Gwyneth Llewelyn</a></li>
+                <li><a href="http://nwn.blogs.com/">James Au</a></li>
+                <li><a href="http://t-machine.org/">Adam Martin</a></li>
+                <li><a href="http://alekskrotoski.com/">Aleks Krotoski</a></li>
+                <li><a href="http://www.wonderlandblog.com/">Alice Taylor</a></li>
+                <li><a href="http://epredator.com/">Ian Hughes</a></li>
+                <li><a href="http://andypiper.co.uk/">Andy Piper</a></li>
+                <li><a href="http://davehillier.wordpress.com/">Dave Hillier</a></li>
+                <li><a href="http://ondrejka.net/">Cory Ondrejka</a></li>
+                <li><a href="http://www.serpentine.com/">Bryan O'Sullivan</a></li>
+                <li><a href="http://blog.rocketpoweredjetpants.com/">Simon Stewart</a></li>
+            </ul>
             </div>
-            
 
-                        <div class="social">
+
+            <div class="social">
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
                 <li class="nav-header"> 
                 Social
                 </li>
            
-                                <li><a href="http://facebook.com/jimpurbrick">facebook</a></li>
-                                <li><a href="http://twitter.com/jimpurbrick">twitter</a></li>
-                                <li><a href="http://uk.linkedin.com/in/jimpurbrick">linkedin</a></li>
-                                <li><a href="http://delicious.com/JimPurbrick">delicious</a></li>
-                                <li><a href="http://github.com/jimpurbrick">github</a></li>
-                                <li><a href="http://bitbucket.org/jimpurbrick">bitbucket</a></li>
-                                <li><a href="http://stackoverflow.com/users/932594/jim-purbrick">stackoverflow</a></li>
-                                <li><a href="http://last.fm/user/jimpurbrick">lastfm</a></li>
-                                <li><a href="http://flickr.com/jimpurbrick">flickr</a></li>
-                            </ul>
+                <li><a href="http://facebook.com/jimpurbrick">facebook</a></li>
+                <li><a href="http://twitter.com/jimpurbrick">twitter</a></li>
+                <li><a href="http://uk.linkedin.com/in/jimpurbrick">linkedin</a></li>
+                <li><a href="http://delicious.com/JimPurbrick">delicious</a></li>
+                <li><a href="http://github.com/jimpurbrick">github</a></li>
+                <li><a href="http://bitbucket.org/jimpurbrick">bitbucket</a></li>
+                <li><a href="http://stackoverflow.com/users/932594/jim-purbrick">stackoverflow</a></li>
+                <li><a href="http://last.fm/user/jimpurbrick">lastfm</a></li>
+                <li><a href="http://flickr.com/jimpurbrick">flickr</a></li>
+            </ul>
             </div>
             </div>
-            
+
         </div>  
     </div>     </div> 
 <footer>

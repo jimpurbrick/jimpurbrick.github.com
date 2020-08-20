@@ -44,8 +44,8 @@
 
         <div class="nav-collapse">
         <ul class="nav">
-                    
-                                </ul>
+            
+        </ul>
         </div>
         
     </div>
@@ -57,15 +57,15 @@
     <div class="row">
 
         <div class="span9">
-                
+        
 
         
 
 
     <div class='article'>
         <div class="content-title">
-            <a href="http://jimpurbrick.com/2012/11/11/caching-restricted-data-ningx/"><h1>Caching Shared, Private Data With&nbsp;Ningx</h1></a>
-            Sun 11 November 2012
+            <a href="http://jimpurbrick.com/2016/04/17/towards-a-generic-media-type-system/"><h1>Towards A Generic Media Type&nbsp;System</h1></a>
+Sun 17 April 2016
 
 by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,63 +74,87 @@ by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim 
  
         </div>
         
-        <div><p>As with many other social services, a large amount of the data in
-<a href="http://www.eveonline.com/"><span class="caps"><span class="caps">EVE</span></span> Online</a> and <a href="http://www.dust514.com/">Dust 514</a>‘s New Eden
-universe is shared between subsets of users. Some corporation data
-should only be accessible to the corporation’s members, market prices
-should only be accessible to capsuleers and infantry in the region&nbsp;for example.</p>
-</p>
-
-<p>In order to enforce these rules, the <span class="caps"><span class="caps">EVE</span></span>
-cluster performs a number of access control checks whenever a request is
-made from an <span class="caps"><span class="caps">EVE</span></span> client to the cluster. As a
-large fraction of calls to the <a href="http://wiki.eveonline.com/en/wiki/CREST_Documentation"><span class="caps"><span class="caps">CREST</span></span>
-<span class="caps"><span class="caps">API</span></span></a> require these checks to be performed,
-it would be nice to perform them in Nginx to avoid the overhead of
-having to make a request to the <span class="caps"><span class="caps">EVE</span></span> proxy
-before returning the cached responses from Nginx. However, duplicating
-the access control logic within Nginx and trying to keep the two access
-control implementations in sync is likely to be error prone. As the
-spying metagame in <span class="caps"><span class="caps">EVE</span></span> is arguably bigger than
-the game itself the consequences of getting the access control logic
-wrong could be <a href="http://themittani.com/content/soss-3-bad-crazy-internet-space-0">huge</a>. <a href="http://uk.ign.com/articles/2012/05/24/internet-spaceships-are-serious-business">Internet spaceships are serious business</a>.</p>
-</p>
-
-<p>Fortunately, it’s possible to combine and reuse the <a href="http://jimpurbrick.com/2012/07/30/load-balancing-stateful-services-nginx/">load balancing</a>
-and <a href="http://jimpurbrick.com/2012/10/14/adding-vary-header-support-nginx/">vary header</a> support techniques previously discussed to avoid
-both excessive calls from Nginx to the cluster and access control&nbsp;logic duplication.</p>
-</p>
-
-<p>In addition to annotating responses from the cluster with the address of
-the proxy containing the character’s session, we also annotate the
-response with the character’s location, corporation and various other
-character meta data. The same logic that performs access control checks
-in the cluster can then add these response headers to the list of vary
-headers when generating a cache key for a later request on behalf of the
-same character. Rather than duplicating access control logic, Nginx just
-needs to make sure that only response headers from the cluster are used
-for these access control vary headers. If a particular
-<span class="caps"><span class="caps">URI</span></span> is annotated to vary on language and
-region for example, Nginx will allow the language to be supplied by the
-client, but the region must be supplied by the cluster in a previous
-response for the&nbsp;same character.</p>
-</p>
-
-<p>By reusing the stateful load balancing and vary header support we added
-to Nginx we’re able to cache data shared between multiple characters
-without duplicating complex access control logic implemented by the
-<span class="caps"><span class="caps">EVE</span></span> cluster: reducing the
-<span class="caps"><span class="caps">CREST</span></span> load on the
-<span class="caps"><span class="caps">EVE</span></span> cluster without breaking&nbsp;the metagame.</p>
-</p>
-
-<p>Thanks to <a href="https://twitter.com/jonastryggvi">@jonastryggvi</a> for working with me on the Caching support
-and <a href="https://twitter.com/CCPGames">@CCPGames</a> for allowing me to blog&nbsp;about it.</p>
-</p></div>
+        <div><p>The early days of RESTful hypermedia <span class="caps">API</span> design tends to involve lots of
+homogeneous collections. In the case of <span class="caps">CREST</span> vnd.ccp.eve.Api-v1
+pointed to the logged in vnd.ccp.eve.ccp.Capsuleer-v1 which pointed to
+a vnd.eve.ccp.CharacterCollection-v1 of contacts which pointed to many
+vnd.ccp.eve.Capsuleer-v1 representations, one for each capsuleer&nbsp;contact.</p>
+<p>Adding search makes things more complicated. A typical search resource
+will accept a query and return a collection of hyperlinks to
+heterogeneous resources. <span class="caps">EVE</span> allows capsuleers to have contacts that
+might be other capsuleers, agents, corporations or alliances. In the
+future capsuleers may also be able to have coallitions in their
+contacts list. In this hypothetical future a contacts management
+application developed now would end up receiving search results that
+it wouldn&#8217;t understand. After requesting a resource and receiving an
+unknown representation the client can ignore the resource, but it
+would be better to filter out unknown resources as part of the&nbsp;query.</p>
+<p>Server side filtering is typically added to search via extra query
+parameters. In our <span class="caps">CREST</span> example we might add q=Jayne&amp;type=capsuleer
+parameters if we just wanted to find the capsuleer Jayne Fillon. An
+unfortunate consequence of this design is that we end up with
+application level types used to filer searches as well as Media Types
+used for <span class="caps">HTTP</span> content&nbsp;negotiation.</p>
+<p>It would be nice to just use content negotiation, but we want to
+filter the resources that are referenced by the returned resource, not
+the returned representation itself. The search request might return a
+vnd.ccp.eve.Collection-v1 representation, but we want to make sure
+that the hyperlinks in that collection only point to
+vnd.ccp.eve.Capsuleer-v1&nbsp;resources.</p>
+<p>As a client we&#8217;d like to specify is that we want search to return a
+vnd.ccp.eve.CollectionOfCapsuleerReferences. If the client wants to
+include corporations in the search results it should be able to
+specify a CollectionOfCapsuleerOrCorporationReferences. We&#8217;d like a
+richer media type&nbsp;system.</p>
+<p>While this could be implemented in the backend just by switching on
+the Accept type, the combinatorial explosion of potential search
+results quickly makes this impractical. A simpler way to experiment
+with this approach would be to implement a proxy which can query the
+<span class="caps">API</span> for Collection-v1 representations and convert them in to arbitrary
+CollectionOfFooAndBarReference&nbsp;representations.</p>
+<p>The proxy could also be used to inline reprsentations, allowing
+clients to request a CollectionOfFooAndBars rather than a collection
+of hyperlinks. If clients only wanted a subset of the full Foo and Bar
+representations thay might ask for
+CollectionOfJustNameFromFooAndJustNameFromBars. These additions would
+address some of the biggest headaches caused by <span class="caps">API</span> designers who have
+to decide which fields to denormalise in to collection resources to
+avoid clients having to make a huge number of requests in order to
+provide meaningful choices to&nbsp;users.</p>
+<p>This approach potentially provides a lot of the benefits of GraphQL to
+RESTful clients just through normal <span class="caps">HTTP</span> content negotiation protocols
+and maintains the benefits of maintaining a small number of versions
+to <span class="caps">API</span> developers. If a composite type refers to a type which is
+deprecated in the underlying <span class="caps">API</span>, it can return as deprecated response
+as&nbsp;normal.</p>
+<p>As with programming languages, it seems that if we&#8217;re going to support
+strong media types it&#8217;s useful to also support generic media&nbsp;types.</p></div>
         <hr />
     </div>
 		
-            <div class="pagination">
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="http://jimpurbrick.com/2012/11/11/caching-restricted-data-ningx/"><h2>Caching Shared, Private Data With&nbsp;Ningx</h2></a>
+        <div class= "well small"> Sun 11 November 2012
+
+by <a class="url fn" href="http://jimpurbrick.com/author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p>As with many other social services, a large amount of the data in
+<a href="http://www.eveonline.com/"><span class="caps"><span class="caps">EVE</span></span> Online</a> and <a href="http://www.dust514.com/">Dust 514</a>‘s New Eden
+universe is shared between subsets of users. Some corporation data
+should only be accessible to the corporation’s members, market prices
+should only be accessible to capsuleers and infantry …</p> <a class="btn btn-info xsmall" href="http://jimpurbrick.com/2012/11/11/caching-restricted-data-ningx/">read more</a></div>
+    </div>	
+				
+<div class="pagination">
 <ul>
     <li class="prev disabled"><a href="#">&larr; Previous</a></li>
 
@@ -139,7 +163,7 @@ and <a href="https://twitter.com/CCPGames">@CCPGames</a> for allowing me to blog
     <li class="next disabled"><a href="#">&rarr; Next</a></li>
 
 </ul>
-</div>    
+</div>
  
   
         </div>
@@ -155,57 +179,57 @@ and <a href="https://twitter.com/CCPGames">@CCPGames</a> for allowing me to blog
                 <li><a href="http://jimpurbrick.com/">Archives</a>
                 <li><a href="http://jimpurbrick.com/tags.html">Tags</a>
                 <li><a href="http://jimpurbrick.com/feeds/atom/blog/index.html" rel="alternate">Atom feed</a></li>
-                                <li><a href="http://jimpurbrick.com/feeds/rss/blog/index.html" rel="alternate">RSS feed</a></li>
-                            </ul>
+                <li><a href="http://jimpurbrick.com/feeds/rss/blog/index.html" rel="alternate">RSS feed</a></li>
+            </ul>
             </div>
 
 
-            
 
-                        <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
+
+            <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
                 <li class="nav-header"> 
                 Links
                 </li>
             
-                            <li><a href="http://psychochild.org/">Brian Green</a></li>
-                            <li><a href="http://www.zenofdesign.com/">Damion Schubert</a></li>
-                            <li><a href="http://www.raphkoster.com/">Raph Koster</a></li>
-                            <li><a href="http://gwynethllewelyn.net/">Gwyneth Llewelyn</a></li>
-                            <li><a href="http://nwn.blogs.com/">James Au</a></li>
-                            <li><a href="http://t-machine.org/">Adam Martin</a></li>
-                            <li><a href="http://alekskrotoski.com/">Aleks Krotoski</a></li>
-                            <li><a href="http://www.wonderlandblog.com/">Alice Taylor</a></li>
-                            <li><a href="http://epredator.com/">Ian Hughes</a></li>
-                            <li><a href="http://andypiper.co.uk/">Andy Piper</a></li>
-                            <li><a href="http://davehillier.wordpress.com/">Dave Hillier</a></li>
-                            <li><a href="http://ondrejka.net/">Cory Ondrejka</a></li>
-                            <li><a href="http://www.serpentine.com/">Bryan O'Sullivan</a></li>
-                            <li><a href="http://blog.rocketpoweredjetpants.com/">Simon Stewart</a></li>
-                        </ul>
+                <li><a href="http://psychochild.org/">Brian Green</a></li>
+                <li><a href="http://www.zenofdesign.com/">Damion Schubert</a></li>
+                <li><a href="http://www.raphkoster.com/">Raph Koster</a></li>
+                <li><a href="http://gwynethllewelyn.net/">Gwyneth Llewelyn</a></li>
+                <li><a href="http://nwn.blogs.com/">James Au</a></li>
+                <li><a href="http://t-machine.org/">Adam Martin</a></li>
+                <li><a href="http://alekskrotoski.com/">Aleks Krotoski</a></li>
+                <li><a href="http://www.wonderlandblog.com/">Alice Taylor</a></li>
+                <li><a href="http://epredator.com/">Ian Hughes</a></li>
+                <li><a href="http://andypiper.co.uk/">Andy Piper</a></li>
+                <li><a href="http://davehillier.wordpress.com/">Dave Hillier</a></li>
+                <li><a href="http://ondrejka.net/">Cory Ondrejka</a></li>
+                <li><a href="http://www.serpentine.com/">Bryan O'Sullivan</a></li>
+                <li><a href="http://blog.rocketpoweredjetpants.com/">Simon Stewart</a></li>
+            </ul>
             </div>
-            
 
-                        <div class="social">
+
+            <div class="social">
             <div class="well" style="padding: 8px 0; background-color: #FBFBFB;">
             <ul class="nav nav-list">
                 <li class="nav-header"> 
                 Social
                 </li>
            
-                                <li><a href="http://facebook.com/jimpurbrick">facebook</a></li>
-                                <li><a href="http://twitter.com/jimpurbrick">twitter</a></li>
-                                <li><a href="http://uk.linkedin.com/in/jimpurbrick">linkedin</a></li>
-                                <li><a href="http://delicious.com/JimPurbrick">delicious</a></li>
-                                <li><a href="http://github.com/jimpurbrick">github</a></li>
-                                <li><a href="http://bitbucket.org/jimpurbrick">bitbucket</a></li>
-                                <li><a href="http://stackoverflow.com/users/932594/jim-purbrick">stackoverflow</a></li>
-                                <li><a href="http://last.fm/user/jimpurbrick">lastfm</a></li>
-                                <li><a href="http://flickr.com/jimpurbrick">flickr</a></li>
-                            </ul>
+                <li><a href="http://facebook.com/jimpurbrick">facebook</a></li>
+                <li><a href="http://twitter.com/jimpurbrick">twitter</a></li>
+                <li><a href="http://uk.linkedin.com/in/jimpurbrick">linkedin</a></li>
+                <li><a href="http://delicious.com/JimPurbrick">delicious</a></li>
+                <li><a href="http://github.com/jimpurbrick">github</a></li>
+                <li><a href="http://bitbucket.org/jimpurbrick">bitbucket</a></li>
+                <li><a href="http://stackoverflow.com/users/932594/jim-purbrick">stackoverflow</a></li>
+                <li><a href="http://last.fm/user/jimpurbrick">lastfm</a></li>
+                <li><a href="http://flickr.com/jimpurbrick">flickr</a></li>
+            </ul>
             </div>
             </div>
-            
+
         </div>  
     </div>     </div> 
 <footer>

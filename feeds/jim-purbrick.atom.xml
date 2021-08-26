@@ -4,24 +4,28 @@ Workrooms&lt;/a&gt;
 has launched I’m very happy to be able to write about the
 functionality that I found most exciting while building the
 experience: the mapping of virtual objects to their real world&amp;nbsp;counterparts.&lt;/p&gt;
+&lt;div class="flex-video"&gt;&lt;iframe width="640" height="360"
+src="https://www.youtube.com/embed/lgj50IxRrKQ"
+frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
+
 &lt;p&gt;Typically augmented and mixed reality experiences overlay real world
 objects with virtual annotations …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Now that &lt;a href="https://www.oculus.com/experiences/quest/2514011888645651/"&gt;Horizon
 Workrooms&lt;/a&gt;
 has launched I’m very happy to be able to write about the
 functionality that I found most exciting while building the
 experience: the mapping of virtual objects to their real world&amp;nbsp;counterparts.&lt;/p&gt;
-&lt;p&gt;Typically augmented and mixed reality experiences overlay real world
-objects with virtual annotations. An &lt;span class="caps"&gt;AR&lt;/span&gt; app on your phone might
-recognize a face seen by the camera and show the face with added bunny
-ears on the phone screen for&amp;nbsp;example.&lt;/p&gt;
 &lt;div class="flex-video"&gt;&lt;iframe width="640" height="360"
 src="https://www.youtube.com/embed/lgj50IxRrKQ"
 frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
 
-&lt;p&gt;Workrooms is different in that it shows you an entirely virtual
-environment, but asks you to &lt;a href="https://youtu.be/lgj50IxRrKQ?t=7"&gt;indicate the position of real world
-objects like your desk&lt;/a&gt; in a process
-which feels like a more detailed &lt;a href="https://www.youtube.com/watch?v=d73PfTXZDvo"&gt;guardian setup
+&lt;p&gt;Typically augmented and mixed reality experiences overlay real world
+objects with virtual annotations. An &lt;span class="caps"&gt;AR&lt;/span&gt; app on your phone might
+recognize a face seen by the camera and show the face with added bunny
+ears on the phone screen for example. Workrooms is different in that
+it shows you an entirely virtual environment, but asks you to
+&lt;a href="https://youtu.be/lgj50IxRrKQ?t=7"&gt;indicate the position of real world objects like your
+desk&lt;/a&gt; in a process which feels like
+a more detailed &lt;a href="https://www.youtube.com/watch?v=d73PfTXZDvo"&gt;guardian setup
 process&lt;/a&gt;. Workrooms then
 positions your avatar in the virtual world so that your real desktop
 aligns with your virtual desktop. When you reach out and touch the
@@ -30,18 +34,6 @@ virtual objects within arms reach are mapped to real objects, the
 virtual environment can be much bigger than the available real space
 while maintaining the illusion that every virtual object can be
 touched as well as&amp;nbsp;seen.&lt;/p&gt;
-&lt;p&gt;Using real objects that can be touched shifts the problem of providing
-&lt;a href="https://en.wikipedia.org/wiki/Haptic_technology"&gt;haptic feedback&lt;/a&gt;
-from one requiring complex mechanical force feedback devices to one
-that, in future, would use computer vision to recognise objects in the
-real environment using the same cameras that provide &lt;a href="https://en.wikipedia.org/wiki/VR_positional_tracking#Inside-out_tracking"&gt;inside-out
-tracking&lt;/a&gt;
-capabilities in modern &lt;span class="caps"&gt;VR&lt;/span&gt; headsets. By using virtual objects that map
-exactly to their real counterparts the haptic feedback provided would
-be perfect. A real MacBook keyboard feels exactly like a MacBook
-keyboard when you touch it because it is a MacBook keyboard, whereas
-any force feedback device trying to synthesize the same haptic
-feedback could only ever provide an&amp;nbsp;approximation.&lt;/p&gt;
 &lt;p&gt;In addition to adding to the immersion and realism of the experience,
 the haptic feedback has important practical benefits. Typing on a
 virtual keyboard is much easier if you’re also typing on a real
@@ -56,14 +48,26 @@ required objects are common enough in the case of Workrooms that the
 trade off is often worthwhile and less onerous than requiring the use
 of specialised additional &lt;span class="caps"&gt;VR&lt;/span&gt; hardware to provide much lower fidelity
 haptic&amp;nbsp;feedback.&lt;/p&gt;
+&lt;p&gt;Using real objects that can be touched shifts the problem of providing
+&lt;a href="https://en.wikipedia.org/wiki/Haptic_technology"&gt;haptic feedback&lt;/a&gt;
+from one requiring complex mechanical force feedback devices to one
+that, in future, would use computer vision to recognise objects in the
+real environment using the same cameras that provide &lt;a href="https://en.wikipedia.org/wiki/VR_positional_tracking#Inside-out_tracking"&gt;inside-out
+tracking&lt;/a&gt;
+capabilities in modern &lt;span class="caps"&gt;VR&lt;/span&gt; headsets. By using virtual objects that map
+exactly to their real counterparts the haptic feedback provided would
+be perfect. A real MacBook keyboard feels exactly like a MacBook
+keyboard when you touch it because it is a MacBook keyboard, whereas
+any force feedback device trying to synthesize the same haptic
+feedback could only ever provide an&amp;nbsp;approximation.&lt;/p&gt;
 &lt;p&gt;Mapping real objects to virtual objects can also go beyond providing
 haptic feedback by being used to provide a very natural indication of
 intent. Moving from a seated desk to a nearby wall in the real world
 can be used to indicate to an application the intent to use a
 whiteboard and might result in teleporting in the virtual world to a
 whiteboard location much further away, allowing people to navigate
-virtual spaces which are much larger than the available space in their
-real&amp;nbsp;environment.&lt;/p&gt;
+virtual spaces which are much larger than the available space in the
+real&amp;nbsp;world.&lt;/p&gt;
 &lt;div class="flex-video"&gt;&lt;iframe width="640" height="360"
 src="https://www.youtube.com/embed/xbrIJdu6Gn0"
 frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;

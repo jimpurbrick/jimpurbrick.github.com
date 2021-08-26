@@ -1,5 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>The Creation Engine No. 2 - Jim Purbrick</title><link href="https://jimpurbrick.com/" rel="alternate"></link><link href="https://jimpurbrick.com/feeds/jim-purbrick.atom.xml" rel="self"></link><id>https://jimpurbrick.com/</id><updated>2021-02-03T23:25:00+00:00</updated><entry><title>The Art Of Social VR</title><link href="https://jimpurbrick.com/2021/02/03/the-art-of-social-vr/" rel="alternate"></link><published>2021-02-03T23:25:00+00:00</published><updated>2021-02-03T23:25:00+00:00</updated><author><name>Jim Purbrick</name></author><id>tag:jimpurbrick.com,2021-02-03:/2021/02/03/the-art-of-social-vr/</id><summary type="html">&lt;div class="flex-video"&gt;&lt;iframe width="640" height="360"
+<feed xmlns="http://www.w3.org/2005/Atom"><title>The Creation Engine No. 2 - Jim Purbrick</title><link href="https://jimpurbrick.com/" rel="alternate"></link><link href="https://jimpurbrick.com/feeds/jim-purbrick.atom.xml" rel="self"></link><id>https://jimpurbrick.com/</id><updated>2021-08-26T14:26:00+01:00</updated><entry><title>Virtual Objects You Can Touch</title><link href="https://jimpurbrick.com/2021/08/26/virtual-objects-you-can-touch/" rel="alternate"></link><published>2021-08-26T14:26:00+01:00</published><updated>2021-08-26T14:26:00+01:00</updated><author><name>Jim Purbrick</name></author><id>tag:jimpurbrick.com,2021-08-26:/2021/08/26/virtual-objects-you-can-touch/</id><summary type="html">&lt;p&gt;Now that &lt;a href="https://www.oculus.com/experiences/quest/2514011888645651/"&gt;Horizon
+Workrooms&lt;/a&gt;
+has launched I’m very happy to be able to write about the
+functionality that I found most exciting while building the
+experience: the mapping of virtual objects to their real world&amp;nbsp;counterparts.&lt;/p&gt;
+&lt;p&gt;Typically augmented and mixed reality experiences overlay real world
+objects with virtual annotations …&lt;/p&gt;</summary><content type="html">&lt;p&gt;Now that &lt;a href="https://www.oculus.com/experiences/quest/2514011888645651/"&gt;Horizon
+Workrooms&lt;/a&gt;
+has launched I’m very happy to be able to write about the
+functionality that I found most exciting while building the
+experience: the mapping of virtual objects to their real world&amp;nbsp;counterparts.&lt;/p&gt;
+&lt;p&gt;Typically augmented and mixed reality experiences overlay real world
+objects with virtual annotations. An &lt;span class="caps"&gt;AR&lt;/span&gt; app on your phone might
+recognize a face seen by the camera and show the face with added bunny
+ears on the phone screen for&amp;nbsp;example.&lt;/p&gt;
+&lt;div class="flex-video"&gt;&lt;iframe width="640" height="360"
+src="https://www.youtube.com/embed/lgj50IxRrKQ"
+frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+&lt;p&gt;Workrooms is different in that it shows you an entirely virtual
+environment, but asks you to &lt;a href="https://youtu.be/lgj50IxRrKQ?t=7"&gt;indicate the position of real world
+objects like your desk&lt;/a&gt; in a process
+which feels like a more detailed &lt;a href="https://www.youtube.com/watch?v=d73PfTXZDvo"&gt;guardian setup
+process&lt;/a&gt;. Workrooms then
+positions your avatar in the virtual world so that your real desktop
+aligns with your virtual desktop. When you reach out and touch the
+virtual desk your hands touch the real desk. As long as the important
+virtual objects within arms reach are mapped to real objects, the
+virtual environment can be much bigger than the available real space
+while maintaining the illusion that every virtual object can be
+touched as well as&amp;nbsp;seen.&lt;/p&gt;
+&lt;p&gt;Using real objects that can be touched shifts the problem of providing
+&lt;a href="https://en.wikipedia.org/wiki/Haptic_technology"&gt;haptic feedback&lt;/a&gt;
+from one requiring complex mechanical force feedback devices to one
+that, in future, would use computer vision to recognise objects in the
+real environment using the same cameras that provide &lt;a href="https://en.wikipedia.org/wiki/VR_positional_tracking#Inside-out_tracking"&gt;inside-out
+tracking&lt;/a&gt;
+capabilities in modern &lt;span class="caps"&gt;VR&lt;/span&gt; headsets. By using virtual objects that map
+exactly to their real counterparts the haptic feedback provided would
+be perfect. A real MacBook keyboard feels exactly like a MacBook
+keyboard when you touch it because it is a MacBook keyboard, whereas
+any force feedback device trying to synthesize the same haptic
+feedback could only ever provide an&amp;nbsp;approximation.&lt;/p&gt;
+&lt;p&gt;In addition to adding to the immersion and realism of the experience,
+the haptic feedback has important practical benefits. Typing on a
+virtual keyboard is much easier if you’re also typing on a real
+keyboard rather than on a flat featureless surface or just moving your
+fingers in space; it is much less tiring to draw on a virtual
+whiteboard if you are also leaning on a real wall and it’s much less
+dangerous to show someone a virtual desk if leaning on it or putting a
+coffee on it doesn’t result in you falling over or spilling coffee on
+your feet. While requiring a suite of real objects to be available
+puts some additional constraints on using the application, the
+required objects are common enough in the case of Workrooms that the
+trade off is often worthwhile and less onerous than requiring the use
+of specialised additional &lt;span class="caps"&gt;VR&lt;/span&gt; hardware to provide much lower fidelity
+haptic&amp;nbsp;feedback.&lt;/p&gt;
+&lt;p&gt;Mapping real objects to virtual objects can also go beyond providing
+haptic feedback by being used to provide a very natural indication of
+intent. Moving from a seated desk to a nearby wall in the real world
+can be used to indicate to an application the intent to use a
+whiteboard and might result in teleporting in the virtual world to a
+whiteboard location much further away, allowing people to navigate
+virtual spaces which are much larger than the available space in their
+real&amp;nbsp;environment.&lt;/p&gt;
+&lt;div class="flex-video"&gt;&lt;iframe width="640" height="360"
+src="https://www.youtube.com/embed/xbrIJdu6Gn0"
+frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
+
+&lt;p&gt;While the relative ubiquity of home offices means that this mapping
+approach lends itself to an experience like Workrooms, it’s also
+exciting to think about how similar approaches could be used to add
+perfect haptic feedback to less mundane &lt;span class="caps"&gt;VR&lt;/span&gt; experiences in more
+fantastic virtual environments. The Workrooms team was lucky enough to
+see some of those possibilities during a team offsite to the &lt;a href="https://www.youtube.com/watch?v=xbrIJdu6Gn0"&gt;Star
+Wars &lt;span class="caps"&gt;VR&lt;/span&gt; experience at the
+Void&lt;/a&gt; in London. The
+experience created the illusion of a large virtual environment using a
+much smaller real space by using tricks like having participants
+moving through a real doorway into a virtual elevator and then later
+exiting through the same doorway to a new virtual room once the
+elevator had virtually moved to a new floor in the virtual&amp;nbsp;environment.&lt;/p&gt;
+&lt;p&gt;With the increasing availability of headsets which use
+&lt;a href="https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping"&gt;&lt;span class="caps"&gt;SLAM&lt;/span&gt;&lt;/a&gt;
+based inside-out tracking and the development of techniques like
+&lt;a href="https://en.wikipedia.org/wiki/Redirected_walking"&gt;redirected
+walking&lt;/a&gt;, it’s
+possible to imagine a future where rather than defining a safe cuboid
+within the real world, guardian systems could instead map an entire
+home or office, identifying doors, chairs, tables and other objects
+which could be enumerated via an &lt;span class="caps"&gt;API&lt;/span&gt; to &lt;span class="caps"&gt;VR&lt;/span&gt; applications. The
+application could then use the available real world features to
+generate huge custom fantasy environments in a rogue-like game in
+which every wall and table can be leant on, every door can be opened
+and closed, every chair sat in and potentially every staircase
+climbed. I’m very excited by the potential experiences these
+techniques might enable in the near&amp;nbsp;future.&lt;/p&gt;</content><category term="MMORPG"></category><category term="SocialVR"></category><category term="Second Life"></category><category term="EVE Online"></category><category term="VR"></category><category term="Facebook"></category><category term="Oculus"></category><category term="Virtual Worlds"></category></entry><entry><title>The Art Of Social VR</title><link href="https://jimpurbrick.com/2021/02/03/the-art-of-social-vr/" rel="alternate"></link><published>2021-02-03T23:25:00+00:00</published><updated>2021-02-03T23:25:00+00:00</updated><author><name>Jim Purbrick</name></author><id>tag:jimpurbrick.com,2021-02-03:/2021/02/03/the-art-of-social-vr/</id><summary type="html">&lt;div class="flex-video"&gt;&lt;iframe width="640" height="360"
 src="https://www.youtube.com/embed/lMxuJC1JBSY?feature=player_detailpage"
 frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;
 

@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="../2020/09/30/a-past-and-present-future-of-work/"><h1>A Past And Present Future Of&nbsp;Work</h1></a>
-Wed 30 September 2020
+            <a href="../2021/08/26/virtual-objects-you-can-touch/"><h1>Virtual Objects You Can&nbsp;Touch</h1></a>
+Thu 26 August 2021
 
 by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,110 +74,122 @@ by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
  
         </div>
         
-        <div><p><img alt="Studio Blighty" src="https://live.staticflickr.com/2414/3533472060_6d39b0329f_b.jpg" title="Studio Blighty"></p>
-<p>Over the last few years I’ve spent a lot of time helping people new to
-virtual worlds learn how they work. Over the last few weeks I’ve been
-sharing a series of short posts on some of the high level concepts I
-covered which will hopefully be useful to other people new to virtual
-worlds. <a href="https://jimpurbrick.com/2020/09/23/small-places-loosely-joined/">The previous
-post</a>
-talked about how you can structure the world so that everyone can move
-around easily to find everything that they want. This post talks about
-how virtual worlds can become the workplace of the&nbsp;future.</p>
+        <div><p>Now that <a href="https://www.oculus.com/experiences/quest/2514011888645651/">Horizon
+Workrooms</a>
+has launched I’m very happy to be able to write about the
+functionality that I found most exciting while building the
+experience: the mapping of virtual objects to their real world&nbsp;counterparts.</p>
+<p>Typically augmented and mixed reality experiences overlay real world
+objects with virtual annotations. An <span class="caps">AR</span> app on your phone might
+recognize a face seen by the camera and show the face with added bunny
+ears on the phone screen for&nbsp;example.</p>
 <div class="flex-video"><iframe width="640" height="360"
-src="https://www.youtube.com/embed/AtyE5qOB4gw"
+src="https://www.youtube.com/embed/lgj50IxRrKQ"
 frameborder="0" allowfullscreen></iframe></div>
 
-<p>Not long after joining the Oculus Rooms team a couple of years ago, I
-first heard <a href="https://en.wikipedia.org/wiki/Michael_Abrash">Michael
-Abrash</a> talk about his
-dream of a virtual office where he could collaborate with colleagues
-from around the world in <span class="caps">VR</span>. My immediate thought was that of course
-this would happen: I had already done it very successfully for
-years. This note is an attempt to distribute that past future more&nbsp;evenly.</p>
-<p>When I started working at <a href="https://www.lindenlab.com/">Linden Lab</a> in
-2005 I was living in the <span class="caps">UK</span> and working from home. After a day of
-hacking on<a href="https://secondlife.com/"> Second Life</a>&#8216;s server
-infrastructure I would spend several hours every evening in Second
-Life working with my colleagues who were in San Francisco in real&nbsp;life.</p>
-<p>One of the first engineers to arrive at the San Francisco office was
-Zero Linden who was a big fan of pair programming. As soon as he was
-online we would meet in our virtual office where our avatars would sit
-next to each other and we would discuss software architecture and test
-cases in Second Life while we used a shared editor to hack on C++ or
-Python in another window . Over time we started using our virtual
-office space to host office hours for other engineers with questions
-about the Second Life server and our initially spartan virtual office
-grew to include experiments in using Second Life to visualize our work
-and parts of the Second Life software&nbsp;architecture.</p>
+<p>Workrooms is different in that it shows you an entirely virtual
+environment, but asks you to <a href="https://youtu.be/lgj50IxRrKQ?t=7">indicate the position of real world
+objects like your desk</a> in a process
+which feels like a more detailed <a href="https://www.youtube.com/watch?v=d73PfTXZDvo">guardian setup
+process</a>. Workrooms then
+positions your avatar in the virtual world so that your real desktop
+aligns with your virtual desktop. When you reach out and touch the
+virtual desk your hands touch the real desk. As long as the important
+virtual objects within arms reach are mapped to real objects, the
+virtual environment can be much bigger than the available real space
+while maintaining the illusion that every virtual object can be
+touched as well as&nbsp;seen.</p>
+<p>Using real objects that can be touched shifts the problem of providing
+<a href="https://en.wikipedia.org/wiki/Haptic_technology">haptic feedback</a>
+from one requiring complex mechanical force feedback devices to one
+that, in future, would use computer vision to recognise objects in the
+real environment using the same cameras that provide <a href="https://en.wikipedia.org/wiki/VR_positional_tracking#Inside-out_tracking">inside-out
+tracking</a>
+capabilities in modern <span class="caps">VR</span> headsets. By using virtual objects that map
+exactly to their real counterparts the haptic feedback provided would
+be perfect. A real MacBook keyboard feels exactly like a MacBook
+keyboard when you touch it because it is a MacBook keyboard, whereas
+any force feedback device trying to synthesize the same haptic
+feedback could only ever provide an&nbsp;approximation.</p>
+<p>In addition to adding to the immersion and realism of the experience,
+the haptic feedback has important practical benefits. Typing on a
+virtual keyboard is much easier if you’re also typing on a real
+keyboard rather than on a flat featureless surface or just moving your
+fingers in space; it is much less tiring to draw on a virtual
+whiteboard if you are also leaning on a real wall and it’s much less
+dangerous to show someone a virtual desk if leaning on it or putting a
+coffee on it doesn’t result in you falling over or spilling coffee on
+your feet. While requiring a suite of real objects to be available
+puts some additional constraints on using the application, the
+required objects are common enough in the case of Workrooms that the
+trade off is often worthwhile and less onerous than requiring the use
+of specialised additional <span class="caps">VR</span> hardware to provide much lower fidelity
+haptic&nbsp;feedback.</p>
+<p>Mapping real objects to virtual objects can also go beyond providing
+haptic feedback by being used to provide a very natural indication of
+intent. Moving from a seated desk to a nearby wall in the real world
+can be used to indicate to an application the intent to use a
+whiteboard and might result in teleporting in the virtual world to a
+whiteboard location much further away, allowing people to navigate
+virtual spaces which are much larger than the available space in their
+real&nbsp;environment.</p>
 <div class="flex-video"><iframe width="640" height="360"
-src="https://www.youtube.com/embed/MxsK8hpNPjk"
+src="https://www.youtube.com/embed/xbrIJdu6Gn0"
 frameborder="0" allowfullscreen></iframe></div>
 
-<p>After an hour or so of pair programming with Zero to hand off the code
-I&#8217;d been working on during the <span class="caps">UK</span> daytime, other Lindens would start
-arriving at the San Francisco office and we would start using Second
-Life for larger scale team meetings. Even without tracked headsets,
-the 3D positional audio and instantly recognizable avatars made these
-meetings more successful than video conferencing. Because everyone was
-in Second Life together I felt far more present than I typically do
-using video conferencing to join a meeting in Menlo Park as the lone
-participant in London. Everyone was an equal participant in every&nbsp;meeting.</p>
-<p>I expect this to be a common model for collaboration between remote
-workers in <span class="caps">VR</span>: the virtual space provides a forum for communication,
-conversation and annotation while existing applications, editors and
-tools are brought in to <span class="caps">VR</span> to provide familiar and powerful ways to
-create content together. I&#8217;m particularly excited about the
-possibilities for people to collaborate on very complex problems at
-the limit of human comprehension like large scale software development
-which are often hard to discuss in real life, but possible to
-visualize, understand and explore together in <span class="caps">VR</span>.</p>
-<p>While the creators of virtual worlds are likely more open to meeting
-in them than average, I can imagine many people with remote colleagues
-also being open to using virtual worlds to allow everyone to
-contribute more effectively in team meetings. Virtual worlds will be
-especially valuable in meetings which require a lot of media
-presentation or recording as that can be more easily automated than in
-real&nbsp;life.</p>
-<p>As Linden Lab became more international with offices in Brighton and
-Singapore we started holding regular company all hands in Second
-Life. While these were often plagued by technical troubles due to the
-high attendance pushing the software to its limits, they were also
-great opportunities for remote employees to meet people they might not
-have seen for months and for serendipitous conversations to occur in
-the hallways outside the conference rooms, just as they do in real&nbsp;life.</p>
-<p>This is also a use case I expect to become important in <span class="caps">VR</span> and
-something that is already better supported by <a href="https://www.oculus.com/experiences/quest/2464560730245504/">Oculus
-Venues</a>
-than it was in Second Life. After attending <span class="caps">OC3</span> and <span class="caps">OC4</span> in person I
-was disappointed that I couldn&#8217;t justify the time away from my family
-to attend Oculus Connect 5, but delighted that I could attend in
-Oculus Venues where I had a better view of<a href="https://fb.workplace.com/profile.php?id=100015366546806&amp;eid=ARBN1fh0CysUov2IQzEtQ5iyrc3_ki1SwgAgkmHLVyz0seb6_lzp0I4HYIxjMSVsclzYY50fS6oj8mFU">
-</a>Hugo
-speaking on stage than I&#8217;d had in real life. I am sure that <span class="caps">VR</span> can
-enable myriad opportunities for networking and serendipitous
-conversations which don&#8217;t happen when people just catch up on
-conference talks on<a href="https://l.workplace.com/l.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Do7OpS7pZ5ok%26list%3DPLL2xVXGs1SP6KJXPd8n1Sxj8IpEQpOyy_&amp;h=AT0i2Yw6lHYzITJIr8zuhGhfBwsCmHaQQtM5K8sjEnFFkpBAhGm5NuNlbloyv6iGk_Wlg_RP3of6aq0aabIzyI-FdrKei9xC3-13tTsAplqd-eI50ZwOyb5mCjSXtrE0nTjv7xly8gtYuxSg">
-</a>YouTube.</p>
-<p>After working for years both on and in Second Life it is clear to me
-that using <span class="caps">VR</span> for work collaboration is both very valuable and very
-possible. It&#8217;s also clear that there is a lot of overlap between the
-social and work opportunities for <span class="caps">VR</span>. The Linden Lab all hands in
-Second Life looked a lot like the<a href="https://slfuturesalon.blogs.com/second_life_future_salon/2006/01/doug_engelbart__1.html"> Accelerating Change conference in
-Second
-Life</a>. The
-office hours held for Linden Lab engineers were so successful I
-started holding office hours for people building in Second Life. The
-time I spent<a href="http://jimpurbrick.com/2013/12/15/osprey-therian/"> working with Osprey Therian on Combat
-Cards</a> in Second
-Life was just as rewarding and productive as the time I spent with
-Zero Linden working on scripting APIs. A lot of the most valuable use
-cases for <span class="caps">VR</span> will combine work and fun and we should beware false
-dichotomies. Any Metaverse worthy of the name will be both the future
-of work and the future of&nbsp;fun.</p></div>
+<p>While the relative ubiquity of home offices means that this mapping
+approach lends itself to an experience like Workrooms, it’s also
+exciting to think about how similar approaches could be used to add
+perfect haptic feedback to less mundane <span class="caps">VR</span> experiences in more
+fantastic virtual environments. The Workrooms team was lucky enough to
+see some of those possibilities during a team offsite to the <a href="https://www.youtube.com/watch?v=xbrIJdu6Gn0">Star
+Wars <span class="caps">VR</span> experience at the
+Void</a> in London. The
+experience created the illusion of a large virtual environment using a
+much smaller real space by using tricks like having participants
+moving through a real doorway into a virtual elevator and then later
+exiting through the same doorway to a new virtual room once the
+elevator had virtually moved to a new floor in the virtual&nbsp;environment.</p>
+<p>With the increasing availability of headsets which use
+<a href="https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping"><span class="caps">SLAM</span></a>
+based inside-out tracking and the development of techniques like
+<a href="https://en.wikipedia.org/wiki/Redirected_walking">redirected
+walking</a>, it’s
+possible to imagine a future where rather than defining a safe cuboid
+within the real world, guardian systems could instead map an entire
+home or office, identifying doors, chairs, tables and other objects
+which could be enumerated via an <span class="caps">API</span> to <span class="caps">VR</span> applications. The
+application could then use the available real world features to
+generate huge custom fantasy environments in a rogue-like game in
+which every wall and table can be leant on, every door can be opened
+and closed, every chair sat in and potentially every staircase
+climbed. I’m very excited by the potential experiences these
+techniques might enable in the near&nbsp;future.</p></div>
         <hr />
     </div>
 		
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="../2020/09/30/a-past-and-present-future-of-work/"><h2>A Past And Present Future Of&nbsp;Work</h2></a>
+        <div class= "well small"> Wed 30 September 2020
+
+by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><p><img alt="Studio Blighty" src="https://live.staticflickr.com/2414/3533472060_6d39b0329f_b.jpg" title="Studio Blighty"></p>
+<p>Over the last few years I’ve spent a lot of time helping people new to
+virtual worlds learn how they work. Over the last few weeks I’ve been
+sharing a series of short posts on some of the high level concepts I
+covered which will hopefully be useful …</p> <a class="btn btn-info xsmall" href="../2020/09/30/a-past-and-present-future-of-work/">read more</a></div>
+    </div>	
+				
 
  
         

@@ -64,8 +64,8 @@
 
     <div class='article'>
         <div class="content-title">
-            <a href="./2021/02/03/the-art-of-social-vr/"><h1>The Art Of Social <span class="caps">VR</span></h1></a>
-Wed 03 February 2021
+            <a href="./2021/08/26/virtual-objects-you-can-touch/"><h1>Virtual Objects You Can&nbsp;Touch</h1></a>
+Thu 26 August 2021
 
 by <a class="url fn" href="./author/jim-purbrick.html">Jim Purbrick</a>
  
@@ -74,15 +74,122 @@ by <a class="url fn" href="./author/jim-purbrick.html">Jim Purbrick</a>
  
         </div>
         
-        <div><div class="flex-video"><iframe width="640" height="360"
-src="https://www.youtube.com/embed/lMxuJC1JBSY?feature=player_detailpage"
+        <div><p>Now that <a href="https://www.oculus.com/experiences/quest/2514011888645651/">Horizon
+Workrooms</a>
+has launched I’m very happy to be able to write about the
+functionality that I found most exciting while building the
+experience: the mapping of virtual objects to their real world&nbsp;counterparts.</p>
+<p>Typically augmented and mixed reality experiences overlay real world
+objects with virtual annotations. An <span class="caps">AR</span> app on your phone might
+recognize a face seen by the camera and show the face with added bunny
+ears on the phone screen for&nbsp;example.</p>
+<div class="flex-video"><iframe width="640" height="360"
+src="https://www.youtube.com/embed/lgj50IxRrKQ"
 frameborder="0" allowfullscreen></iframe></div>
 
-<p>The recording of my recent <a href="https://www.youtube.com/watch?v=lMxuJC1JBSY">Stereopsia 2020 talk about the art of designing social <span class="caps">VR</span> experiences is now online</a>. The talk summarises a lot of material covered in more depth in my posts on <a href="https://jimpurbrick.com/2020/09/09/the-conversation-around-content/">The Conversation Around Content</a>, <a href="https://jimpurbrick.com/2020/09/16/a-tall-dark-stranger/">A Tall Dark Stranger</a> and <a href="https://jimpurbrick.com/2020/09/23/small-places-loosely-joined/">Small Places Loosely Joined</a>, so if please read those posts if you would like to learn&nbsp;more.</p>
-<p>The current situation made it impossible to host the normal Stereopsia conference, but also created the opportunity for a conference on immersive technologies to be held in a multi-user immersive experience for the first time and also made it possible for me to take part. I&#8217;d like to thank Ricard Gras for inviting me to talk and for everyone at Stereopsia for making me feel very&nbsp;welcome.</p></div>
+<p>Workrooms is different in that it shows you an entirely virtual
+environment, but asks you to <a href="https://youtu.be/lgj50IxRrKQ?t=7">indicate the position of real world
+objects like your desk</a> in a process
+which feels like a more detailed <a href="https://www.youtube.com/watch?v=d73PfTXZDvo">guardian setup
+process</a>. Workrooms then
+positions your avatar in the virtual world so that your real desktop
+aligns with your virtual desktop. When you reach out and touch the
+virtual desk your hands touch the real desk. As long as the important
+virtual objects within arms reach are mapped to real objects, the
+virtual environment can be much bigger than the available real space
+while maintaining the illusion that every virtual object can be
+touched as well as&nbsp;seen.</p>
+<p>Using real objects that can be touched shifts the problem of providing
+<a href="https://en.wikipedia.org/wiki/Haptic_technology">haptic feedback</a>
+from one requiring complex mechanical force feedback devices to one
+that, in future, would use computer vision to recognise objects in the
+real environment using the same cameras that provide <a href="https://en.wikipedia.org/wiki/VR_positional_tracking#Inside-out_tracking">inside-out
+tracking</a>
+capabilities in modern <span class="caps">VR</span> headsets. By using virtual objects that map
+exactly to their real counterparts the haptic feedback provided would
+be perfect. A real MacBook keyboard feels exactly like a MacBook
+keyboard when you touch it because it is a MacBook keyboard, whereas
+any force feedback device trying to synthesize the same haptic
+feedback could only ever provide an&nbsp;approximation.</p>
+<p>In addition to adding to the immersion and realism of the experience,
+the haptic feedback has important practical benefits. Typing on a
+virtual keyboard is much easier if you’re also typing on a real
+keyboard rather than on a flat featureless surface or just moving your
+fingers in space; it is much less tiring to draw on a virtual
+whiteboard if you are also leaning on a real wall and it’s much less
+dangerous to show someone a virtual desk if leaning on it or putting a
+coffee on it doesn’t result in you falling over or spilling coffee on
+your feet. While requiring a suite of real objects to be available
+puts some additional constraints on using the application, the
+required objects are common enough in the case of Workrooms that the
+trade off is often worthwhile and less onerous than requiring the use
+of specialised additional <span class="caps">VR</span> hardware to provide much lower fidelity
+haptic&nbsp;feedback.</p>
+<p>Mapping real objects to virtual objects can also go beyond providing
+haptic feedback by being used to provide a very natural indication of
+intent. Moving from a seated desk to a nearby wall in the real world
+can be used to indicate to an application the intent to use a
+whiteboard and might result in teleporting in the virtual world to a
+whiteboard location much further away, allowing people to navigate
+virtual spaces which are much larger than the available space in their
+real&nbsp;environment.</p>
+<div class="flex-video"><iframe width="640" height="360"
+src="https://www.youtube.com/embed/xbrIJdu6Gn0"
+frameborder="0" allowfullscreen></iframe></div>
+
+<p>While the relative ubiquity of home offices means that this mapping
+approach lends itself to an experience like Workrooms, it’s also
+exciting to think about how similar approaches could be used to add
+perfect haptic feedback to less mundane <span class="caps">VR</span> experiences in more
+fantastic virtual environments. The Workrooms team was lucky enough to
+see some of those possibilities during a team offsite to the <a href="https://www.youtube.com/watch?v=xbrIJdu6Gn0">Star
+Wars <span class="caps">VR</span> experience at the
+Void</a> in London. The
+experience created the illusion of a large virtual environment using a
+much smaller real space by using tricks like having participants
+moving through a real doorway into a virtual elevator and then later
+exiting through the same doorway to a new virtual room once the
+elevator had virtually moved to a new floor in the virtual&nbsp;environment.</p>
+<p>With the increasing availability of headsets which use
+<a href="https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping"><span class="caps">SLAM</span></a>
+based inside-out tracking and the development of techniques like
+<a href="https://en.wikipedia.org/wiki/Redirected_walking">redirected
+walking</a>, it’s
+possible to imagine a future where rather than defining a safe cuboid
+within the real world, guardian systems could instead map an entire
+home or office, identifying doors, chairs, tables and other objects
+which could be enumerated via an <span class="caps">API</span> to <span class="caps">VR</span> applications. The
+application could then use the available real world features to
+generate huge custom fantasy environments in a rogue-like game in
+which every wall and table can be leant on, every door can be opened
+and closed, every chair sat in and potentially every staircase
+climbed. I’m very excited by the potential experiences these
+techniques might enable in the near&nbsp;future.</p></div>
         <hr />
     </div>
 		
+
+ 
+        
+
+ 
+
+    <div class='article'>
+        <a href="./2021/02/03/the-art-of-social-vr/"><h2>The Art Of Social <span class="caps">VR</span></h2></a>
+        <div class= "well small"> Wed 03 February 2021
+
+by <a class="url fn" href="./author/jim-purbrick.html">Jim Purbrick</a>
+ 
+
+
+ </div>
+        <div class="summary"><div class="flex-video"><iframe width="640" height="360"
+src="https://www.youtube.com/embed/lMxuJC1JBSY?feature=player_detailpage"
+frameborder="0" allowfullscreen></iframe></div>
+
+<p>The recording of my recent <a href="https://www.youtube.com/watch?v=lMxuJC1JBSY">Stereopsia 2020 talk about the art of designing social <span class="caps">VR</span> experiences is now online</a>. The talk summarises a lot of material covered in more depth in my posts on <a href="https://jimpurbrick.com/2020/09/09/the-conversation-around-content/">The Conversation Around Content</a>, <a href="https://jimpurbrick.com/2020/09/16/a-tall-dark-stranger/">A Tall Dark Stranger</a> and <a href="https://jimpurbrick.com/2020/09/23/small-places-loosely-joined/">Small Places Loosely Joined</a>, so if please …</p> <a class="btn btn-info xsmall" href="./2021/02/03/the-art-of-social-vr/">read more</a></div>
+    </div>	
+				
 
  
         
@@ -518,28 +625,6 @@ the opening keynote at <a href="http://scalesummit.org">Scale Summit</a> as I ha
 &#8220;lots of experience scaling weird things&#8221;, by which they meant Second
 Life and <span class="caps">EVE</span> Online. I immediately thought of <a href="http://wiki.secondlife.com/wiki/The_Corn_Field">The Corn
 Field …</a></p> <a class="btn btn-info xsmall" href="./2016/05/10/strange-tales-from-other-worlds/">read more</a></div>
-    </div>	
-				
-
- 
-        
-
- 
-
-    <div class='article'>
-        <a href="./2016/04/17/towards-a-generic-media-type-system/"><h2>Towards A Generic Media Type&nbsp;System</h2></a>
-        <div class= "well small"> Sun 17 April 2016
-
-by <a class="url fn" href="./author/jim-purbrick.html">Jim Purbrick</a>
- 
-
-
- </div>
-        <div class="summary"><p>The early days of RESTful hypermedia <span class="caps">API</span> design tends to involve lots of
-homogeneous collections. In the case of <span class="caps">CREST</span> vnd.ccp.eve.Api-v1
-pointed to the logged in vnd.ccp.eve.ccp.Capsuleer-v1 which pointed to
-a vnd.eve.ccp.CharacterCollection-v1 of contacts which pointed to many
-vnd.ccp …</p> <a class="btn btn-info xsmall" href="./2016/04/17/towards-a-generic-media-type-system/">read more</a></div>
     </div>	
 				
 <div class="pagination">

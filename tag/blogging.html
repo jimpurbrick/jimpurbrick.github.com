@@ -78,9 +78,8 @@ by <a class="url fn" href="../author/jim-purbrick.html">Jim Purbrick</a>
 about doing freelance consulting and development work while I get my
 start-up off the ground and last week got round to setting up a
 <span class="caps"><span class="caps">UK</span></span> limited company so that people will
-actually be able to&nbsp;pay me.</p>
+actually be able to pay&nbsp;me.</p>
 </p>
-
 <p>Setting up a company is insanely easy these days: if you go to
 <a href="http://www.companiesmadesimple.com/">companies made simple</a> it will cost you less than £17 and 10 minutes
 of form filling. Coming up with a name is harder, but within a couple of
@@ -88,9 +87,9 @@ hours I found that 18dex was available as a .com
 <span class="caps"><span class="caps">TLD</span></span>, twitter account and facebook username.
 Meaningful 5 character .coms are pretty tricky to come by these days, so
 I snapped it up and 18 Dexterity Ltd. was born — a pretty fantastically
-geeky name for an agile software engineering company I hope&nbsp;you’ll agree.</p>
+geeky name for an agile software engineering company I hope
+you’ll&nbsp;agree.</p>
 </p>
-
 <p>A few minutes later I had a holding page up for 18dex.com, but it looked
 pretty sad with no content, so I started thinking about setting it up as
 a blog. I have a stack of relevant software engineering posts on
@@ -103,23 +102,21 @@ from one blog to another as it would potentially end up with 2
 independent comment threads on each blog. There would be no definitive
 version of a post, a blatant violation of <a href="http://www.c2.com/cgi/wiki?DontRepeatYourself">Don’t Repeat Yourself</a>.</p>
 </p>
-
 <p>Luckily Django includes a piece of machinery to deal with this problem
 in its <a href="http://docs.djangoproject.com/en/dev/ref/contrib/sites/">sites framework</a>, something I’ve been meaning to have a closer
 look at for some time. The sites machinery simply lets you associate a
 piece of content with a site and keeps track of the current site,
 allowing you to filter the content in the database to only show a subset
-on&nbsp;each site.</p>
+on each&nbsp;site.</p>
 </p>
-
 <p>While the <a href="http://byteflow.su/">byteflow</a> blog engine I use for jimpurbrick.com supports
 the sites framework, each post is associated with a single site via a
 ForeignKey. In order to allow posts to be shown on both jimpurbrick.com
 and 18dex.com I had to change that ForeignKey field to be a
 ManyToManyField: a single line change in the python code, but something
-that requires a little wrangling to massage the existing data to fit the&nbsp;new model.</p>
+that requires a little wrangling to massage the existing data to fit the
+new&nbsp;model.</p>
 </p>
-
 <p>I’ve been using the excellent <a href="http://south.aeracode.org/">South</a> in all my recent projects to
 allow me to easily migrate data across django model changes. Although
 jimpurbrick.com dates from long before South was available I managed to
@@ -128,16 +125,14 @@ to json, dropping the table and recreating it with south, reloading the
 data and then letting south migrate the data to the new ManyToMany
 schema. While this was slightly more fiddly than it could have been it
 means that the blog app is now being managed by south, which will make
-future development on the blogs&nbsp;much easier.</p>
+future development on the blogs much&nbsp;easier.</p>
 </p>
-
 <p>Once I had migrated the data to the new model and associated the
 software engineering posts in jimpurbrick.com with both sites in the
 django admin interface all that remained was for me to clone the
 jimpurbrick.com directory with mercurial to create an 18dex.com
-directory and choose and tweak a byteflow theme for the&nbsp;new site.</p>
+directory and choose and tweak a byteflow theme for the new&nbsp;site.</p>
 </p>
-
 <p>Once again I’ve been very impressed with Django and Byteflow, which have
 proven to be incredibly powerful tools that are very easy to work with.
 In a few hours I was able to create professional and personal views on
@@ -147,7 +142,7 @@ you’re just interested in my software engineering posts, head over to
 <a href="http://18dex.com">18dex.com</a>, if you want to hear about music, Second Life and
 everything else I get up to, stay subscribed to <a href="http://jimpurbrick.com">jimpurbrick.com</a>. If
 you notice anything broken on either blog, then please leave a comment
-to let&nbsp;me know.</p>
+to let me&nbsp;know.</p>
 </p></div>
         <hr />
     </div>

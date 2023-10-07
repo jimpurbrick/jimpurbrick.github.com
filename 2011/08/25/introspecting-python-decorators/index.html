@@ -71,25 +71,23 @@ by <a class="url fn" href="../../../../author/jim-purbrick.html">Jim Purbrick</a
         <div><p>Over the last couple of years I&#8217;ve found myself using python decorators to annotate handlers for web requests more and more, both when using <a href="https://www.djangoproject.com/">Django</a> and with micro-frameworks like <a href="http://morethanseven.net/2009/05/28/another-glue-python-framework-mnml.html">mnml</a> and <a href="https://github.com/luckythetourist/newf">newf</a>.</p>
 <p>Where the same functionality is required for all handlers, or the required functionality can be determined from standard request or response headers, using <a href="http://www.wsgi.org/wsgi/Middleware_and_Utilities"><span class="caps">WSGI</span></a> or <a href="https://docs.djangoproject.com/en/dev/topics/http/middleware/">Django</a> middleware is fine, but where the required functionality is varies based on the handler its much cleaner to use a parameterised decorator than poluting the environment or response objects just to control the middleware. Functionality can be added to a framework as a suite of decorators and plugged together in an <a href="http://en.wikipedia.org/wiki/Aspect-oriented_programming">aspect oriented</a> way like lego to easily build up sophisticated&nbsp;behaviours.</p>
 <p>Unlike other mechanisms for implementing macros, templating or aspect orientation that introduce a new language, python decorators are pure syntactic sugar that under the hood are simply rewritten as python&nbsp;expressions:</p>
-<div class="highlight"><pre><span></span><span class="nd">@requires_oauth_scope</span><span class="p">(</span><span class="s2">&quot;email&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="nd">@requires_oauth_scope</span><span class="p">(</span><span class="s2">&quot;email&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">notify_friends</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">pass</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Is simply shorthand&nbsp;for:</p>
-<div class="highlight"><pre><span></span>def notify_friends(request):
+<div class="highlight"><pre><span></span><code>def notify_friends(request):
     pass
 
 notify_friends = requires_oauth_scope(&quot;email&quot;)(notify_friends)
-</pre></div>
-
+</code></pre></div>
 
 <p>This simplicity is powerful as it allows decorators to also be used as normal functions, for example to build up higher level decorators that bundle common decorator configurations, but it also means that decorators potentially interact badly with another powerful Python feature:&nbsp;introspection.</p>
 <p>In the above example the undecorated notify_friends function has the <strong>name</strong> &#8220;notify_friends&#8221;, but the decorated function has the <strong>name</strong> &#8220;requires_oauth_scope&#8221;. When decorators are used extensively, this can seriously impact the usefulness of introspection for debugging or generating&nbsp;documentation.</p>
 <p>Decorating your decorators with the <a href="http://docs.python.org/library/functools.html">functools</a> @wraps decorator, which copies the <strong>name</strong> of the wrapped function over to the wrapping function solves this introspection problem, but introduces another: the decorators now become invisible to introspection. In the example above the <strong>name</strong> of the decorated function would now be &#8220;notify_friends&#8221; as in the undecorated case, but we wouldn&#8217;t know that the function had been decorated or&nbsp;not.</p>
 <p>A potential solution to this new problem is to store the details about the decoration in another attribute that can be inspected at runtime. In addition to copying over the <strong>name</strong> attribute, functools.wraps also copies over the target <strong>dict</strong> by default, allowing it to be used to store information about the decoration and be correctly copied over when decorators are&nbsp;chained:</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
 
 <span class="k">def</span> <span class="nf">requires_oauth_scope</span><span class="p">(</span><span class="n">scope</span><span class="p">):</span>
 
@@ -103,8 +101,7 @@ notify_friends = requires_oauth_scope(&quot;email&quot;)(notify_friends)
 
         <span class="k">return</span> <span class="n">wrapper</span>
     <span class="k">return</span> <span class="n">decorator</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>By constructing decorators in this way we get the benefits of python decorators and more declarative C# style attributes that are visible to&nbsp;introspection.</p></div>
 	

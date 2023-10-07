@@ -71,24 +71,22 @@ by <a class="url fn" href="../../../../author/jim-purbrick.html">Jim Purbrick</a
         <div><p>Although Nginx supports proxy caching it doesn&#8217;t provide support for the <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.44"><span class="caps">HTTP</span> Vary</a> header out of the box. This is a problem if you want to use Nginx to proxy different versions of the same <span class="caps">URI</span> which Vary on <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.12">Content-Language</a> or proxy different representations of a RESTful resource specified via the  <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.1">Accept</a>&nbsp;header.</p>
 <p>Fortunately it&#8217;s relatively easy to add support for the Vary header using the <a href="http://wiki.nginx.org/HttpLuaModule">Nginx Lua</a> module and a small amount of Lua, which is much easier than building and maintaining a 3rd party module and doesn&#8217;t greatly impact&nbsp;performance.</p>
 <p>First, we define a dictionary in the nginx config which will store a mapping from URIs to Vary&nbsp;headers:</p>
-<div class="highlight"><pre><span></span><span class="k">lua_shared_dict</span> <span class="s">uriToVary</span> <span class="mi">10m</span><span class="p">;</span>
-</pre></div>
-
+<div class="highlight"><pre><span></span><code><span class="k">lua_shared_dict</span><span class="w"> </span><span class="s">uriToVary</span><span class="w"> </span><span class="mi">10m</span><span class="p">;</span>
+</code></pre></div>
 
 <p>Next we define the default location in the nginx&nbsp;config.</p>
-<div class="highlight"><pre><span></span><span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="k">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
 
-    <span class="c1"># make subrequest to /proxy_request, then store response headers</span>
-    <span class="kn">content_by_lua</span> <span class="s">&#39;</span>
-        <span class="s">local</span> <span class="s">vary</span> <span class="p">=</span> <span class="s">require(&quot;vary&quot;)</span>
-        <span class="s">local</span> <span class="s">response</span> <span class="p">=</span> <span class="s">vary.ProxyRequest()</span>
-    <span class="s">&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="c1"># make subrequest to /proxy_request, then store response headers</span>
+<span class="w">    </span><span class="kn">content_by_lua</span><span class="w"> </span><span class="s">&#39;</span>
+<span class="w">        </span><span class="s">local</span><span class="w"> </span><span class="s">vary</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">require(&quot;vary&quot;)</span>
+<span class="w">        </span><span class="s">local</span><span class="w"> </span><span class="s">response</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">vary.ProxyRequest()</span>
+<span class="w">    </span><span class="s">&#39;</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>This will use the lua ProxyRequest function to make a subrequest to /proxy_request then store the Vary header in the response in the&nbsp;dictionary.</p>
-<div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nf">ProxyRequest</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="kr">function</span> <span class="nf">ProxyRequest</span><span class="p">()</span>
 
     <span class="c1">-- make subrequest and capture response</span>
     <span class="kd">local</span> <span class="n">response</span> <span class="o">=</span> <span class="n">ngx</span><span class="p">.</span><span class="n">location</span><span class="p">.</span><span class="n">capture</span><span class="p">(</span><span class="s2">&quot;/proxy_request&quot;</span><span class="p">,</span> <span class="p">{</span>
@@ -108,36 +106,34 @@ by <a class="url fn" href="../../../../author/jim-purbrick.html">Jim Purbrick</a
     <span class="kr">return</span> <span class="n">response</span>
 
 <span class="kr">end</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>Finally, we define the /proxy_request&nbsp;location.</p>
-<div class="highlight"><pre><span></span><span class="k">location</span> <span class="s">/proxy_request</span> <span class="p">{</span>
-    <span class="kn">internal</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">location</span><span class="w"> </span><span class="s">/proxy_request</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">internal</span><span class="p">;</span>
 
-    <span class="c1"># set defaults</span>
-    <span class="kn">set</span> <span class="nv">$noCache</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="kn">set</span> <span class="nv">$cacheBypass</span> <span class="mi">1</span><span class="p">;</span>
-    <span class="kn">set</span> <span class="nv">$cacheKey</span> <span class="s">nil</span><span class="p">;</span>
+<span class="w">    </span><span class="c1"># set defaults</span>
+<span class="w">    </span><span class="kn">set</span><span class="w"> </span><span class="nv">$noCache</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">set</span><span class="w"> </span><span class="nv">$cacheBypass</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">set</span><span class="w"> </span><span class="nv">$cacheKey</span><span class="w"> </span><span class="s">nil</span><span class="p">;</span>
 
-    <span class="c1"># rewrite using stored data</span>
-    <span class="kn">rewrite_by_lua</span> <span class="s">&#39;</span>
-        <span class="s">local</span> <span class="s">vary</span> <span class="p">=</span> <span class="s">require(&quot;vary&quot;)</span>
-        <span class="s">vary.RewriteCache()</span>
-    <span class="s">&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="c1"># rewrite using stored data</span>
+<span class="w">    </span><span class="kn">rewrite_by_lua</span><span class="w"> </span><span class="s">&#39;</span>
+<span class="w">        </span><span class="s">local</span><span class="w"> </span><span class="s">vary</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">require(&quot;vary&quot;)</span>
+<span class="w">        </span><span class="s">vary.RewriteCache()</span>
+<span class="w">    </span><span class="s">&#39;</span><span class="p">;</span>
 
-    <span class="c1"># proxy request</span>
-    <span class="kn">proxy_cache_bypass</span> <span class="nv">$cacheBypass</span><span class="p">;</span>
-    <span class="kn">proxy_no_cache</span> <span class="nv">$noCache</span><span class="p">;</span>
-    <span class="kn">proxy_cache_key</span> <span class="nv">$cacheKey</span><span class="p">;</span>
-    <span class="kn">proxy_cache</span> <span class="s">API_CACHE</span><span class="p">;</span>
-    <span class="kn">proxy_pass</span> <span class="nv">$proxy$request_uri</span><span class="p">;</span>
+<span class="w">    </span><span class="c1"># proxy request</span>
+<span class="w">    </span><span class="kn">proxy_cache_bypass</span><span class="w"> </span><span class="nv">$cacheBypass</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">proxy_no_cache</span><span class="w"> </span><span class="nv">$noCache</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">proxy_cache_key</span><span class="w"> </span><span class="nv">$cacheKey</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">proxy_cache</span><span class="w"> </span><span class="s">API_CACHE</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="nv">$proxy$request_uri</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>This will use the lua RewriteCache function to combine the uri with the vary headers to generate the final cache key used by the proxy_cache&nbsp;module.</p>
-<div class="highlight"><pre><span></span><span class="kr">function</span> <span class="nf">RewriteCache</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><code><span class="kr">function</span> <span class="nf">RewriteCache</span><span class="p">()</span>
 
     <span class="kd">local</span> <span class="n">varyOn</span> <span class="o">=</span> <span class="n">ngx</span><span class="p">.</span><span class="n">shared</span><span class="p">.</span><span class="n">uriToVary</span><span class="p">:</span><span class="n">get</span><span class="p">(</span><span class="n">ngx</span><span class="p">.</span><span class="n">var</span><span class="p">.</span><span class="n">request_uri</span><span class="p">)</span>
     <span class="kd">local</span> <span class="n">cacheKey</span> <span class="o">=</span> <span class="kc">nil</span>
@@ -168,8 +164,7 @@ by <a class="url fn" href="../../../../author/jim-purbrick.html">Jim Purbrick</a
     <span class="kr">return</span> <span class="n">cacheKey</span>
 
 <span class="kr">end</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>The first time a <span class="caps">URI</span> is requested the cache will be bypassed, but the Vary header from the response will be stored in the shared dictionary. The second time the <span class="caps">URI</span> is requested the cache key will be generated from the <span class="caps">URI</span> and the appropriate request headers specified in the vary header and the response will be cached. When the <span class="caps">URI</span> is subsequently requested with the same set of headers it will be served from the&nbsp;cache.</p>
 <p>Note that when the shared dictionary is full it will evict old entries using an <span class="caps">LRU</span> scheme. Nginx will generate &#8220;ngx_slab_alloc() failed&#8221; errors when this occurs, but these can <a href="https://github.com/chaoslawful/lua-nginx-module/issues/163">safely be ignored</a>.</p>

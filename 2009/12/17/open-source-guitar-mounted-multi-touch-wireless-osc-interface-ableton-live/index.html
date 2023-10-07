@@ -70,10 +70,8 @@ by <a class="url fn" href="../../../../author/jim-purbrick.html">Jim Purbrick</a
 	
         <div><p><img alt="Guitar mounted iPhone controller" src="http://farm3.static.flickr.com/2720/4125718215_c4e704cb4f.jpg"></p>
 </p>
-
-<p>(<a href="http://www.flickr.com/photos/steviebm/sets/72157622856858738/">100 robots images</a> by <a href="http://nascentguruism.com/">Steve Marshall</a> )</p>
+<p>(<a href="http://www.flickr.com/photos/steviebm/sets/72157622856858738/">100 robots images</a> by <a href="http://nascentguruism.com/">Steve Marshall</a>&nbsp;)</p>
 </p>
-
 <p>Ever since playing with iPhones as music interfaces with the <a href="http://jimpurbrick.com/2009/05/12/london-geek-community-iphone-oscestra/">London
 Community iPhone OSCestra</a> at Open Hack London in May I’ve been
 wondering how I could use my iPhone as a controller in my
@@ -81,9 +79,9 @@ rock/electronic band <a href="http://100robots.com">100 robots</a>. The 100 robo
 playing live drums and guitar over a number of tracks played from
 <a href="http://www.ableton.com/">Ableton Live</a>. If I could mount an iPhone on the guitar I could
 manipulate the tracks playing from Ableton making the whole experience
-more varied and live and less like 2 people playing over a&nbsp;backing track.</p>
+more varied and live and less like 2 people playing over a
+backing&nbsp;track.</p>
 </p>
-
 <p>The biggest problem with using the OSCestra set up with 100 robots is
 that we run Ableton on Windows with 100 robots so that we can use a
 number of plugins that aren’t available on <span class="caps"><span class="caps">OS</span></span>
@@ -92,68 +90,62 @@ X. This stopped us using the <span class="caps"><span class="caps">OS</span></sp
 to <span class="caps"><span class="caps">MIDI</span></span> data that we could feed to Ableton —
 the really simple and easy solution that I recommend if you’re using
 <span class="caps"><span class="caps">OSC</span></span> and Ableton on
-<span class="caps"><span class="caps">OS</span></span> X.</p>
+<span class="caps"><span class="caps">OS</span></span>&nbsp;X.</p>
 </p>
-
 <p>Some quick Googling showed that we could potentially use the open source
 and incredibly powerful pd to read <span class="caps"><span class="caps">OSC</span></span> and
 send <span class="caps"><span class="caps">MIDI</span></span> to Ableton, but pd seemed a bit
 heavy weight and complex to use just for controller mapping in a live
 environment which needs to be stable and predictable under heavy load
-while streaming 6 audio tracks and recording 2&nbsp;tracks live.</p>
+while streaming 6 audio tracks and recording 2 tracks&nbsp;live.</p>
 </p>
-
 <p>Some more research I discovered <a href="http://createdigitalmusic.com/2007/06/06/liveapiorg-new-open-source-unofficial-sdk-in-python-lets-you-hack-ableton-live/">LiveAPI</a>: an open source project that
 gives access to the Python interpreter embedded in Ableton Live. LiveAPI
 allows you to write python code which listens to events from Ableton and
 allows control of Ableton from python code. Conveniently LiveAPI also
 includes LiveOSC an <span class="caps"><span class="caps">OSC</span></span> server that quickly
 allows you to map <span class="caps"><span class="caps">OSC</span></span> messages from
-applications like Mrmr to <a href="http://www.python.org/">Python</a> methods that use LiveAPI to&nbsp;control Ableton.</p>
+applications like Mrmr to <a href="http://www.python.org/">Python</a> methods that use LiveAPI to
+control&nbsp;Ableton.</p>
 </p>
-
 <p>In the end it only took a couple of hours and a few lines of Python code
 to rig up Mrmr on the iPhone to control Ableton on Windows and a few
 minutes more to build a guitar mount for the iPhone from a cable tie and
-a piece of&nbsp;gaffa tape.</p>
+a piece of gaffa&nbsp;tape.</p>
 </p>
-
-<p>Using the iPhone live with&nbsp;100 robots:</p>
+<p>Using the iPhone live with 100&nbsp;robots:</p>
 </p>
-
 </p>
-
 <p>(Cinematography by <a href="http://jimpurbrick.com/feeds/atom/blog/www.sheepfilms.co.uk">David Packer</a>)</p>
 </p>
-
 <p>Despite being a really quick hack to build, LiveAPI is somewhat fiddly
 to set up, so I thought I should document the process of wiring things
 up. If you’d like to build your own open source, guitar mounted multi
-touch, osc interface for Ableton Live 8 running on Windows, follow&nbsp;these instructions:</p>
+touch, osc interface for Ableton Live 8 running on Windows, follow
+these&nbsp;instructions:</p>
 </p>
-
 <ol>
-<li>Install <a href="http://poly.share.dj/projects/#mrmr">Mrmr</a> on your iPhone or&nbsp;iPod touch</li>
+<li>Install <a href="http://poly.share.dj/projects/#mrmr">Mrmr</a> on your iPhone or iPod&nbsp;touch</li>
 <li>Design your Mrmr interface using a text editor. If you have a Mac,
     you can use the <a href="http://poly.share.dj/downloads/mrmr_interfacebuilder_1.2.zip">interface builder</a>. The 100 robots mmr file is
     <a href="http://jimpurbrick.com/static/media/100robots.mmr">here</a></li>
-<li>Upload the mmr file to a&nbsp;web server.</li>
-<li>Connect the iPhone to the same network as the computer&nbsp;running Ableton.</li>
+<li>Upload the mmr file to a web&nbsp;server.</li>
+<li>Connect the iPhone to the same network as the computer
+    running&nbsp;Ableton.</li>
 <li>Run Mrmr on the iPhone, download the mmr file from your web server
-    to get your interface running on&nbsp;the iPhone</li>
+    to get your interface running on the&nbsp;iPhone</li>
 <li>Download <a href="http://monome.q3f.org/wiki/LiveOSC">LiveOSC</a></li>
 <li>Unpack the LiveOSC zip in to a new LiveOSC folder created inside the
     Resources/<span class="caps"><span class="caps">MIDI</span></span> Remote Scripts directory in
-    your&nbsp;Ableton installation.</li>
+    your Ableton&nbsp;installation.</li>
 <li>
 <p>Edit Resources/<span class="caps"><span class="caps">MIDI</span></span> Remote
     Scripts/LiveOSCCallbacks.py to add new callbacks for Mrmr to the
     __init__ method of the LiveOSCCallbacks class. Widgets are
     numbered sequentially from 0 in the mmr file, so this line registers
     a callback for the first widget in the file. The 100 robots
-    callbacks look&nbsp;like this:</p>
+    callbacks look like&nbsp;this:</p>
 </p>
-
 <p><p>
     <span class="dquo">&#8220;</span>&#8221;&#8221; 100robots callbacks &#8220;&#8221;&#8220;self.callbackManager.add(self.toggleBass,&nbsp;&#8220;/mrmr/pushbutton/0/iPhone1&#8221;)</p>
 </li>
@@ -162,25 +154,22 @@ touch, osc interface for Ableton Live 8 running on Windows, follow&nbsp;these i
     Scripts/LiveOSCCallbacks.py to respond to the messages from Mrmr.
     These can use LiveAPI freely to control ableton. The 100 robots
     callbacks toggle the first parameter of effect racks on different
-    tracks to turn them on&nbsp;and off:</p>
+    tracks to turn them on and&nbsp;off:</p>
 </p>
-
 <p><p>
     def toggleBass(self, msg):    &#8220;&#8221;&#8220;Called when a /mrmr/pushbutton/0/iPhone1 message is received.&#8221;&#8220;&#8221;    track = 38    device = 0    parameter = 0    value = msg[2]    LiveUtils.getSong().visible_tracks[track].devices[device].parameters[parameter].value =&nbsp;value</p>
 </li>
 <li>
 <p>Select LiveOSC as a control surface in the Ableton preferences. This
     will load the LiveOSCCallbacks.py and set up your mappings. Interact
-    with the controls in Mrmr and see Ableton&nbsp;Live respond!</p>
+    with the controls in Mrmr and see Ableton Live&nbsp;respond!</p>
 </li>
 </ol>
 </p>
-
 <p>The full, modified 100 robots <a href="http://jimpurbrick.com/static/media/LiveOSCCallbacks.py">LiveOSCCallbacks.py</a>.</p>
 </p>
-
 <p><a href="http://vimeo.com/7967321">My presentation on the hack</a> at the <a href="http://ianozsvald.com/2009/12/04/fivepoundapp_xmas_musical_special/">£5 App Christmas Special</a>
-which includes more details on the Ableton Live routing&nbsp;we use.</p>
+which includes more details on the Ableton Live routing we&nbsp;use.</p>
 </p></div>
 	
         <hr>

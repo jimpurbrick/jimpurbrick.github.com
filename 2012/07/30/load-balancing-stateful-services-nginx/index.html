@@ -71,64 +71,61 @@ by <a class="url fn" href="../../../../author/jim-purbrick.html">Jim Purbrick</a
         <div><p>The <a href="http://eveonline.com"><span class="caps">EVE</span> online</a> network architecture uses stateful proxy servers which manage sessions for players connected to the cluster via the <span class="caps">EVE</span> client. The client sends requests to the proxy which are forwarded on to sol servers maintaining the game state and the sols send notifications to the proxy which are sent on to the&nbsp;client.</p>
 <p>In developing the <a href="http://wiki.eveonline.com/en/wiki/CREST_Documentation"><span class="caps">CREST</span> <span class="caps">API</span></a> we extended the <span class="caps">EVE</span> proxies to talk <span class="caps">HTTP</span>, then added <a href="http://wiki.nginx.org/Main">nginx</a> reverse proxies to the service to provide <span class="caps">SSL</span> termination and caching while shielding the <span class="caps">EVE</span> proxies from potentially malicious&nbsp;requests.</p>
 <p>So, how does nginx know which <span class="caps">EVE</span> proxy to send a request to? In the first instance, it just guesses. We set up a set of proxies and use <a href="http://wiki.nginx.org/HttpProxyModule#proxy_pass">proxy_pass</a> to have nginx just pick&nbsp;one.</p>
-<div class="highlight"><pre><span></span><span class="k">upstream</span> <span class="s">eveproxies</span> <span class="p">{</span>
-    <span class="c1"># List all eveproxies</span>
+<div class="highlight"><pre><span></span><code><span class="k">upstream</span><span class="w"> </span><span class="s">eveproxies</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1"># List all eveproxies</span>
 <span class="p">}</span>
 
-<span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
-    <span class="kn">proxy_pass</span> <span class="s">http://eveproxies</span><span class="p">;</span>
+<span class="k">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://eveproxies</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>The proxy can then use the <span class="caps">CCP</span> cluster&#8217;s <span class="caps">RPC</span> machinery to find the character&#8217;s session. If nginx has been lucky the request is processed and the response sent back to nginx and from there to the player. If no session exists for the character on any proxy a new session is created and then the request processed as above. If the character session is on a different node the proxy returns an <a href="http://wiki.nginx.org/X-accel">X-accel</a> response to a location which extracts the correct proxy <span class="caps">URI</span> from the path and resends the&nbsp;request.</p>
-<div class="highlight"><pre><span></span><span class="k">location</span> <span class="p">~</span><span class="sr">*</span> <span class="s">^/internal_redirect/(.*)</span> <span class="p">{</span>
-    <span class="kn">internal</span><span class="p">;</span>
-    <span class="kn">proxy_pass</span> <span class="s">http://</span><span class="nv">$1$is_args$args</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">location</span><span class="w"> </span><span class="p">~</span><span class="sr">*</span><span class="w"> </span><span class="s">^/internal_redirect/(.*)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">internal</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://</span><span class="nv">$1$is_args$args</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>The performance of this approach can be greatly improved by caching the mapping of authorization headers to proxies, which can be done using a dict and a small piece of <a href="http://wiki.nginx.org/HttpLuaModule">lua</a>.</p>
-<div class="highlight"><pre><span></span><span class="k">lua_shared_dict</span> <span class="s">tokenToProxy</span> <span class="mi">10m</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">lua_shared_dict</span><span class="w"> </span><span class="s">tokenToProxy</span><span class="w"> </span><span class="mi">10m</span><span class="p">;</span>
 
-<span class="k">location</span> <span class="s">/</span> <span class="p">{</span>
+<span class="k">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
 
-   <span class="kn">content_by_lua</span> <span class="s">&#39;</span>
-        <span class="s">--</span> <span class="s">make</span> <span class="s">subrequest</span> <span class="s">and</span> <span class="s">capture</span> <span class="s">response</span>
-        <span class="s">local</span> <span class="s">response</span> <span class="p">=</span> <span class="s">ngx.location.capture(&quot;/proxy_request&quot;,</span> <span class="p">{</span>
-            <span class="kn">method</span> <span class="p">=</span> <span class="s">GetRequestMethod(ngx.var.request_method),</span>
-            <span class="s">body</span> <span class="p">=</span> <span class="s">ngx.req.get_body_data()</span><span class="err">}</span><span class="s">)</span>
+<span class="w">   </span><span class="kn">content_by_lua</span><span class="w"> </span><span class="s">&#39;</span>
+<span class="w">        </span><span class="s">--</span><span class="w"> </span><span class="s">make</span><span class="w"> </span><span class="s">subrequest</span><span class="w"> </span><span class="s">and</span><span class="w"> </span><span class="s">capture</span><span class="w"> </span><span class="s">response</span>
+<span class="w">        </span><span class="s">local</span><span class="w"> </span><span class="s">response</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">ngx.location.capture(&quot;/proxy_request&quot;,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="kn">method</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">GetRequestMethod(ngx.var.request_method),</span>
+<span class="w">            </span><span class="s">body</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">ngx.req.get_body_data()</span><span class="err">}</span><span class="s">)</span>
 
-        <span class="s">--</span> <span class="s">forward</span> <span class="s">HTTP</span> <span class="s">headers</span> <span class="s">from</span> <span class="s">response</span>
-        <span class="s">for</span> <span class="s">k,v</span> <span class="s">in</span> <span class="s">pairs(response.header)</span> <span class="s">do</span>
-                <span class="s">ngx.header[k]</span> <span class="p">=</span> <span class="s">v</span>
-        <span class="s">end</span>
+<span class="w">        </span><span class="s">--</span><span class="w"> </span><span class="s">forward</span><span class="w"> </span><span class="s">HTTP</span><span class="w"> </span><span class="s">headers</span><span class="w"> </span><span class="s">from</span><span class="w"> </span><span class="s">response</span>
+<span class="w">        </span><span class="s">for</span><span class="w"> </span><span class="s">k,v</span><span class="w"> </span><span class="s">in</span><span class="w"> </span><span class="s">pairs(response.header)</span><span class="w"> </span><span class="s">do</span>
+<span class="w">                </span><span class="s">ngx.header[k]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">v</span>
+<span class="w">        </span><span class="s">end</span>
 
-        <span class="s">--</span> <span class="s">forward</span> <span class="s">status</span> <span class="s">and</span> <span class="s">body</span> <span class="s">from</span> <span class="s">response</span>
-        <span class="s">ngx.status</span> <span class="p">=</span> <span class="s">response.status</span>
-        <span class="s">ngx.print(response.body)</span>
+<span class="w">        </span><span class="s">--</span><span class="w"> </span><span class="s">forward</span><span class="w"> </span><span class="s">status</span><span class="w"> </span><span class="s">and</span><span class="w"> </span><span class="s">body</span><span class="w"> </span><span class="s">from</span><span class="w"> </span><span class="s">response</span>
+<span class="w">        </span><span class="s">ngx.status</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">response.status</span>
+<span class="w">        </span><span class="s">ngx.print(response.body)</span>
 
-        <span class="s">--</span> <span class="s">cache</span> <span class="s">backend</span> <span class="s">for</span> <span class="s">next</span> <span class="s">request</span>
-        <span class="s">ngx.shared.tokenToProxy:set(ngx.var.http_authorization,</span>
-            <span class="s">response.header[&quot;X-Backend&quot;])</span>
-    <span class="s">&#39;</span><span class="p">;</span>
+<span class="w">        </span><span class="s">--</span><span class="w"> </span><span class="s">cache</span><span class="w"> </span><span class="s">backend</span><span class="w"> </span><span class="s">for</span><span class="w"> </span><span class="s">next</span><span class="w"> </span><span class="s">request</span>
+<span class="w">        </span><span class="s">ngx.shared.tokenToProxy:set(ngx.var.http_authorization,</span>
+<span class="w">            </span><span class="s">response.header[&quot;X-Backend&quot;])</span>
+<span class="w">    </span><span class="s">&#39;</span><span class="p">;</span>
 <span class="p">}</span>
 
-<span class="kn">location</span> <span class="s">/proxy_request</span> <span class="p">{</span>
+<span class="kn">location</span><span class="w"> </span><span class="s">/proxy_request</span><span class="w"> </span><span class="p">{</span>
 
-    <span class="kn">internal</span><span class="p">;</span>
-    <span class="kn">set</span> <span class="nv">$crestProxy</span> <span class="s">&quot;http://eveproxies&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">internal</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">set</span><span class="w"> </span><span class="nv">$crestProxy</span><span class="w"> </span><span class="s">&quot;http://eveproxies&quot;</span><span class="p">;</span>
 
-    <span class="kn">rewrite_by_lua</span> <span class="s">&#39;</span>
-        <span class="s">ngx.var.crestProxy</span> <span class="p">=</span> <span class="s">ngx.shared.tokenToProxy:get(</span>
-            <span class="s">ngx.var.http_authorization)</span>
-    <span class="s">&#39;</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">rewrite_by_lua</span><span class="w"> </span><span class="s">&#39;</span>
+<span class="w">        </span><span class="s">ngx.var.crestProxy</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">ngx.shared.tokenToProxy:get(</span>
+<span class="w">            </span><span class="s">ngx.var.http_authorization)</span>
+<span class="w">    </span><span class="s">&#39;</span><span class="p">;</span>
 
-    <span class="kn">proxy_pass</span> <span class="nv">$crestProxy$request_uri</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="nv">$crestProxy$request_uri</span><span class="p">;</span>
 <span class="p">}</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>In a configuration with multiple loadbalancers we potentially have to pay the price of one proxy redirection per nginx process. This could potentially be improved by using a shared cache for the authorization to proxy mapping or by using ip affinity to map all requests from a client to a single nginx box, but in practice where the number of requests from a client is much larger than the number of loadbalancers, this improvement is likely to be&nbsp;negligible.</p>
 <p>This mechanism ensures that most <span class="caps">HTTP</span> requests go straight to the correct proxy without the load balancers having to maintain any state. A new load balancer can be added to the cluster just be being told the addresses of the eve proxies and will quickly start routing requests to the correct&nbsp;location.</p></div>

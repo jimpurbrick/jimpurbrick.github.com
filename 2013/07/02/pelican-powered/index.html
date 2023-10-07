@@ -110,12 +110,11 @@ and <a href="http://validator.w3.org/feed/check.cgi?url=http%3A%2F%2Fjimpurbrick
 feeds, which could be consumed by the late 
 <a href="http://reader.google.com">Google Reader</a> despite the &#8220;.html&#8221; extension 
 causing github to return the feeds with an <span class="caps">HTML</span> content&nbsp;type.</p>
-<div class="highlight"><pre><span></span><span class="n">ARTICLE_URL</span> <span class="o">=</span> <span class="s2">&quot;{date:%Y}/{date:%m}/{date:</span><span class="si">%d</span><span class="s2">}/{slug}/&quot;</span>
-<span class="n">ARTICLE_SAVE_AS</span> <span class="o">=</span> <span class="s2">&quot;{date:%Y}/{date:%m}/{date:</span><span class="si">%d</span><span class="s2">}/{slug}/index.html&quot;</span>
+<div class="highlight"><pre><span></span><code><span class="n">ARTICLE_URL</span> <span class="o">=</span> <span class="s2">&quot;{date:%Y}/{date:%m}/{date:</span><span class="si">%d</span><span class="s2">}/</span><span class="si">{slug}</span><span class="s2">/&quot;</span>
+<span class="n">ARTICLE_SAVE_AS</span> <span class="o">=</span> <span class="s2">&quot;{date:%Y}/{date:%m}/{date:</span><span class="si">%d</span><span class="s2">}/</span><span class="si">{slug}</span><span class="s2">/index.html&quot;</span>
 <span class="n">FEED_ATOM</span> <span class="o">=</span> <span class="s2">&quot;feeds/atom/blog/index.html&quot;</span>
 <span class="n">FEED_RSS</span> <span class="o">=</span> <span class="s2">&quot;feeds/rss/blog/index.html&quot;</span>
-</pre></div>
-
+</code></pre></div>
 
 <p>A few theme tweaks later and I have a lightweight responsive, lightweight
 blog that allows me to author posts offline, supports all of the existing 

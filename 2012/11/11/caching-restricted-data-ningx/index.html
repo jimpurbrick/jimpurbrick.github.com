@@ -72,9 +72,9 @@ by <a class="url fn" href="../../../../author/jim-purbrick.html">Jim Purbrick</a
 <a href="http://www.eveonline.com/"><span class="caps"><span class="caps">EVE</span></span> Online</a> and <a href="http://www.dust514.com/">Dust 514</a>‘s New Eden
 universe is shared between subsets of users. Some corporation data
 should only be accessible to the corporation’s members, market prices
-should only be accessible to capsuleers and infantry in the region&nbsp;for example.</p>
+should only be accessible to capsuleers and infantry in the region
+for&nbsp;example.</p>
 </p>
-
 <p>In order to enforce these rules, the <span class="caps"><span class="caps">EVE</span></span>
 cluster performs a number of access control checks whenever a request is
 made from an <span class="caps"><span class="caps">EVE</span></span> client to the cluster. As a
@@ -89,12 +89,11 @@ spying metagame in <span class="caps"><span class="caps">EVE</span></span> is ar
 the game itself the consequences of getting the access control logic
 wrong could be <a href="http://themittani.com/content/soss-3-bad-crazy-internet-space-0">huge</a>. <a href="http://uk.ign.com/articles/2012/05/24/internet-spaceships-are-serious-business">Internet spaceships are serious business</a>.</p>
 </p>
-
 <p>Fortunately, it’s possible to combine and reuse the <a href="http://jimpurbrick.com/2012/07/30/load-balancing-stateful-services-nginx/">load balancing</a>
 and <a href="http://jimpurbrick.com/2012/10/14/adding-vary-header-support-nginx/">vary header</a> support techniques previously discussed to avoid
-both excessive calls from Nginx to the cluster and access control&nbsp;logic duplication.</p>
+both excessive calls from Nginx to the cluster and access control
+logic&nbsp;duplication.</p>
 </p>
-
 <p>In addition to annotating responses from the cluster with the address of
 the proxy containing the character’s session, we also annotate the
 response with the character’s location, corporation and various other
@@ -107,19 +106,17 @@ for these access control vary headers. If a particular
 <span class="caps"><span class="caps">URI</span></span> is annotated to vary on language and
 region for example, Nginx will allow the language to be supplied by the
 client, but the region must be supplied by the cluster in a previous
-response for the&nbsp;same character.</p>
+response for the same&nbsp;character.</p>
 </p>
-
 <p>By reusing the stateful load balancing and vary header support we added
 to Nginx we’re able to cache data shared between multiple characters
 without duplicating complex access control logic implemented by the
 <span class="caps"><span class="caps">EVE</span></span> cluster: reducing the
 <span class="caps"><span class="caps">CREST</span></span> load on the
-<span class="caps"><span class="caps">EVE</span></span> cluster without breaking&nbsp;the metagame.</p>
+<span class="caps"><span class="caps">EVE</span></span> cluster without breaking the&nbsp;metagame.</p>
 </p>
-
 <p>Thanks to <a href="https://twitter.com/jonastryggvi">@jonastryggvi</a> for working with me on the Caching support
-and <a href="https://twitter.com/CCPGames">@CCPGames</a> for allowing me to blog&nbsp;about it.</p>
+and <a href="https://twitter.com/CCPGames">@CCPGames</a> for allowing me to blog about&nbsp;it.</p>
 </p></div>
 	
         <hr>
